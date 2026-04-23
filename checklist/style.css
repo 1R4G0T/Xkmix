@@ -2,171 +2,52 @@
     --roxo-fundo: #0a041a;
     --roxo-card: #160d2b;
     --dourado: #daa520;
-    --dourado-brilho: #ffd700;
     --branco: #ffffff;
-    --bg-item: rgba(255, 255, 255, 0.05);
 }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Inter', sans-serif; 
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
 body {
     background: var(--roxo-fundo);
     color: var(--branco);
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    min-height: 100vh;
+    display: flex; justify-content: center; padding: 20px;
 }
 
-/* Card Principal que envolve tudo */
 .main-card {
-    background-color: var(--roxo-card);
-    border: 1px solid rgba(218, 165, 32, 0.3);
-    border-radius: 24px;
-    padding: 25px;
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    background: var(--roxo-card);
+    border: 1.5px solid var(--dourado);
+    border-radius: 24px; padding: 30px;
+    width: 100%; max-width: 450px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
-.logo-gothic {
-    font-family: 'Pirata One', cursive;
-    color: var(--dourado);
-    text-align: center;
-    font-size: 3rem;
-    margin-bottom: 5px;
-    text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+.logo-gothic { font-family: 'Pirata One'; color: var(--dourado); text-align: center; font-size: 3rem; }
+.subtitle { text-align: center; color: #9076b3; letter-spacing: 2px; margin-bottom: 20px; font-size: 0.8rem; }
+
+/* Cabeçalho */
+.form-header { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+input, textarea {
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(218, 165, 32, 0.4);
+    color: white; padding: 12px; border-radius: 10px; outline: none; width: 100%;
 }
 
-.subtitle {
-    text-align: center;
-    color: #9076b3;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-}
-
-/* Cabeçalho: Unidade e Responsável lado a lado */
-.form-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.form-header input {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(218, 165, 32, 0.3);
-    color: white;
-    padding: 12px;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 0.9rem;
-    outline: none;
-}
-
-/* Seções Expansíveis (Acordeão) */
-.section-group {
-    background: var(--bg-item);
-    border-radius: 16px;
-    margin-bottom: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    overflow: hidden;
-}
-
-.section-group summary {
-    padding: 15px;
-    cursor: pointer;
-    list-style: none;
-    font-weight: 600;
-    color: var(--dourado);
-    display: flex;
-    justify-content: space-between;
-    transition: 0.3s;
-}
-
-.section-group summary:hover {
-    background: rgba(218, 165, 32, 0.1);
-}
-
-/* Itens do Checklist como Botões */
-.checklist-grid {
-    padding: 10px 15px 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+/* Acordeão e Itens */
+.section-group { background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
+summary { padding: 15px; cursor: pointer; color: var(--dourado); font-weight: 800; list-style: none; }
 
 .item {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 12px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: 0.2s;
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px; background: rgba(255,255,255,0.05);
+    margin: 5px 15px; border-radius: 8px; cursor: pointer;
 }
 
-.item:active {
-    transform: scale(0.98);
-}
-
-.item input[type="checkbox"] {
-    accent-color: var(--dourado);
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-/* Observações */
-#obs {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(218, 165, 32, 0.2);
-    border-radius: 12px;
-    color: white;
-    padding: 12px;
-    margin-top: 10px;
-    resize: none;
-    outline: none;
-}
-
-/* Botão de Enviar embaixo de tudo */
+/* Botão Enviar (O grande destaque) */
 .floating-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--dourado) 0%, #b8860b 100%);
-    color: #000;
-    border: none;
-    padding: 18px;
-    border-radius: 15px;
-    font-weight: 800;
-    font-size: 1rem;
-    text-transform: uppercase;
-    margin-top: 25px;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    width: 100%; background: var(--dourado); color: black;
+    border: none; padding: 18px; border-radius: 15px;
+    font-weight: 800; margin-top: 20px; cursor: pointer;
     transition: 0.3s;
 }
 
-.floating-btn:hover {
-    filter: brightness(1.2);
-    transform: translateY(-2px);
-}
-
-/* Link de Voltar */
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #9076b3;
-    text-decoration: none;
-    font-size: 0.85rem;
-}
+.floating-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
+.back-link { display: block; text-align: center; margin-top: 15px; color: #9076b3; text-decoration: none; }
