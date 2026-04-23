@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armazenamento - XKMIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-card">
+        <h1 class="logo-gothic">XKMIX</h1>
+        <p class="subtitle">Controle de Armazenamento</p>
+
+        <div class="form-header">
+            <input type="text" placeholder="Responsável" id="responsavel">
+        </div>
+
+        <div class="checklist-container">
+            <details class="section-group" open>
+                <summary>🍯 CREMES / BASES</summary>
+                <div class="checklist-grid">
+                    <div class="item">
+                        <span style="flex: 1;">Quantidade de Cremes</span>
+                        <input type="number" placeholder="0" style="width: 60px; margin-left: 10px;">
+                    </div>
+                </div>
+            </details>
+
+            <details class="section-group" open>
+                <summary>🥤 DESCARTÁVEIS</summary>
+                <div class="checklist-grid">
+                    <div class="item">
+                        <span style="flex: 1;">Copos 300ml (unid/caixa)</span>
+                        <input type="number" placeholder="0" style="width: 60px; margin-left: 10px;">
+                    </div>
+                </div>
+            </details>
+
+            <textarea placeholder="Algum item faltando ou avariado?" id="obs"></textarea>
+        </div>
+
+        <button class="floating-btn" onclick="enviarArmazenamento()">SALVAR ESTOQUE ✅</button>
+        
+        <a href="../index.html" class="back-link">← Voltar ao Menu</a>
+    </div>
+</body>
+</html>
