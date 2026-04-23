@@ -93,45 +93,6 @@
     <a href="../index.html" class="back-link">← Voltar ao Menu</a>
 </div> ```
 
----
-
-### 📄 2. No seu CSS (`style.css`)
-Adicione estas regras para garantir que o botão ocupe toda a largura e empurre o conteúdo para baixo corretamente:
-
-```css
-/* Garante que o card principal se ajuste ao conteúdo */
-.main-card {
-    display: flex !important;
-    flex-direction: column !important;
-    height: auto !important;
-    min-height: fit-content !important;
-}
-
-/* Estilo do botão para ficar sempre embaixo */
-.floating-btn {
-    display: block !important;
-    width: 100% !important;
-    background-color: var(--dourado) !important;
-    color: #000 !important;
-    padding: 18px !important;
-    border-radius: 12px !important;
-    font-weight: 900 !important;
-    text-transform: uppercase;
-    border: none !important;
-    cursor: pointer;
-    margin-top: auto !important; /* Isso empurra o botão para o fundo do card */
-    margin-bottom: 10px !important;
-}
-
-/* Link de voltar centralizado */
-.back-link {
-    display: block !important;
-    text-align: center !important;
-    color: #9076b3 !important;
-    text-decoration: none !important;
-    font-size: 0.9rem !important;
-    margin-bottom: 10px !important;
-}
         </div>
 
         <button class="floating-btn" onclick="enviarArmazenamento()">SALVAR ESTOQUE ✅</button>
