@@ -7,8 +7,10 @@ function gerarRelatorio() {
     // CONFIGURAÇÃO DOS GRUPOS
     // Substitua os links abaixo pelos links reais dos grupos de cada unidade
     const linksGrupos = {
-        "unidade1": "https://chat.whatsapp.com/LINK_DA_UNIDADE_1",
-        "unidade2": "https://chat.whatsapp.com/LINK_DA_UNIDADE_2",
+        "pdp": "https://chat.whatsapp.com/LINK_DA_UNIDADE_1",
+        "tj": "https://chat.whatsapp.com/LINK_DA_UNIDADE_2",
+        "goiania": "https://chat.whatsapp.com/LINK_DA_UNIDADE_3",
+        "cdv": "https://chat.whatsapp.com/LINK_DA_UNIDADE_4",
         "gerencia": "https://chat.whatsapp.com/Gbcor4OIveN5zH9rLNGxyE"
     };
 
