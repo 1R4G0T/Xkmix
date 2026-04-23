@@ -1,69 +1,74 @@
-:root {
-    --roxo-fundo: #1a0a2e;
-    --roxo-card: #250a4d;
-    --dourado: #daa520;
-}
-
-body {
-    background: var(--roxo-fundo);
-    background-image: linear-gradient(135deg, #1a0a2e 0%, #3b1472 100%);
-    font-family: 'Inter', sans-serif;
-    color: white;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
-
-.main-card {
-    background: var(--roxo-card);
-    width: 100%;
-    max-width: 450px;
-    padding: 30px;
-    border-radius: 25px;
-    border: 2px solid var(--dourado);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-}
-
-.logo-gothic {
-    font-family: 'Pirata One', cursive;
-    font-size: 60px;
-    color: var(--dourado);
-    text-align: center;
-    margin: 0;
-}
-
-.subtitle { text-align: center; color: #b39ddb; margin-bottom: 25px; }
-
-.login-select {
-    width: 100%;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--dourado);
-    color: white;
-    padding: 15px;
-    border-radius: 12px;
+/* Organização do Cabeçalho (Unidade e Responsável) */
+.form-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.menu-item {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
+.form-header input {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--dourado);
     color: white;
-    border-radius: 15px;
-    border: 1px solid rgba(218, 165, 32, 0.2);
-    font-weight: bold;
-    transition: 0.3s;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
 }
 
-.menu-item:hover {
+/* Ajuste das Seções (Details) */
+.section-group {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(218, 165, 32, 0.2);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.section-group summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--dourado);
+    list-style: none;
+}
+
+/* Grid de Itens do Checklist */
+.checklist-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+/* Área de Observação */
+#obs {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--dourado);
+    border-radius: 12px;
+    color: white;
+    padding: 10px;
+    margin-top: 15px;
+    resize: none;
+}
+
+/* Botão Flutuante/Enviar */
+.floating-btn {
+    width: 100%;
     background: var(--dourado);
     color: var(--roxo-fundo);
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+}
 }
