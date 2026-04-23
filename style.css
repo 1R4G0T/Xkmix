@@ -1,72 +1,123 @@
-/* Estilização dos Campos de Login (Select e Password) */
+/* Variáveis de Cor - XKMIX */
+:root {
+    --roxo-fundo: #0a041a;
+    --roxo-card: #160d2b;
+    --dourado: #daa520;
+    --dourado-brilho: #ffd700;
+    --branco: #ffffff;
+}
+
+/* Reset Geral para tirar visual amador */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif;
+    text-decoration: none !important; /* Tira o sublinhado azul de tudo */
+}
+
+body {
+    background: radial-gradient(circle at center, #1a0a33 0%, #05010a 100%) !important;
+    color: var(--branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main-card {
+    background-color: var(--roxo-card) !important;
+    border: 1px solid var(--dourado) !important;
+    border-radius: 28px;
+    padding: 40px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+    text-align: center;
+}
+
+.logo-gothic {
+    font-family: 'Pirata One', cursive;
+    color: var(--dourado) !important;
+    font-size: 3.5rem;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #9076b3;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+/* --- ESTILO DOS BOTÕES E INPUTS --- */
+
+/* Select e Input de Senha */
 .login-select {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1.5px solid rgba(218, 165, 32, 0.3);
-    color: white;
-    padding: 14px;
-    border-radius: 12px;
-    margin-bottom: 15px;
+    width: 100% !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid var(--dourado) !important;
+    color: white !important;
+    padding: 15px !important;
+    border-radius: 12px !important;
+    margin-bottom: 15px !important;
     font-size: 1rem;
     outline: none;
-    transition: 0.3s;
-    appearance: none; /* Remove a seta padrão feia do select */
 }
 
-.login-select:focus {
-    border-color: var(--dourado);
-    box-shadow: 0 0 10px rgba(218, 165, 32, 0.2);
-}
-
-/* Botão Entrar (O botão grande que era branco/cinza) */
+/* Botão "Entrar" (O que estava cinza e feio) */
 button.menu-item {
-    background: linear-gradient(135deg, var(--dourado) 0%, #b8860b 100%);
-    color: #000;
-    border: none;
-    width: 100%;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 1.1rem;
-    cursor: pointer;
+    background: var(--dourado) !important;
+    color: #000 !important;
+    border: none !important;
+    width: 100% !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    font-weight: 800 !important;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
     transition: 0.3s;
 }
 
-button.menu-item:hover {
-    filter: brightness(1.2);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(218, 165, 32, 0.3);
-}
-
-/* Menu Principal (Os links azuis sublinhados) */
+/* Grid do Menu Principal */
 .menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important; /* Coloca um do lado do outro */
     gap: 15px;
     margin-top: 10px;
 }
 
-.menu-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(218, 165, 32, 0.2);
-    color: white;
-    padding: 20px 10px;
-    border-radius: 16px;
-    text-decoration: none; /* Remove o sublinhado azul */
-    font-weight: 600;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
+/* Itens do Menu (Transformando links em blocos) */
+.menu-grid .menu-item {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(218, 165, 32, 0.3) !important;
+    color: white !important;
+    padding: 20px 10px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: 0.3s;
 }
 
+.menu-item .icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+/* Botão ADM ocupando a linha toda */
+.adm-btn {
+    grid-column: span 2 !important;
+    margin-top: 10px;
+    flex-direction: row !important;
+    background: rgba(218, 165, 32, 0.1) !important;
+}
+
+/* Efeito de Hover (Quando passa o dedo/mouse) */
 .menu-item:hover {
-    background: rgba(218, 165, 32, 0.1);
-    border-color: var(--dourado);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    background: rgba(218, 165, 32, 0.2) !important;
+    border-color: var(--dourado) !important;
+    transform: translateY(-3px);
 }
