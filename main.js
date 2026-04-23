@@ -13,3 +13,12 @@ document.querySelectorAll('.menu-item').forEach(link => {
         }
     });
 });
+function verificarSenha() {
+    const senha = document.getElementById('senhaAcesso').value;
+    if (senha === "1234") { // Troque "1234" pela senha que você quiser
+        document.getElementById('loginArea').style.display = 'none';
+        document.getElementById('menuPrincipal').style.display = 'block';
+    } else {
+        alert("Senha incorreta!");
+    }
+}
