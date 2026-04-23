@@ -1,113 +1,84 @@
+/* PALETA DE CORES XKMIX */
 :root {
-    --roxo-fundo: #0a041a;
-    --roxo-card: #160d2b;
-    --dourado: #daa520;
-    --branco: #ffffff;
+    --fundo: #0a041a;
+    --card: #160d2b;
+    --ouro: #daa520;
+    --roxo-claro: #9076b3;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+* { 
+    margin: 0; padding: 0; box-sizing: border-box; 
+    font-family: 'Inter', sans-serif !important;
+}
 
 body {
-    background: var(--roxo-fundo);
-    color: var(--branco);
-    display: flex; justify-content: center; padding: 20px;
+    background-color: var(--fundo);
+    display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh; padding: 20px;
 }
 
+/* CARD PRINCIPAL - AJUSTADO PARA O BOTÃO FICAR EMBAIXO */
 .main-card {
-    background: var(--roxo-card);
-    border: 1.5px solid var(--dourado);
+    background-color: var(--card);
+    border: 1.5px solid var(--ouro);
     border-radius: 24px; padding: 30px;
     width: 100%; max-width: 450px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-
-.logo-gothic { font-family: 'Pirata One'; color: var(--dourado); text-align: center; font-size: 3rem; margin-bottom: 5px; }
-.subtitle { text-align: center; color: #9076b3; letter-spacing: 2px; margin-bottom: 25px; font-size: 0.8rem; text-transform: uppercase; }
-
-/* Estilo dos Inputs */
-.form-header { margin-bottom: 20px; }
-input[type="text"], input[type="number"], textarea {
-    background: rgba(0,0,0,0.4); border: 1px solid rgba(218, 165, 32, 0.4);
-    color: white; padding: 12px; border-radius: 10px; outline: none; width: 100%;
-}
-
-/* Itens de Estoque */
-/* O "Box" de cada produto */
-.item-estoque {
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    
+    /* O SEGREDO ESTÁ AQUI */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    min-height: 500px; /* Garante um tamanho mínimo para o card */
+}
+
+.logo-gothic {
+    font-family: 'Pirata One'; color: var(--ouro);
+    text-align: center; font-size: 3rem; margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center; color: var(--roxo-claro);
+    text-transform: uppercase; letter-spacing: 2px;
+    font-size: 0.75rem; margin-bottom: 25px;
+}
+
+/* CONTAINER DOS ITENS */
+.checklist-container {
+    flex-grow: 1; /* Faz esta parte ocupar todo o espaço sobrando */
+    margin-bottom: 20px;
+}
+
+/* ESTILO DOS BOTÕES/ITENS */
+.item-estoque, .item {
+    display: flex; justify-content: space-between; align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(218, 165, 32, 0.2);
+    padding: 12px 15px; border-radius: 12px;
+    margin-bottom: 10px; border-left: 4px solid var(--ouro);
 }
 
-.item-estoque span {
-    font-size: 0.85rem;
-    color: #eee;
-    max-width: 70%; /* Impede o texto de empurrar o input */
-    line-height: 1.2;
-}
-
-/* O campo de número (o buraquinho onde digita) */
-.item-estoque input[type="number"] {
-    width: 65px !important;
-    background: #000 !important;
-    border: 1px solid var(--dourado) !important;
-    color: var(--dourado) !important;
-    padding: 8px !important;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.section-group { background: rgba(255,255,255,0.02); border-radius: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
-summary { padding: 15px; cursor: pointer; color: var(--dourado); font-weight: 800; list-style: none; }
-
-/* Botões */
+/* O BOTÃO SALVAR / ENVIAR - SEMPRE NO FUNDO */
 .floating-btn {
-    width: 100%; background: var(--dourado); color: black;
-    border: none; padding: 18px; border-radius: 15px;
-    font-weight: 900; margin-top: 20px; cursor: pointer;
-    text-transform: uppercase;
-}
-
-### 📄 2. No seu CSS (`style.css`)
-Adicione estas regras para garantir que o botão ocupe toda a largura e empurre o conteúdo para baixo corretamente:
-
-```css
-/* Garante que o card principal se ajuste ao conteúdo */
-.main-card {
-    display: flex !important;
-    flex-direction: column !important;
-    height: auto !important;
-    min-height: fit-content !important;
-}
-
-/* Estilo do botão para ficar sempre embaixo */
-.floating-btn {
-    display: block !important;
     width: 100% !important;
-    background-color: var(--dourado) !important;
+    background-color: var(--ouro) !important;
     color: #000 !important;
-    padding: 18px !important;
-    border-radius: 12px !important;
+    padding: 20px !important;
+    border-radius: 16px !important;
     font-weight: 900 !important;
+    font-size: 1.1rem !important;
     text-transform: uppercase;
     border: none !important;
     cursor: pointer;
-    margin-top: auto !important; /* Isso empurra o botão para o fundo do card */
-    margin-bottom: 10px !important;
+    
+    /* GARANTE QUE FIQUE EMBAIXO */
+    margin-top: auto !important; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* Link de voltar centralizado */
+.floating-btn:active { transform: scale(0.98); }
+
+/* LINK DE VOLTAR */
 .back-link {
-    display: block !important;
-    text-align: center !important;
-    color: #9076b3 !important;
-    text-decoration: none !important;
-    font-size: 0.9rem !important;
-    margin-bottom: 10px !important;
+    display: block; text-align: center; margin-top: 15px;
+    color: var(--roxo-claro); text-decoration: none;
+    font-size: 0.85rem; font-weight: 600;
 }
-.back-link { display: block; text-align: center; margin-top: 20px; color: #9076b3; text-decoration: none; font-size: 0.9rem; }
