@@ -7,23 +7,28 @@ function enviarArmazenamento() {
         return;
     }
 
-    // Coleta todos os itens e suas quantidades
-    const itens = document.querySelectorAll('.item');
+    // Mudamos de '.item' para '.item-estoque' para bater com seu novo CSS
+    const itens = document.querySelectorAll('.item-estoque');
+    
     let relatorio = `📦 *Relatório de Armazenamento*\n`;
     relatorio += `👤 Responsável: ${responsavel}\n\n`;
 
     itens.forEach(item => {
         const nome = item.querySelector('span').innerText;
-        const qtd = item.querySelector('input').value || 0;
+        // Pega o valor do input de número
+        const qtd = item.querySelector('input[type="number"]').value || 0;
         relatorio += `🔹 ${nome}: ${qtd}\n`;
     });
 
     if (observacao) relatorio += `\n📝 Obs: ${observacao}`;
 
-    // Exemplo: Enviar via WhatsApp (opcional)
+    // Link para o WhatsApp (Substitua SEUNUMERO pelo seu número real com DDD)
+    const numero = "5581999999999"; // Exemplo: 55 + DDD + Numero
     const encoded = encodeURIComponent(relatorio);
-    // window.open(`https://wa.me/SEUNUMERO?text=${encoded}`);
+    const linkZap = `https://wa.me/${numero}?text=${encoded}`;
 
-    console.log("Dados salvos:", relatorio);
-    alert("Estoque salvo com sucesso!");
+    // Abre o WhatsApp com o relatório pronto
+    window.open(linkZap, '_blank');
+
+    console.log("Relatório Gerado:", relatorio);
 }
