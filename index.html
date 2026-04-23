@@ -27,16 +27,30 @@
         <button class="menu-item" style="width:100%; cursor:pointer;" onclick="verificarAcesso()">Entrar</button>
     </div>
 
-    <div id="menuPrincipal" style="display: none;">
+   <div id="menuPrincipal" style="display: none;">
         <div class="menu-grid">
-            <a href="checklist/index.html" class="menu-item">📋 Checklist</a>
-            <a href="estoque/index.html" class="menu-item">📦 Estoque</a>
-            <a href="abastecimento/index.html" class="menu-item">🚚 Abastecimento</a>
-            <a href="pedido/index.html" class="menu-item">🛒 Pedidos</a>
+            <a href="checklist/index.html" class="menu-item">
+                <span class="icon">📋</span>
+                <span>Checklist</span>
+            </a>
+            <a href="estoque/index.html" class="menu-item">
+                <span class="icon">📦</span>
+                <span>Estoque</span>
+            </a>
+            <a href="abastecimento/index.html" class="menu-item">
+                <span class="icon">🚚</span>
+                <span>Abastecer</span>
+            </a>
+            <a href="pedido/index.html" class="menu-item">
+                <span class="icon">🛒</span>
+                <span>Pedidos</span>
+            </a>
         </div>
-        <a href="adm.html" id="btnAdm" class="menu-item" style="display:none; margin-top:10px; grid-column: span 2;">⚙️ Painel ADM</a>
+        
+        <a href="adm.html" id="btnAdm" class="menu-item adm-btn" style="display:none;">
+            <span>⚙️ Painel Administrador</span>
+        </a>
     </div>
-</div>
 </div> <script src="main.js"></script>
 </body>
 </html>
