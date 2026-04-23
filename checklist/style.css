@@ -1,53 +1,92 @@
+/* RESET TOTAL PARA GARANTIR QUE NÃO SOBRE NADA DO ANTIGO */
 :root {
-    --roxo-fundo: #0a041a;
-    --roxo-card: #160d2b;
-    --dourado: #daa520;
-    --branco: #ffffff;
+    --fundo: #0a041a !important;
+    --card: #160d2b !important;
+    --ouro: #daa520 !important;
+    --item-bg: rgba(255, 255, 255, 0.05) !important;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+* { 
+    margin: 0; padding: 0; box-sizing: border-box; 
+    font-family: 'Inter', sans-serif !important;
+}
 
 body {
-    background: var(--roxo-fundo);
-    color: var(--branco);
+    background-color: var(--fundo) !important;
     display: flex; justify-content: center; padding: 20px;
 }
 
 .main-card {
-    background: var(--roxo-card);
-    border: 1.5px solid var(--dourado);
-    border-radius: 24px; padding: 30px;
+    background-color: var(--card) !important;
+    border: 1px solid var(--ouro) !important;
+    border-radius: 24px; padding: 30px; 
     width: 100%; max-width: 450px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
-.logo-gothic { font-family: 'Pirata One'; color: var(--dourado); text-align: center; font-size: 3rem; }
-.subtitle { text-align: center; color: #9076b3; letter-spacing: 2px; margin-bottom: 20px; font-size: 0.8rem; }
-
-/* Cabeçalho */
-.form-header { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-input, textarea {
-    background: rgba(0,0,0,0.3); border: 1px solid rgba(218, 165, 32, 0.4);
-    color: white; padding: 12px; border-radius: 10px; outline: none; width: 100%;
+.logo-gothic {
+    font-family: 'Pirata One'; color: var(--ouro);
+    text-align: center; font-size: 3rem; margin-bottom: 5px;
 }
 
-/* Acordeão e Itens */
-.section-group { background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
-summary { padding: 15px; cursor: pointer; color: var(--dourado); font-weight: 800; list-style: none; }
+.subtitle {
+    text-align: center; color: #9076b3; 
+    text-transform: uppercase; letter-spacing: 2px;
+    font-size: 0.75rem; margin-bottom: 25px;
+}
+
+/* INPUTS DE TOPO */
+.form-header { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+
+input[type="text"], textarea {
+    background: rgba(0,0,0,0.4) !important;
+    border: 1px solid rgba(218, 165, 32, 0.4) !important;
+    color: white !important; padding: 14px; border-radius: 12px;
+    font-size: 0.9rem; outline: none; width: 100%;
+}
+
+/* O SEGREDO: TRANSFORMAR OS ITENS EM BOTÕES CLICÁVEIS */
+.section-group { 
+    background: var(--item-bg); border-radius: 15px; 
+    margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); 
+}
+
+summary { 
+    padding: 18px; cursor: pointer; color: var(--ouro); 
+    font-weight: 800; list-style: none; outline: none;
+}
+
+.checklist-grid { padding: 0 15px 15px; }
 
 .item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px; background: rgba(255,255,255,0.05);
-    margin: 5px 15px; border-radius: 8px; cursor: pointer;
+    display: flex !important; align-items: center !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    margin-bottom: 8px !important; padding: 15px !important;
+    border-radius: 10px !important; cursor: pointer;
+    border-left: 3px solid transparent; transition: 0.2s;
 }
 
-/* Botão Enviar (O grande destaque) */
+.item:hover { background: rgba(255, 255, 255, 0.08) !important; border-left-color: var(--ouro); }
+
+/* Customizando o Checkbox */
+.item input[type="checkbox"] {
+    margin-right: 15px !important; width: 22px !important; height: 22px !important;
+    accent-color: var(--ouro); cursor: pointer;
+}
+
+/* BOTÃO DE ENVIAR EMBAIXO */
 .floating-btn {
-    width: 100%; background: var(--dourado); color: black;
-    border: none; padding: 18px; border-radius: 15px;
-    font-weight: 800; margin-top: 20px; cursor: pointer;
-    transition: 0.3s;
+    width: 100% !important; background: var(--ouro) !important;
+    color: #000 !important; border: none !important;
+    padding: 20px !important; border-radius: 16px !important;
+    font-weight: 900 !important; font-size: 1.1rem !important;
+    text-transform: uppercase; cursor: pointer;
+    margin-top: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-.floating-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
-.back-link { display: block; text-align: center; margin-top: 15px; color: #9076b3; text-decoration: none; }
+.floating-btn:active { transform: scale(0.98); }
+
+.back-link {
+    display: block; text-align: center; margin-top: 20px;
+    color: #9076b3; text-decoration: none; font-size: 0.85rem;
+}
