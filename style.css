@@ -1,3 +1,54 @@
+/* Configurações de Cores e Fontes - XKMIX */
+:root {
+    --roxo-fundo: #1a0a2e;
+    --roxo-card: #2d1b4d;
+    --dourado: #daa520;
+    --texto: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--roxo-fundo);
+    color: var(--texto);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card Principal */
+.main-card {
+    background-color: var(--roxo-card);
+    border: 2px solid var(--dourado);
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.logo-gothic {
+    font-family: 'Pirata One', cursive;
+    color: var(--dourado);
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #b39ddb;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+/* --- O CÓDIGO QUE VOCÊ ENVIOU ARRUMADO ABAIXO --- */
+
 /* Organização do Cabeçalho (Unidade e Responsável) */
 .form-header {
     display: grid;
@@ -13,6 +64,7 @@
     padding: 10px;
     border-radius: 8px;
     width: 100%;
+    outline: none;
 }
 
 /* Ajuste das Seções (Details) */
@@ -21,7 +73,7 @@
     border: 1px solid rgba(218, 165, 32, 0.2);
     border-radius: 12px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 12px;
 }
 
 .section-group summary {
@@ -29,22 +81,31 @@
     font-weight: bold;
     color: var(--dourado);
     list-style: none;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Grid de Itens do Checklist */
 .checklist-grid {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-    padding-left: 10px;
+    gap: 12px;
+    margin-top: 15px;
+    padding-left: 5px;
 }
 
 .item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 14px;
+    cursor: pointer;
+}
+
+.item input[type="checkbox"] {
+    accent-color: var(--dourado); /* Deixa o check dourado */
+    width: 18px;
+    height: 18px;
 }
 
 /* Área de Observação */
@@ -54,9 +115,10 @@
     border: 1px solid var(--dourado);
     border-radius: 12px;
     color: white;
-    padding: 10px;
+    padding: 12px;
     margin-top: 15px;
     resize: none;
+    outline: none;
 }
 
 /* Botão Flutuante/Enviar */
@@ -68,7 +130,13 @@
     padding: 15px;
     border-radius: 12px;
     font-weight: bold;
+    font-size: 1rem;
     margin-top: 20px;
     cursor: pointer;
+    transition: 0.3s;
 }
+
+.floating-btn:hover {
+    filter: brightness(1.2);
+    transform: scale(1.02);
 }
