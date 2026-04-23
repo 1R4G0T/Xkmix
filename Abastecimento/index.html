@@ -1,36 +1,39 @@
-<div class="abastecimento-container">
-    <h2 class="subtitle">Abastecimento de Sorvetes</h2>
-    
-    <details class="item-abastecimento">
-        <summary>Chocolate</summary>
-        <div class="grade-unidades">
-            <div class="linha-unidade"><span>PDP</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>CDV</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>Goiana</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>TJ</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>S/D</span><input type="number" placeholder="0"></div>
-        </div>
-    </details>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abastecimento - XKMIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-card">
+        <h1 class="logo-gothic">XKMIX</h1>
+        <p class="subtitle">Abastecimento de Sorvetes</p>
 
-    <details class="item-abastecimento">
-        <summary>Morango</summary>
-        <div class="grade-unidades">
-            <div class="linha-unidade"><span>PDP</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>CDV</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>Goiana</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>TJ</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>S/D</span><input type="number" placeholder="0"></div>
+        <div class="form-header">
+            <input type="text" placeholder="Responsável" id="responsavel">
         </div>
-    </details>
 
-    <details class="item-abastecimento">
-        <summary>Maracuja</summary>
-        <div class="grade-unidades">
-            <div class="linha-unidade"><span>PDP</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>CDV</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>Goiana</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>TJ</span><input type="number" placeholder="0"></div>
-            <div class="linha-unidade"><span>S/D</span><input type="number" placeholder="0"></div>
-        </div>
-    </details>
-</div>
+        <div class="abastecimento-container">
+            <details class="item-abastecimento">
+                <summary>Chocolate</summary>
+                <div class="grade-unidades">
+                    <div class="linha-unidade"><span>PDP</span><input type="number" placeholder="0"></div>
+                    <div class="linha-unidade"><span>CDV</span><input type="number" placeholder="0"></div>
+                    <div class="linha-unidade"><span>Goiana</span><input type="number" placeholder="0"></div>
+                    <div class="linha-unidade"><span>TJ</span><input type="number" placeholder="0"></div>
+                    <div class="linha-unidade"><span>S/D</span><input type="number" placeholder="0"></div>
+                </div>
+            </details>
+            
+            </div>
+
+        <button class="floating-btn" onclick="enviarAbastecimento()">SALVAR ABASTECIMENTO ✅</button>
+        <a href="../index.html" class="back-link">← Voltar ao Menu</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
