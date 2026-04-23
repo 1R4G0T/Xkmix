@@ -10,25 +10,28 @@
 <body>
    <div class="main-card">
     <h1 class="logo-gothic">XKMIX</h1>
+    <p class="subtitle">Sistema de Gestão Interna</p>
     
     <div id="loginArea">
+        <select id="selectLoja" class="login-select">
+            <option value="">Selecione a Unidade</option>
+            <option value="unidade1">Unidade 01</option>
+            <option value="unidade2">Unidade 02</option>
+            <option value="adm">Administrador</option>
+        </select>
+
         <input type="password" id="senhaAcesso" class="login-select" placeholder="Digite a Senha">
-        <button class="menu-item" style="width:100%" onclick="verificarSenha()">Entrar</button>
+        
+        <button class="menu-item" style="width:100%; cursor:pointer;" onclick="verificarAcesso()">Entrar</button>
     </div>
 
     <div id="menuPrincipal" style="display: none;">
-        <div class="login-box">
-            <select id="selectLoja" class="login-select">
-                <option value="">Selecione a Unidade</option>
-                <option value="unidade1">Unidade 01</option>
-                <option value="unidade2">Unidade 02</option>
-            </select>
-        </div>
         <div class="menu-grid">
             <a href="checklist/index.html" class="menu-item">📋 Checklist</a>
             <a href="estoque/index.html" class="menu-item">📦 Estoque</a>
             <a href="abastecimento/index.html" class="menu-item">🚚 Abastecimento</a>
             <a href="pedido/index.html" class="menu-item">🛒 Pedidos</a>
         </div>
+        <a href="adm.html" id="btnAdm" class="menu-item" style="display:none; margin-top:10px; grid-column: span 2;">⚙️ Painel ADM</a>
     </div>
 </div>
