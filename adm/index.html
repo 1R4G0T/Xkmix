@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM - Central XKMIX</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="main-card">
+        <h1 class="logo-gothic">XKMIX ADM</h1>
+        <p class="subtitle">Painel de Controle Geral</p>
+
+        <div class="checklist-container" id="container-geral">
+            <div id="status-carregando">Sincronizando com a nuvem...</div>
+        </div>
+
+        <button class="floating-btn" onclick="limparDadosGerais()">LIMPAR REGISTROS DO DIA</button>
+        <a href="../index.html" class="back-link">← Voltar ao Menu</a>
+    </div>
+
+    <script src="adm-script.js"></script>
+</body>
+</html>
