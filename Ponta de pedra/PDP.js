@@ -4,18 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const options = document.querySelectorAll('.option-item');
     const selectedText = document.getElementById('selectedText');
 
-    // Abre e fecha o menu ao clicar na barra central
+    // Abre e fecha o menu ao clicar na barra principal
     selectBar.addEventListener('click', (e) => {
         e.stopPropagation();
         wrapper.classList.toggle('active');
     });
 
-    // Fecha o menu se clicar em qualquer outro lugar da tela
+    // Fecha o menu se clicar em qualquer outra parte da tela
     document.addEventListener('click', () => {
         wrapper.classList.remove('active');
     });
 
-    // Ação ao selecionar uma aba/setor
+    // Ação ao selecionar um setor
     options.forEach(option => {
         option.addEventListener('click', (e) => {
             e.stopPropagation();
