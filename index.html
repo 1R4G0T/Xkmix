@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Neon District</title>
+    <!-- Importação da fonte retro/arcade -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header class="hero-header">
+        <h1 class="logo-xkmix">XKMIX</h1>
+        <p class="subtitle">SELECT YOUR DESTINATION // 1984</p>
+    </header>
+
+    <main class="main-container">
+        <section class="menu-section">
+            <h2 class="section-title">LOCALIZAÇÕES DISPONÍVEIS</h2>
+            
+            <div class="destinations-grid">
+                <!-- Item Ponta de Pedra -->
+                <div class="destination-card" data-url="ponta-de-pedra/index.html">
+                    <div class="card-content">
+                        <span class="card-tag">ZONA 01</span>
+                        <h3>Ponta de Pedra</h3>
+                        <p>Acessar setor costeiro...</p>
+                    </div>
+                    <div class="neon-border"></div>
+                </div>
+
+                <!-- Exemplo de outros locais futuros (opcional) -->
+                <div class="destination-card locked" data-url="#">
+                    <div class="card-content">
+                        <span class="card-tag">ZONA 02</span>
+                        <h3>Downtown (Em breve)</h3>
+                        <p>Bloqueado...</p>
+                    </div>
+                    <div class="neon-border"></div>
+                </div>
+
+                <div class="destination-card locked" data-url="#">
+                    <div class="card-content">
+                        <span class="card-tag">ZONA 03</span>
+                        <h3>Ocean Drive (Em breve)</h3>
+                        <p>Bloqueado...</p>
+                    </div>
+                    <div class="neon-border"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 1984 XKMIX CORP. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
