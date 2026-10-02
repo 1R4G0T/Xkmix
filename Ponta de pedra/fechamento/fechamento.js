@@ -1,28 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Campos do Sistema
     const sysDinheiro = document.getElementById('sysDinheiro');
     const sysPix = document.getElementById('sysPix');
     const sysCartao = document.getElementById('sysCartao');
 
-    // Campos do Caixa
     const caixaDinheiroDia = document.getElementById('caixaDinheiroDia');
     const caixaEnvelope = document.getElementById('caixaEnvelope');
     const caixaProximoDia = document.getElementById('caixaProximoDia');
     const sangriasList = document.getElementById('sangriasList');
     const addSangriaBtn = document.getElementById('addSangriaBtn');
 
-    // Campos das Maquinetas
     const maqCredito = document.getElementById('maqCredito');
     const maqDebito = document.getElementById('maqDebito');
     const maqPix = document.getElementById('maqPix');
 
-    // Observações e PS
     const diffAlertBox = document.getElementById('diffAlertBox');
     const obsText = document.getElementById('obsText');
     const psText = document.getElementById('psText');
     const sendWhatsappBtn = document.getElementById('sendWhatsapp');
 
-    // Gerenciamento de Sangrias Dinâmicas
     addSangriaBtn.addEventListener('click', () => {
         const div = document.createElement('div');
         div.className = 'sangria-item';
@@ -40,54 +35,79 @@ document.addEventListener('DOMContentLoaded', () => {
         div.querySelector('.sangria-val').addEventListener('input', calcularDiferenca);
     });
 
-    // Função de Cálculo Automático de Sobra/Falta
     function calcularDiferenca() {
-        const sysVal = parseFloat(sysDinheiro.value) || 0;
-        const caixaVal = parseFloat(caixaDinheiroDia.value) || 0;
-        const envelopeVal = parseFloat(caixaEnvelope.value) || 0;
-        const proximoDiaVal = parseFloat(caixaProximoDia.value) || 0;
+        const sDinheiro = parseFloat(sysDinheiro.value) || 0;
+        const sPix = parseFloat(sysPix.value) || 0;
+        const sCartao = parseFloat(sysCartao.value) || 0;
 
-        // Somar todas as sangrias ativas
+        // Físico Dinheiro Apurado = Envelope + Próximo Dia + Sangrias
+        const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
+        const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
         let totalSangrias = 0;
         document.querySelectorAll('.sangria-val').forEach(input => {
             totalSangrias += parseFloat(input.value) || 0;
         });
+        const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
 
-        // O total apurado em caixa físico é: Envelope + Próximo Dia + Sangrias
-        const totalFisicoApurado = envelopeVal + proximoDiaVal + totalSangrias;
+        // Cartão Maquinetas = Crédito + Débito
+        const mCredito = parseFloat(maqCredito.value) || 0;
+        const mDebito = parseFloat(maqDebito.value) || 0;
+        const totalCartaoMaquinetas = mCredito + mDebito;
 
-        // A diferença entre o que o sistema diz que entrou em dinheiro e o que foi encontrado fisicamente
-        const diferenca = totalFisicoApurado - caixaVal; // Ou comparando com sysVal dependendo da regra da loja
+        // PIX Maquinetas
+        const mPix = parseFloat(maqPix.value) || 0;
 
-        // Vamos calcular com base no Total do Dinheiro do Dia informado vs Sistema ou Destinos
-        // Regra padrão de caixa: Dinheiro do Dia deve bater com (Envelope + Próximo Dia + Sangrias)
-        const diferencaCaixa = caixaVal - totalFisicoApurado; 
+        // Subtrações (Físico/Maquinetas - Sistema)
+        const diffDinheiro = totalDinheiroFisico - sDinheiro;
+        const diffPix = mPix - sPix;
+        const diffCartao = totalCartaoMaquinetas - sCartao;
 
-        if (!caixaDinheiroDia.value && !sysDinheiro.value) {
+        const hasValues = sysDinheiro.value || sysPix.value || sysCartao.value || caixaEnvelope.value || caixaProximoDia.value || maqCredito.value || maqDebito.value || maqPix.value;
+
+        if (!hasValues) {
             diffAlertBox.className = 'diff-box neutral';
             diffAlertBox.innerHTML = 'Aguardando valores para cálculo...';
             return;
         }
 
-        if (Math.abs(diferencaCaixa) < 0.01) {
+        let html = `<strong>RESULTADO DA CONFERÊNCIA:</strong><br>`;
+        let allZero = true;
+
+        if (Math.abs(diffDinheiro) >= 0.01) {
+            allZero = false;
+            html += `• Dinheiro: ${diffDinheiro > 0 ? 'Sobrou' : 'Faltou'} R$ ${Math.abs(diffDinheiro).toFixed(2)}<br>`;
+        } else {
+            html += `• Dinheiro: Exato<br>`;
+        }
+
+        if (Math.abs(diffPix) >= 0.01) {
+            allZero = false;
+            html += `• PIX: ${diffPix > 0 ? 'Sobrou' : 'Faltou'} R$ ${Math.abs(diffPix).toFixed(2)}<br>`;
+        } else {
+            html += `• PIX: Exato<br>`;
+        }
+
+        if (Math.abs(diffCartao) >= 0.01) {
+            allZero = false;
+            html += `• Cartão: ${diffCartao > 0 ? 'Sobrou' : 'Faltou'} R$ ${Math.abs(diffCartao).toFixed(2)}`;
+        } else {
+            html += `• Cartão: Exato`;
+        }
+
+        if (allZero) {
             diffAlertBox.className = 'diff-box success';
-            diffAlertBox.innerHTML = '✅ CAIXA EXATO! Sem sobra nem falta.';
-        } else if (diferencaCaixa > 0) {
-            diffAlertBox.className = 'diff-box danger';
-            diffAlertBox.innerHTML = `⚠️ SOBROU DINHEIRO: R$ ${diferencaCaixa.toFixed(2)}`;
+            diffAlertBox.innerHTML = '✅ CAIXA 100% BATEU EXATO EM TUDO!';
         } else {
             diffAlertBox.className = 'diff-box danger';
-            diffAlertBox.innerHTML = `⚠️ FALTOU DINHEIRO: R$ ${Math.abs(diferencaCaixa).toFixed(2)}`;
+            diffAlertBox.innerHTML = html;
         }
     }
 
-    // Ouvir alterações em todos os campos numéricos para recalcular em tempo real
     const inputsToWatch = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaEnvelope, caixaProximoDia, maqCredito, maqDebito, maqPix];
     inputsToWatch.forEach(input => {
         if (input) input.addEventListener('input', calcularDiferenca);
     });
 
-    // Enviar WhatsApp Formatado
     sendWhatsappBtn.addEventListener('click', () => {
         const sDinheiro = parseFloat(sysDinheiro.value) || 0;
         const sPix = parseFloat(sysPix.value) || 0;
@@ -111,13 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const mDebito = parseFloat(maqDebito.value) || 0;
         const mPix = parseFloat(maqPix.value) || 0;
 
-        const totalFisicoApurado = cEnvelope + cProximoDia + totalSangrias;
-        const diff = cDinheiroDia - totalFisicoApurado;
-        let statusSobraFalta = "Exato (Sem diferenças)";
-        if (diff > 0) statusSobraFalta = `Sobrou R$ ${diff.toFixed(2)}`;
-        else if (diff < 0) statusSobraFalta = `Faltou R$ ${Math.abs(diff).toFixed(2)}`;
+        const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
+        const totalCartaoMaquinetas = mCredito + mDebito;
 
-        // Montagem da Mensagem do WhatsApp
+        const diffDinheiro = totalDinheiroFisico - sDinheiro;
+        const diffPix = mPix - sPix;
+        const diffCartao = totalCartaoMaquinetas - sCartao;
+
         let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
         mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
 
@@ -137,20 +157,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         mensagem += `\n💳 *DADOS DAS MAQUINETAS:*\n`;
-        mensagem += `• Total Crédito: R$ ${mCredito.toFixed(2)}\n`;
-        mensagem += `• Total Débito: R$ ${mDebito.toFixed(2)}\n`;
-        mensagem += `• Total PIX: R$ ${mPix.toFixed(2)}\n\n`;
+        mensagem += `• Crédito: R$ ${mCredito.toFixed(2)}\n`;
+        mensagem += `• Débito: R$ ${mDebito.toFixed(2)}\n`;
+        mensagem += `• PIX Maquinetas: R$ ${mPix.toFixed(2)}\n\n`;
 
-        mensagem += `⚠️ *OBS (Sobra/Falta):* ${statusSobraFalta}\n`;
+        mensagem += `⚠️️ *CONFERÊNCIA (Diferenças):*\n`;
+        mensagem += `• Dinheiro: ${diffDinheiro === 0 ? 'Exato' : (diffDinheiro > 0 ? `Sobrou R$ ${diffDinheiro.toFixed(2)}` : `Faltou R$ ${Math.abs(diffDinheiro).toFixed(2)}`)}\n`;
+        mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
+        mensagem += `• Cartão: ${diffCartao === 0 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
+
         if (obsText.value.trim()) {
-            mensagem += `• Detalhes: ${obsText.value.trim()}\n`;
+            mensagem += `• Obs: ${obsText.value.trim()}\n`;
         }
 
         if (psText.value.trim()) {
             mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
         }
 
-        const telefone = ''; // Insira o número se desejar fixar
+        const telefone = ''; 
         const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
         window.open(urlWhatsApp, '_blank');
     });
