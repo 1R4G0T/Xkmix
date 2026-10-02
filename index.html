@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XKMIX - Ponta de Pedra</title>
+    <title>XKMIX - Neon District</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,30 +13,22 @@
 
     <header class="hero-header">
         <h1 class="logo-xkmix">XKMIX</h1>
-        <p class="location-subtitle">// PONTA DE PEDRA //</p>
     </header>
 
     <main class="main-container">
-        <!-- Barra de Seleção de Abas Central -->
+        <!-- Barra de Seleção Principal -->
         <div class="dropdown-menu-wrapper" id="dropdownWrapper">
             <div class="select-bar" id="selectBar">
-                <span id="selectedText">SELECIONAR SETOR</span>
+                <span id="selectedText">SELECIONAR LOCAL</span>
                 <span class="arrow-icon">▼</span>
             </div>
 
             <div class="options-container">
-                <div class="option-item" data-url="../estoque/index.html">Estoque</div>
-                <div class="option-item" data-url="../pedido-sorvete/index.html">Pedido de Sorvete</div>
-                <div class="option-item" data-url="../pedidos/index.html">Pedidos</div>
-                <div class="option-item" data-url="../regras/index.html">Regras e Orientações</div>
-                <div class="option-item" data-url="../checklist/index.html">Check-list</div>
-                <div class="option-item" data-url="../validade/index.html">Registro de Validade</div>
+                <!-- Aponta para a pasta pdp -->
+                <div class="option-item" data-url="pdp/index.html">Ponta de Pedra</div>
+                <div class="option-item locked" data-url="#">Downtown (Em breve)</div>
+                <div class="option-item locked" data-url="#">Ocean Drive (Em breve)</div>
             </div>
-        </div>
-
-        <!-- Botão para voltar ao Menu Principal -->
-        <div class="back-home-container">
-            <a href="../index.html" class="back-btn">&larr; VOLTAR AO MENU PRINCIPAL</a>
         </div>
     </main>
 
