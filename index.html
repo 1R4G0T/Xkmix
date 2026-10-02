@@ -3,200 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XKMIX - Neon District</title>
+    <title>XKMIX - Ponta de Pedra</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-dark: #0b0214;
-            --purple-main: #3b0764;
-            --purple-neon: #9333ea;
-            --pink-neon: #ec4899;
-            --cyan-neon: #06b6d4;
-            --text-light: #f3e8ff;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Orbitron', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Efeito de Tubo de Antiga TV / Scanlines */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.25) 50%
-            );
-            background-size: 100% 4px;
-            z-index: 999;
-            pointer-events: none;
-        }
-
-        .glow-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at center, rgba(147, 51, 234, 0.2) 0%, rgba(11, 2, 20, 0.9) 90%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Header & Título XKMIX com fundo roxo neon */
-        .hero-header {
-            text-align: center;
-            padding-top: 60px;
-        }
-
-        .logo-xkmix {
-            font-size: clamp(4rem, 12vw, 8rem);
-            font-weight: 900;
-            background: linear-gradient(180deg, #ffffff 0%, var(--pink-neon) 50%, var(--purple-neon) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 35px rgba(236, 72, 153, 0.7), 0 0 70px rgba(147, 51, 234, 0.5);
-            letter-spacing: 10px;
-            padding: 10px 30px;
-            border-radius: 12px;
-            background-color: rgba(59, 7, 100, 0.25);
-            border: 2px solid var(--purple-neon);
-            box-shadow: 0 0 25px rgba(147, 51, 234, 0.4), inset 0 0 15px rgba(147, 51, 234, 0.3);
-        }
-
-        /* Container Central da Barra de Seleção */
-        .main-container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .dropdown-menu-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        /* A Barra Central onde se Clica */
-        .select-bar {
-            width: 100%;
-            background: rgba(59, 7, 100, 0.6);
-            border: 2px solid var(--purple-neon);
-            border-radius: 8px;
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
-        }
-
-        .select-bar:hover {
-            background: rgba(147, 51, 234, 0.4);
-            border-color: var(--pink-neon);
-            box-shadow: 0 0 30px var(--pink-neon), inset 0 0 10px var(--purple-neon);
-        }
-
-        .select-bar span {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            color: var(--text-light);
-            font-weight: 700;
-        }
-
-        .arrow-icon {
-            font-size: 1rem;
-            color: var(--cyan-neon);
-            transition: transform 0.3s ease;
-            text-shadow: 0 0 8px var(--cyan-neon);
-        }
-
-        .dropdown-menu-wrapper.active .arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        /* Lista de Locais que aparece ao Clicar */
-        .options-container {
-            position: absolute;
-            top: calc(100% + 10px);
-            left: 0;
-            width: 100%;
-            background: rgba(11, 2, 20, 0.95);
-            border: 2px solid var(--purple-neon);
-            border-radius: 8px;
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 25px rgba(147, 51, 234, 0.4);
-            z-index: 10;
-        }
-
-        .dropdown-menu-wrapper.active .options-container {
-            max-height: 300px;
-            opacity: 1;
-        }
-
-        .option-item {
-            padding: 15px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
-            transition: background 0.2s, padding-left 0.2s;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            color: var(--text-light);
-        }
-
-        .option-item:last-child {
-            border-bottom: none;
-        }
-
-        .option-item:hover:not(.locked) {
-            background: rgba(147, 51, 234, 0.4);
-            padding-left: 25px;
-            color: var(--cyan-neon);
-            text-shadow: 0 0 8px var(--cyan-neon);
-        }
-
-        .option-item.locked {
-            opacity: 0.4;
-            cursor: not-allowed;
-            color: #6b7280;
-        }
-
-        /* Rodapé */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-family: 'VT323', monospace;
-            font-size: 1.2rem;
-            color: #6b7280;
-            letter-spacing: 2px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="scanlines"></div>
@@ -204,21 +13,30 @@
 
     <header class="hero-header">
         <h1 class="logo-xkmix">XKMIX</h1>
+        <p class="location-subtitle">// PONTA DE PEDRA //</p>
     </header>
 
     <main class="main-container">
-        <!-- Barra de Seleção Central -->
+        <!-- Barra de Seleção de Abas Central -->
         <div class="dropdown-menu-wrapper" id="dropdownWrapper">
             <div class="select-bar" id="selectBar">
-                <span id="selectedText">SELECIONAR LOCAL</span>
+                <span id="selectedText">SELECIONAR SETOR</span>
                 <span class="arrow-icon">▼</span>
             </div>
 
             <div class="options-container">
-                <div class="option-item" data-url="ponta-de-pedra/index.html">Ponta de Pedra</div>
-                <div class="option-item locked" data-url="#">Downtown (Em breve)</div>
-                <div class="option-item locked" data-url="#">Ocean Drive (Em breve)</div>
+                <div class="option-item" data-url="../estoque/index.html">Estoque</div>
+                <div class="option-item" data-url="../pedido-sorvete/index.html">Pedido de Sorvete</div>
+                <div class="option-item" data-url="../pedidos/index.html">Pedidos</div>
+                <div class="option-item" data-url="../regras/index.html">Regras e Orientações</div>
+                <div class="option-item" data-url="../checklist/index.html">Check-list</div>
+                <div class="option-item" data-url="../validade/index.html">Registro de Validade</div>
             </div>
+        </div>
+
+        <!-- Botão para voltar ao Menu Principal -->
+        <div class="back-home-container">
+            <a href="../index.html" class="back-btn">&larr; VOLTAR AO MENU PRINCIPAL</a>
         </div>
     </main>
 
@@ -226,50 +44,6 @@
         <p>&copy; XKMIX CORP.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const wrapper = document.getElementById('dropdownWrapper');
-            const selectBar = document.getElementById('selectBar');
-            const options = document.querySelectorAll('.option-item');
-            const selectedText = document.getElementById('selectedText');
-
-            // Abre e fecha o menu ao clicar na barra
-            selectBar.addEventListener('click', (e) => {
-                e.stopPropagation();
-                wrapper.classList.toggle('active');
-            });
-
-            // Fecha o menu se clicar fora dele
-            document.addEventListener('click', () => {
-                wrapper.classList.remove('active');
-            });
-
-            // Ação ao selecionar um local
-            options.forEach(option => {
-                option.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    
-                    if (option.classList.contains('locked')) {
-                        option.style.transform = 'scale(0.98)';
-                        setTimeout(() => { option.style.transform = 'scale(1)'; }, 150);
-                        return;
-                    }
-
-                    const targetUrl = option.getAttribute('data-url');
-                    selectedText.textContent = option.textContent;
-                    wrapper.classList.remove('active');
-
-                    if (targetUrl && targetUrl !== '#') {
-                        document.body.style.transition = 'opacity 0.4s ease';
-                        document.body.style.opacity = '0';
-
-                        setTimeout(() => {
-                            window.location.href = targetUrl;
-                        }, 400);
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
