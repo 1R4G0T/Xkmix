@@ -6,7 +6,6 @@
     <title>XKMIX - Neon District</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
     <style>
-        /* Reset e Variáveis de Cores Neon */
         * {
             margin: 0;
             padding: 0;
@@ -30,6 +29,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            align-items: center;
             overflow-x: hidden;
             position: relative;
         }
@@ -56,104 +56,135 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, rgba(147, 51, 234, 0.15) 0%, rgba(11, 2, 20, 0.8) 90%);
+            background: radial-gradient(circle at center, rgba(147, 51, 234, 0.2) 0%, rgba(11, 2, 20, 0.9) 90%);
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Header & Título XKMIX */
+        /* Header & Título XKMIX com fundo roxo neon */
         .hero-header {
             text-align: center;
-            padding: 40px 20px;
+            padding-top: 60px;
         }
 
         .logo-xkmix {
-            font-size: clamp(4rem, 10vw, 7rem);
+            font-size: clamp(4rem, 12vw, 8rem);
             font-weight: 900;
             background: linear-gradient(180deg, #ffffff 0%, var(--pink-neon) 50%, var(--purple-neon) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(236, 72, 153, 0.6), 0 0 60px rgba(147, 51, 234, 0.4);
-            letter-spacing: 8px;
-            margin-bottom: 10px;
+            text-shadow: 0 0 35px rgba(236, 72, 153, 0.7), 0 0 70px rgba(147, 51, 234, 0.5);
+            letter-spacing: 10px;
+            padding: 10px 30px;
+            border-radius: 12px;
+            background-color: rgba(59, 7, 100, 0.25);
+            border: 2px solid var(--purple-neon);
+            box-shadow: 0 0 25px rgba(147, 51, 234, 0.4), inset 0 0 15px rgba(147, 51, 234, 0.3);
         }
 
-        .subtitle {
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
-            color: var(--cyan-neon);
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--cyan-neon);
-        }
-
-        /* Container Principal */
+        /* Container Central da Barra de Seleção */
         .main-container {
-            max-width: 900px;
             width: 100%;
-            margin: 0 auto;
+            max-width: 500px;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             flex: 1;
+            justify-content: center;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            margin-bottom: 30px;
-            color: var(--text-light);
-            border-bottom: 2px solid var(--purple-neon);
-            padding-bottom: 10px;
-            box-shadow: 0 4px 10px -4px var(--purple-neon);
+        .dropdown-menu-wrapper {
+            position: relative;
+            width: 100%;
         }
 
-        /* Grid de Destinos */
-        .destinations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-        }
-
-        .destination-card {
-            background: rgba(59, 7, 100, 0.4);
+        /* A Barra Central onde se Clica */
+        .select-bar {
+            width: 100%;
+            background: rgba(59, 7, 100, 0.6);
             border: 2px solid var(--purple-neon);
             border-radius: 8px;
-            padding: 25px;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             cursor: pointer;
-            position: relative;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(147, 51, 234, 0.2);
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
         }
 
-        .destination-card:hover:not(.locked) {
-            transform: translateY(-5px);
-            background: rgba(147, 51, 234, 0.3);
+        .select-bar:hover {
+            background: rgba(147, 51, 234, 0.4);
             border-color: var(--pink-neon);
-            box-shadow: 0 0 25px var(--pink-neon), inset 0 0 15px var(--purple-neon);
+            box-shadow: 0 0 30px var(--pink-neon), inset 0 0 10px var(--purple-neon);
         }
 
-        .destination-card.locked {
+        .select-bar span {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        .arrow-icon {
+            font-size: 1rem;
+            color: var(--cyan-neon);
+            transition: transform 0.3s ease;
+            text-shadow: 0 0 8px var(--cyan-neon);
+        }
+
+        .dropdown-menu-wrapper.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Lista de Locais que aparece ao Clicar */
+        .options-container {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 100%;
+            background: rgba(11, 2, 20, 0.95);
+            border: 2px solid var(--purple-neon);
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 25px rgba(147, 51, 234, 0.4);
+            z-index: 10;
+        }
+
+        .dropdown-menu-wrapper.active .options-container {
+            max-height: 300px;
+            opacity: 1;
+        }
+
+        .option-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(147, 51, 234, 0.2);
+            transition: background 0.2s, padding-left 0.2s;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .option-item:last-child {
+            border-bottom: none;
+        }
+
+        .option-item:hover:not(.locked) {
+            background: rgba(147, 51, 234, 0.4);
+            padding-left: 25px;
+            color: var(--cyan-neon);
+            text-shadow: 0 0 8px var(--cyan-neon);
+        }
+
+        .option-item.locked {
             opacity: 0.4;
             cursor: not-allowed;
-            border-color: #4b5563;
-        }
-
-        .card-tag {
-            font-family: 'VT323', monospace;
-            font-size: 1.2rem;
-            color: var(--cyan-neon);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .destination-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            color: #fff;
-        }
-
-        .destination-card p {
-            font-size: 0.85rem;
-            color: #d8b4fe;
+            color: #6b7280;
         }
 
         /* Rodapé */
@@ -173,61 +204,61 @@
 
     <header class="hero-header">
         <h1 class="logo-xkmix">XKMIX</h1>
-        <p class="subtitle">SELECT YOUR DESTINATION // 1984</p>
     </header>
 
     <main class="main-container">
-        <section class="menu-section">
-            <h2 class="section-title">LOCALIZAÇÕES DISPONÍVEIS</h2>
-            
-            <div class="destinations-grid">
-                <!-- Item Ponta de Pedra -->
-                <div class="destination-card" data-url="ponta-de-pedra/index.html">
-                    <div class="card-content">
-                        <span class="card-tag">ZONA 01</span>
-                        <h3>Ponta de Pedra</h3>
-                        <p>Acessar setor costeiro...</p>
-                    </div>
-                </div>
-
-                <!-- Locais futuros -->
-                <div class="destination-card locked" data-url="#">
-                    <div class="card-content">
-                        <span class="card-tag">ZONA 02</span>
-                        <h3>Downtown (Em breve)</h3>
-                        <p>Bloqueado...</p>
-                    </div>
-                </div>
-
-                <div class="destination-card locked" data-url="#">
-                    <div class="card-content">
-                        <span class="card-tag">ZONA 03</span>
-                        <h3>Ocean Drive (Em breve)</h3>
-                        <p>Bloqueado...</p>
-                    </div>
-                </div>
+        <!-- Barra de Seleção Central -->
+        <div class="dropdown-menu-wrapper" id="dropdownWrapper">
+            <div class="select-bar" id="selectBar">
+                <span id="selectedText">SELECIONAR LOCAL</span>
+                <span class="arrow-icon">▼</span>
             </div>
-        </section>
+
+            <div class="options-container">
+                <div class="option-item" data-url="ponta-de-pedra/index.html">Ponta de Pedra</div>
+                <div class="option-item locked" data-url="#">Downtown (Em breve)</div>
+                <div class="option-item locked" data-url="#">Ocean Drive (Em breve)</div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
-        <p>&copy; 1984 XKMIX CORP. ALL RIGHTS RESERVED.</p>
+        <p>&copy; XKMIX CORP.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.destination-card');
+            const wrapper = document.getElementById('dropdownWrapper');
+            const selectBar = document.getElementById('selectBar');
+            const options = document.querySelectorAll('.option-item');
+            const selectedText = document.getElementById('selectedText');
 
-            cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    if (card.classList.contains('locked')) {
-                        card.style.transform = 'scale(0.98)';
-                        setTimeout(() => { card.style.transform = 'scale(1)'; }, 150);
+            // Abre e fecha o menu ao clicar na barra
+            selectBar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                wrapper.classList.toggle('active');
+            });
+
+            // Fecha o menu se clicar fora dele
+            document.addEventListener('click', () => {
+                wrapper.classList.remove('active');
+            });
+
+            // Ação ao selecionar um local
+            options.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    
+                    if (option.classList.contains('locked')) {
+                        option.style.transform = 'scale(0.98)';
+                        setTimeout(() => { option.style.transform = 'scale(1)'; }, 150);
                         return;
                     }
 
-                    const targetUrl = card.getAttribute('data-url');
-                    
+                    const targetUrl = option.getAttribute('data-url');
+                    selectedText.textContent = option.textContent;
+                    wrapper.classList.remove('active');
+
                     if (targetUrl && targetUrl !== '#') {
                         document.body.style.transition = 'opacity 0.4s ease';
                         document.body.style.opacity = '0';
