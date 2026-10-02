@@ -130,14 +130,13 @@ header h1 {
 
 /* Caixa de Alerta de Diferença */
 .diff-box {
-    padding: 10px;
-    text-align: center;
+    padding: 12px;
     border-radius: 4px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    font-weight: bold;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    line-height: 1.4;
 }
-.diff-box.neutral { background: #151b26; color: #8a99ad; border: 1px solid #233044; }
+.diff-box.neutral { background: #151b26; color: #8a99ad; border: 1px solid #233044; text-align: center; }
 .diff-box.success { background: rgba(0, 255, 100, 0.15); color: #00ff66; border: 1px solid #00ff66; }
 .diff-box.danger { background: rgba(255, 51, 102, 0.15); color: #ff3366; border: 1px solid #ff3366; }
 
