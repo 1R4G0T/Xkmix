@@ -16,10 +16,29 @@
         <p class="subtitle">// PONTA DE PEDRA - CONTROLO OPERACIONAL //</p>
     </header>
 
-    <!-- Barra de Progresso Dinâmica -->
+    <!-- Identificação do Responsável -->
+    <div class="user-box">
+        <label for="responsavel">NOME DO RESPONSÁVEL:</label>
+        <input type="text" id="responsavel" placeholder="Digite o seu nome completo...">
+    </div>
+
+    <!-- Menu de Seleção de Turno e Setor -->
+    <div class="turn-selector-container">
+        <h3>SELECIONE O TURNO E SETOR:</h3>
+        <div class="turn-buttons-grid">
+            <button class="turn-btn active" data-target="abertura-salao">☀️ Abertura - Salão</button>
+            <button class="turn-btn" data-target="abertura-recepcao">☀️ Abertura - Recepção</button>
+            <button class="turn-btn" data-target="abertura-cozinha">☀️ Abertura - Cozinha</button>
+            <button class="turn-btn" data-target="fechamento-salao">🌙 Fechamento - Salão</button>
+            <button class="turn-btn" data-target="fechamento-recepcao">🌙 Fechamento - Recepção</button>
+            <button class="turn-btn" data-target="fechamento-cozinha">🌙 Fechamento - Cozinha</button>
+        </div>
+    </div>
+
+    <!-- Barra de Progresso Dinâmica (Atenta à lista ativa) -->
     <div class="progress-container">
         <div class="progress-info">
-            <span>PROGRESSO DA TAREFA</span>
+            <span id="activeListTitle">PROGRESSO: ABERTURA - SALÃO</span>
             <span id="progressText">0% (0 / 0)</span>
         </div>
         <div class="progress-bar-bg">
@@ -27,19 +46,12 @@
         </div>
     </div>
 
-    <!-- Identificação do Responsável -->
-    <div class="user-box">
-        <label for="responsavel">NOME DO RESPONSÁVEL:</label>
-        <input type="text" id="responsavel" placeholder="Digite o seu nome completo...">
-    </div>
-
-    <!-- Estrutura dividida entre Salão, Recepção e Cozinha -->
+    <!-- Estrutura das Listas (Alternam entre visível e oculto) -->
     <div class="checklist-wrapper">
 
-        <!-- SALÃO -->
-        <section>
-            <h2>📍 SALÃO</h2>
-            
+        <!-- 1. ABERTURA - SALÃO -->
+        <section id="abertura-salao" class="checklist-section active-section">
+            <h2>📍 ABERTURA - SALÃO</h2>
             <h3 class="subsection-title">Abertura e Ambiente</h3>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Salgados abastecidos no expositor</label>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Expositores organizados e limpos</label>
@@ -68,9 +80,9 @@
             <label class="checklist-item"><input type="checkbox" class="check-task"> Self-service limpo e bebidas abastecidas</label>
         </section>
 
-        <!-- RECEPÇÃO / CAIXA -->
-        <section>
-            <h2>💻 RECEPÇÃO / CAIXA</h2>
+        <!-- 2. ABERTURA - RECEPÇÃO -->
+        <section id="abertura-recepcao" class="checklist-section">
+            <h2>💻 ABERTURA - RECEPÇÃO / CAIXA</h2>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Maquinetas ligadas</label>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Notebook / Caixa ligado</label>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Sistema funcionando</label>
@@ -79,10 +91,9 @@
             <label class="checklist-item"><input type="checkbox" class="check-task"> Troco conferido</label>
         </section>
 
-        <!-- COZINHA (SORVETERIA) -->
-        <section>
-            <h2>🍳 COZINHA</h2>
-            
+        <!-- 3. ABERTURA - COZINHA -->
+        <section id="abertura-cozinha" class="checklist-section">
+            <h2>🍳 ABERTURA - COZINHA</h2>
             <h3 class="subsection-title">Organização e Limpeza Inicial</h3>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Cozinha organizada e limpa</label>
             <label class="checklist-item"><input type="checkbox" class="check-task"> Pia de operações organizada</label>
@@ -101,12 +112,46 @@
             <label class="checklist-item"><input type="checkbox" class="check-task"> Copos adesivados, colheres embaladas e tampas furadas</label>
         </section>
 
+        <!-- 4. FECHAMENTO - SALÃO -->
+        <section id="fechamento-salao" class="checklist-section">
+            <h2>📍 FECHAMENTO - SALÃO</h2>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Retirar produtos restantes do expositor e guardar</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar e higienizar expositores de salgados e sorvetes</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar iluminação de vitrines e equipamentos desnecessários</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar mesas, cadeiras e organizar o salão</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer e lavar o piso do salão</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Recolher o lixo, colocar em sacos fechados e levar para a lixeira externa</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar e organizar o banheiro (repor papel se necessário para o dia seguinte)</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Fechar portas, janelas e verificar trancas</label>
+        </section>
+
+        <!-- 5. FECHAMENTO - RECEPÇÃO -->
+        <section id="fechamento-recepcao" class="checklist-section">
+            <h2>💻 FECHAMENTO - RECEPÇÃO / CAIXA</h2>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Conferir o caixa (fechamento de caixa / sangria)</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar o notebook / terminal de caixa</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar maquinetas de cartão da tomada</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Organizar balcão de atendimento</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Conferir relatórios de vendas do dia</label>
+        </section>
+
+        <!-- 6. FECHAMENTO - COZINHA -->
+        <section id="fechamento-cozinha" class="checklist-section">
+            <h2>🍳 FECHAMENTO - COZINHA</h2>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Lavar todos os utensílios, panelas e recipientes usados</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Higienizar bancadas, pias e mesa de operações</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Guardar sobras de frutas e insumos devidamente identificados na geladeira</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar micro-ondas e equipamentos da cozinha</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer e lavar o piso da cozinha</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Esvaziar o lixo da cozinha e higienizar a lixeira</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Certificar-se de que todas as geladeiras e freezers estão bem fechadas</label>
+        </section>
+
     </div>
 
     <!-- Botão Enviar WhatsApp -->
     <div class="action-container">
         <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR CHECK-LIST PARA O WHATSAPP 📲</button>
-        <!-- Caminho corrigido com "../" para voltar ao PDP.html -->
         <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
     </div>
 
