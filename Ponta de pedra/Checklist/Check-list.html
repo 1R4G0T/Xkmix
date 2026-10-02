@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Check-list Operacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="checklist.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>CHECK-LIST DIÁRIO</h1>
+        <p class="subtitle">// PONTA DE PEDRA - CONTROLO OPERACIONAL //</p>
+    </header>
+
+    <!-- Barra de Progresso Dinâmica -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>PROGRESSO DA TAREFA</span>
+            <span id="progressText">0% (0 / 0)</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+    </div>
+
+    <!-- Identificação do Responsável -->
+    <div class="user-box">
+        <label for="responsavel">NOME DO RESPONSÁVEL:</label>
+        <input type="text" id="responsavel" placeholder="Digite o seu nome completo...">
+    </div>
+
+    <!-- Estrutura dividida entre Salão, Recepção e Cozinha -->
+    <div class="checklist-wrapper">
+
+        <!-- SALÃO -->
+        <section>
+            <h2>📍 SALÃO</h2>
+            
+            <h3 class="subsection-title">Abertura e Ambiente</h3>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Salgados abastecidos no expositor</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Expositores organizados e limpos</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Cardápio visível</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Iluminação ligada</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Música ligada</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Calçada varrida</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Mesas e cadeiras limpas</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Piso limpo</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Balcão limpo</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Lixeiras com saco</label>
+
+            <h3 class="subsection-title">Banheiro</h3>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Papel higiénico abastecido</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Papel toalha abastecido</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Piso limpo</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Pia limpa</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Vaso limpo com pedra perfumada</label>
+
+            <h3 class="subsection-title">Higiene e Apresentação</h3>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Uniforme limpo</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Álcool gel disponível</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Freezer organizada e sabores identificados</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Utensílios e complementos abastecidos</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Cremes e leite condensado expostos/coberturas limpas</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Self-service limpo e bebidas abastecidas</label>
+        </section>
+
+        <!-- RECEPÇÃO / CAIXA -->
+        <section>
+            <h2>💻 RECEPÇÃO / CAIXA</h2>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Maquinetas ligadas</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Notebook / Caixa ligado</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Sistema funcionando</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Internet funcionando</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Impressora com papel</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Troco conferido</label>
+        </section>
+
+        <!-- COZINHA (SORVETERIA) -->
+        <section>
+            <h2>🍳 COZINHA</h2>
+            
+            <h3 class="subsection-title">Organização e Limpeza Inicial</h3>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Cozinha organizada e limpa</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Pia de operações organizada</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Geladeiras organizadas</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Utensílios limpos e organizados</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Micro-ondas limpo e ligado</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Quartinho organizado</label>
+
+            <h3 class="subsection-title">Abastecimento e Produtos</h3>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Mesa de operações abastecida</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Leite condensado cheio</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Frutas cortadas</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Bancada de milk-shake pronta</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Sorvetes conferidos e cremes fechados/emborcados</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Salgados prontos</label>
+            <label class="checklist-item"><input type="checkbox" class="check-task"> Copos adesivados, colheres embaladas e tampas furadas</label>
+        </section>
+
+    </div>
+
+    <!-- Botão Enviar WhatsApp -->
+    <div class="action-container">
+        <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR CHECK-LIST PARA O WHATSAPP 📲</button>
+        <a href="PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+    </div>
+
+    <script src="checklist.js"></script>
+</body>
+</html>
