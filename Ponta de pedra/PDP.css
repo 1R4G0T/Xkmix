@@ -56,11 +56,11 @@ body {
 /* Header & Título XKMIX */
 .hero-header {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 40px;
 }
 
 .logo-xkmix {
-    font-size: clamp(3.5rem, 10vw, 6.5rem);
+    font-size: clamp(3.5rem, 10vw, 6rem);
     font-weight: 900;
     background: linear-gradient(180deg, #ffffff 0%, var(--pink-neon) 50%, var(--purple-neon) 100%);
     -webkit-background-clip: text;
@@ -139,7 +139,7 @@ body {
     transform: rotate(180deg);
 }
 
-/* Container de Opções (Abas) */
+/* Container de Opções */
 .options-container {
     position: absolute;
     top: calc(100% + 10px);
