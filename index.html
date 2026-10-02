@@ -4,9 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XKMIX - Neon District</title>
-    <!-- Importação da fonte retro/arcade -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset e Variáveis de Cores Neon */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0b0214;
+            --purple-main: #3b0764;
+            --purple-neon: #9333ea;
+            --pink-neon: #ec4899;
+            --cyan-neon: #06b6d4;
+            --text-light: #f3e8ff;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Efeito de Tubo de Antiga TV / Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .glow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(147, 51, 234, 0.15) 0%, rgba(11, 2, 20, 0.8) 90%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header & Título XKMIX */
+        .hero-header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .logo-xkmix {
+            font-size: clamp(4rem, 10vw, 7rem);
+            font-weight: 900;
+            background: linear-gradient(180deg, #ffffff 0%, var(--pink-neon) 50%, var(--purple-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(236, 72, 153, 0.6), 0 0 60px rgba(147, 51, 234, 0.4);
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: var(--cyan-neon);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--cyan-neon);
+        }
+
+        /* Container Principal */
+        .main-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            border-bottom: 2px solid var(--purple-neon);
+            padding-bottom: 10px;
+            box-shadow: 0 4px 10px -4px var(--purple-neon);
+        }
+
+        /* Grid de Destinos */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .destination-card {
+            background: rgba(59, 7, 100, 0.4);
+            border: 2px solid var(--purple-neon);
+            border-radius: 8px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.2);
+        }
+
+        .destination-card:hover:not(.locked) {
+            transform: translateY(-5px);
+            background: rgba(147, 51, 234, 0.3);
+            border-color: var(--pink-neon);
+            box-shadow: 0 0 25px var(--pink-neon), inset 0 0 15px var(--purple-neon);
+        }
+
+        .destination-card.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #4b5563;
+        }
+
+        .card-tag {
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            color: var(--cyan-neon);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .destination-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .destination-card p {
+            font-size: 0.85rem;
+            color: #d8b4fe;
+        }
+
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            color: #6b7280;
+            letter-spacing: 2px;
+        }
+    </style>
 </head>
 <body>
     <div class="scanlines"></div>
@@ -29,17 +188,15 @@
                         <h3>Ponta de Pedra</h3>
                         <p>Acessar setor costeiro...</p>
                     </div>
-                    <div class="neon-border"></div>
                 </div>
 
-                <!-- Exemplo de outros locais futuros (opcional) -->
+                <!-- Locais futuros -->
                 <div class="destination-card locked" data-url="#">
                     <div class="card-content">
                         <span class="card-tag">ZONA 02</span>
                         <h3>Downtown (Em breve)</h3>
                         <p>Bloqueado...</p>
                     </div>
-                    <div class="neon-border"></div>
                 </div>
 
                 <div class="destination-card locked" data-url="#">
@@ -48,7 +205,6 @@
                         <h3>Ocean Drive (Em breve)</h3>
                         <p>Bloqueado...</p>
                     </div>
-                    <div class="neon-border"></div>
                 </div>
             </div>
         </section>
@@ -58,6 +214,31 @@
         <p>&copy; 1984 XKMIX CORP. ALL RIGHTS RESERVED.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.destination-card');
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    if (card.classList.contains('locked')) {
+                        card.style.transform = 'scale(0.98)';
+                        setTimeout(() => { card.style.transform = 'scale(1)'; }, 150);
+                        return;
+                    }
+
+                    const targetUrl = card.getAttribute('data-url');
+                    
+                    if (targetUrl && targetUrl !== '#') {
+                        document.body.style.transition = 'opacity 0.4s ease';
+                        document.body.style.opacity = '0';
+
+                        setTimeout(() => {
+                            window.location.href = targetUrl;
+                        }, 400);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
