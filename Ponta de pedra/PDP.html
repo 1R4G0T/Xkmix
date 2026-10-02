@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XKMIX - Ponta de Pedra</title>
+    <!-- Importação das fontes -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- Ligação correta para o CSS separado -->
+    <link rel="stylesheet" href="PDP.css">
 </head>
 <body>
     <div class="scanlines"></div>
@@ -17,7 +19,7 @@
     </header>
 
     <main class="main-container">
-        <!-- Barra de Seleção de Abas Central -->
+        <!-- Barra de Seleção de Setores -->
         <div class="dropdown-menu-wrapper" id="dropdownWrapper">
             <div class="select-bar" id="selectBar">
                 <span id="selectedText">SELECIONAR SETOR</span>
@@ -25,17 +27,17 @@
             </div>
 
             <div class="options-container">
-                <div class="option-item" data-url="../estoque/index.html">Estoque</div>
-                <div class="option-item" data-url="../pedido-sorvete/index.html">Pedido de Sorvete</div>
-                <div class="option-item" data-url="../pedidos/index.html">Pedidos</div>
-                <div class="option-item" data-url="../regras/index.html">Regras e Orientações</div>
-                <div class="option-item" data-url="../checklist/index.html">Check-list</div>
-                <div class="option-item" data-url="../validade/index.html">Registro de Validade</div>
+                <div class="option-item" data-url="estoque.html">Estoque</div>
+                <div class="option-item" data-url="pedido-sorvete.html">Pedido de Sorvete</div>
+                <div class="option-item" data-url="pedidos.html">Pedidos</div>
+                <div class="option-item" data-url="regras.html">Regras e Orientações</div>
+                <div class="option-item" data-url="checklist.html">Check-list</div>
+                <div class="option-item" data-url="validade.html">Registro de Validade</div>
             </div>
         </div>
 
-        <!-- Botão para voltar ao Menu Principal -->
         <div class="back-home-container">
+            <!-- Retorna à raiz do projeto -->
             <a href="../index.html" class="back-btn">&larr; VOLTAR AO MENU PRINCIPAL</a>
         </div>
     </main>
@@ -44,6 +46,7 @@
         <p>&copy; XKMIX CORP.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Ligação para o JavaScript separado -->
+    <script src="PDP.js"></script>
 </body>
 </html>
