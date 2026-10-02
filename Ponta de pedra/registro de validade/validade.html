@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Controle de Validade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="validade.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>CONTROLE DE VALIDADE</h1>
+        <p class="subtitle">// PONTA DE PEDRA - GESTÃO DE ESTOQUE //</p>
+    </header>
+
+    <!-- Formulário para Adicionar / Atualizar Item -->
+    <div class="form-container">
+        <h3>ADICIONAR / ATUALIZAR ITEM</h3>
+        <form id="itemForm">
+            <input type="hidden" id="itemIndex" value="">
+            <div class="input-group">
+                <label for="itemName">Nome do Item:</label>
+                <input type="text" id="itemName" placeholder="Ex: Polpa de Morango, Leite Condensado..." required>
+            </div>
+            <div class="input-group">
+                <label for="itemQty">Quantidade:</label>
+                <input type="text" id="itemQty" placeholder="Ex: 10 unidades, 5kg..." required>
+            </div>
+            <div class="input-group">
+                <label for="itemDate">Data de Validade:</label>
+                <input type="date" id="itemDate" required>
+            </div>
+            <button type="submit" class="save-btn" id="saveBtn">SALVAR ITEM 💾</button>
+        </form>
+    </div>
+
+    <!-- Tabela de Registros -->
+    <div class="table-container">
+        <div class="table-header-info">
+            <h3>ITENS CADASTRADOS</h3>
+            <span class="legend-info">
+                <span class="dot red"></span> Vencido / Vence Hoje
+                <span class="dot yellow"></span> Vence em até 5 dias
+                <span class="dot green"></span> No prazo
+            </span>
+        </div>
+        
+        <div class="table-responsive">
+            <table id="validityTable">
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>QUANTIDADE</th>
+                        <th>VALIDADE</th>
+                        <th>STATUS</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Ações e WhatsApp -->
+    <div class="action-container">
+        <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR RELATÓRIO PARA O WHATSAPP 📲</button>
+        <a href="PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+    </div>
+
+    <script src="validade.js"></script>
+</body>
+</html>
