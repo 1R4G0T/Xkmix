@@ -81,7 +81,7 @@
             font-size: 1.1rem;
         }
 
-        .input-group input, .input-group textarea, .input-group select {
+        .input-group input, .input-group textarea {
             width: 100%;
             background: #0b0f17;
             border: 1px solid rgba(0, 255, 204, 0.4);
@@ -133,26 +133,6 @@
         }
         .add-sangria-btn:hover {
             background: rgba(0, 255, 204, 0.1);
-        }
-
-        .diff-box {
-            padding: 12px;
-            border-radius: 4px;
-            font-family: 'VT323', monospace;
-            font-size: 1.3rem;
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
-        .diff-box.neutral { background: #151b26; color: #8a99ad; border: 1px solid #233044; text-align: center; }
-        .diff-box.success { background: rgba(0, 255, 100, 0.15); color: #00ff66; border: 1px solid #00ff66; }
-        .diff-box.danger { background: rgba(255, 51, 102, 0.15); color: #ff3366; border: 1px solid #ff3366; }
-
-        .manual-override-container {
-            background: #0f1523;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            margin-top: 10px;
         }
 
         .action-container {
@@ -257,37 +237,20 @@
             </div>
         </div>
 
-<!-- 4. OBSERVAÇÕES E DIFERENÇA -->
+        <!-- 4. SOBRAS OU FALTAS E OBSERVAÇÃO -->
         <div class="section-box">
             <h3>⚠️ CONFERÊNCIA (Sobra / Falta)</h3>
-            <div id="diffAlertBox" class="diff-box neutral">
-                Aguardando valores para cálculo...
+            <div class="input-group">
+                <label for="manDinheiro">Diferença Dinheiro (Ex: 5.00 ou -2.00):</label>
+                <input type="number" id="manDinheiro" step="0.01" placeholder="0.00">
             </div>
-            
-            <div class="manual-override-container">
-                <label style="color: #00ffcc; font-size: 1rem; margin-bottom: 5px; display:block;">Deseja ajustar/anotar a diferença manualmente?</label>
-                <div class="input-group">
-                    <label for="manualDiffSelect">Modo de Apuração:</label>
-                    <select id="manualDiffSelect">
-                        <option value="auto">Automático (Padrão)</option>
-                        <option value="manual">Manual (Digitar valores abaixo)</option>
-                    </select>
-                </div>
-                <!-- ID CORRIGIDO AQUI PARA APARECER QUANDO SELECIONAR MANUAL -->
-                <div id="manualInputsGroup" style="display: none; margin-top: 10px;">
-                    <div class="input-group">
-                        <label for="manDinheiro">Diferença Dinheiro (Ex: 5.00 ou -2.00):</label>
-                        <input type="number" id="manDinheiro" step="0.01" placeholder="0.00">
-                    </div>
-                    <div class="input-group">
-                        <label for="manPix">Diferença PIX:</label>
-                        <input type="number" id="manPix" step="0.01" placeholder="0.00">
-                    </div>
-                    <div class="input-group">
-                        <label for="manCartao">Diferença Cartão:</label>
-                        <input type="number" id="manCartao" step="0.01" placeholder="0.00">
-                    </div>
-                </div>
+            <div class="input-group">
+                <label for="manPix">Diferença PIX:</label>
+                <input type="number" id="manPix" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="manCartao">Diferença Cartão:</label>
+                <input type="number" id="manCartao" step="0.01" placeholder="0.00">
             </div>
 
             <div class="input-group" style="margin-top: 15px;">
