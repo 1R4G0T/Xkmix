@@ -13,9 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const maqDebito = document.getElementById('maqDebito');
     const maqPix = document.getElementById('maqPix');
 
-    const diffAlertBox = document.getElementById('diffAlertBox');
-    const manualDiffSelect = document.getElementById('manualDiffSelect');
-    const manualInputsGroup = document.getElementById('manualInputsGroup');
     const manDinheiro = document.getElementById('manDinheiro');
     const manPix = document.getElementById('manPix');
     const manCartao = document.getElementById('manCartao');
@@ -26,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let userEditedProximoDia = false;
 
-    // Preenchimento automático do Caixa do Dia Seguinte (Troco)
+    // Ajudinha automática para preencher o troco do dia seguinte, editável se quiser
     function autoPreencherProximoDia() {
         if (userEditedProximoDia) return;
         const totalDia = parseFloat(caixaDinheiroDia.value) || 0;
@@ -43,12 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (caixaDinheiroDia) caixaDinheiroDia.addEventListener('input', () => { autoPreencherProximoDia(); calcularDiferenca(); });
-    if (caixaEnvelope) caixaEnvelope.addEventListener('input', () => { autoPreencherProximoDia(); calcularDiferenca(); });
+    if (caixaDinheiroDia) caixaDinheiroDia.addEventListener('input', autoPreencherProximoDia);
+    if (caixaEnvelope) caixaEnvelope.addEventListener('input', autoPreencherProximoDia);
     if (caixaProximoDia) {
         caixaProximoDia.addEventListener('input', () => {
             userEditedProximoDia = true;
-            calcularDiferenca();
         });
     }
 
@@ -65,108 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
             div.querySelector('.remove-sangria').addEventListener('click', () => {
                 div.remove();
                 autoPreencherProximoDia();
-                calcularDiferenca();
             });
 
-            div.querySelector('.sangria-val').addEventListener('input', () => {
-                autoPreencherProximoDia();
-                calcularDiferenca();
-            });
+            div.querySelector('.sangria-val').addEventListener('input', autoPreencherProximoDia);
         });
     }
-
-    // Controlar a exibição dos inputs manuais
-    if (manualDiffSelect) {
-        manualDiffSelect.addEventListener('change', () => {
-            if (manualDiffSelect.value === 'manual') {
-                manualInputsGroup.style.display = 'block';
-            } else {
-                manualInputsGroup.style.display = 'none';
-            }
-            calcularDiferenca();
-        });
-    }
-
-    function calcularDiferenca() {
-        const sDinheiro = parseFloat(sysDinheiro.value) || 0;
-        const sPix = parseFloat(sysPix.value) || 0;
-        const sCartao = parseFloat(sysCartao.value) || 0;
-
-        let diffDinheiro = 0;
-        let diffPix = 0;
-        let diffCartao = 0;
-
-        if (manualDiffSelect && manualDiffSelect.value === 'manual') {
-            diffDinheiro = parseFloat(manDinheiro.value) || 0;
-            diffPix = parseFloat(manPix.value) || 0;
-            diffCartao = parseFloat(manCartao.value) || 0;
-        } else {
-            // Dinheiro do Caixa Físico (Envelope + Proximo Dia + Sangrias) subtraído do Sistema
-            const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
-            const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
-            let totalSangrias = 0;
-            document.querySelectorAll('.sangria-val').forEach(input => {
-                totalSangrias += parseFloat(input.value) || 0;
-            });
-            const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
-
-            // Cartões das maquinetas (Débito + Crédito) subtraído do Sistema Cartão
-            const mCredito = parseFloat(maqCredito.value) || 0;
-            const mDebito = parseFloat(maqDebito.value) || 0;
-            const totalCartaoMaquinetas = mCredito + mDebito;
-
-            const mPix = parseFloat(maqPix.value) || 0;
-
-            diffDinheiro = totalDinheiroFisico - sDinheiro;
-            diffPix = mPix - sPix;
-            diffCartao = totalCartaoMaquinetas - sCartao;
-        }
-
-        const hasValues = sysDinheiro.value || sysPix.value || sysCartao.value || caixaEnvelope.value || caixaProximoDia.value || maqCredito.value || maqDebito.value || maqPix.value || (manualDiffSelect.value === 'manual');
-
-        if (!hasValues) {
-            diffAlertBox.className = 'diff-box neutral';
-            diffAlertBox.innerHTML = 'Aguardando valores para cálculo...';
-            return;
-        }
-
-        let html = `<strong>RESULTADO DA CONFERÊNCIA:</strong><br>`;
-        let allZero = true;
-
-        if (Math.abs(diffDinheiro) >= 0.01) {
-            allZero = false;
-            html += `• Dinheiro: ${diffDinheiro > 0 ? 'Sobrou' : 'Faltou'} R$ ${Math.abs(diffDinheiro).toFixed(2)}<br>`;
-        } else {
-            html += `• Dinheiro: Exato<br>`;
-        }
-
-        if (Math.abs(diffPix) >= 0.01) {
-            allZero = false;
-            html += `• PIX: ${diffPix > 0 ? 'Sobrou' : 'Faltou'} R$ ${Math.abs(diffPix).toFixed(2)}<br>`;
-        } else {
-            html += `• PIX: Exato<br>`;
-        }
-
-        if (Math.abs(diffCartao) >= 0.01) {
-            allZero = false;
-            html += `• Cartão: ${diffCartao > 0 ? 'Sobrou' : 'Faltou'} R$ ${Math.abs(diffCartao).toFixed(2)}`;
-        } else {
-            html += `• Cartão: Exato`;
-        }
-
-        if (allZero) {
-            diffAlertBox.className = 'diff-box success';
-            diffAlertBox.innerHTML = '✅ CAIXA 100% BATEU EXATO EM TUDO!';
-        } else {
-            diffAlertBox.className = 'diff-box danger';
-            diffAlertBox.innerHTML = html;
-        }
-    }
-
-    const inputsToWatch = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaEnvelope, caixaProximoDia, maqCredito, maqDebito, maqPix, manDinheiro, manPix, manCartao];
-    inputsToWatch.forEach(input => {
-        if (input) input.addEventListener('input', calcularDiferenca);
-    });
 
     if (sendWhatsappBtn) {
         sendWhatsappBtn.addEventListener('click', () => {
@@ -192,21 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const mDebito = parseFloat(maqDebito.value) || 0;
             const mPix = parseFloat(maqPix.value) || 0;
 
-            let diffDinheiro = 0;
-            let diffPix = 0;
-            let diffCartao = 0;
-
-            if (manualDiffSelect && manualDiffSelect.value === 'manual') {
-                diffDinheiro = parseFloat(manDinheiro.value) || 0;
-                diffPix = parseFloat(manPix.value) || 0;
-                diffCartao = parseFloat(manCartao.value) || 0;
-            } else {
-                const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
-                const totalCartaoMaquinetas = mCredito + mDebito;
-                diffDinheiro = totalDinheiroFisico - sDinheiro;
-                diffPix = mPix - sPix;
-                diffCartao = totalCartaoMaquinetas - sCartao;
-            }
+            // Valores informados manualmente para sobra/falta
+            const diffDinheiro = parseFloat(manDinheiro.value) || 0;
+            const diffPix = parseFloat(manPix.value) || 0;
+            const diffCartao = parseFloat(manCartao.value) || 0;
 
             let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
             mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
