@@ -14,9 +14,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const maqPix = document.getElementById('maqPix');
 
     const diffAlertBox = document.getElementById('diffAlertBox');
+    const manualDiffSelect = document.getElementById('manualDiffSelect');
+    const manualInputsGroup = document.getElementById('manualInputsGroup');
+    const manDinheiro = document.getElementById('manDinheiro');
+    const manPix = document.getElementById('manPix');
+    const manCartao = document.getElementById('manCartao');
+
     const obsText = document.getElementById('obsText');
     const psText = document.getElementById('psText');
     const sendWhatsappBtn = document.getElementById('sendWhatsapp');
+
+    let userEditedProximoDia = false;
+
+    // Preenchimento automático do Caixa do Dia Seguinte (Troco)
+    function autoPreencherProximoDia() {
+        if (userEditedProximoDia) return;
+        const totalDia = parseFloat(caixaDinheiroDia.value) || 0;
+        const envelope = parseFloat(caixaEnvelope.value) || 0;
+        
+        let totalSangrias = 0;
+        document.querySelectorAll('.sangria-val').forEach(input => {
+            totalSangrias += parseFloat(input.value) || 0;
+        });
+
+        const restante = totalDia - envelope - totalSangrias;
+        if (restante >= 0) {
+            caixaProximoDia.value = restante.toFixed(2);
+        }
+    }
+
+    if (caixaDinheiroDia) caixaDinheiroDia.addEventListener('input', () => { autoPreencherProximoDia(); calcularDiferenca(); });
+    if (caixaEnvelope) caixaEnvelope.addEventListener('input', () => { autoPreencherProximoDia(); calcularDiferenca(); });
+    if (caixaProximoDia) {
+        caixaProximoDia.addEventListener('input', () => {
+            userEditedProximoDia = true; // Se o usuário alterar manualmente, respeitamos a digitação dele
+            calcularDiferenca();
+        });
+    }
 
     if (addSangriaBtn) {
         addSangriaBtn.addEventListener('click', () => {
@@ -30,10 +64,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             div.querySelector('.remove-sangria').addEventListener('click', () => {
                 div.remove();
+                autoPreencherProximoDia();
                 calcularDiferenca();
             });
 
-            div.querySelector('.sangria-val').addEventListener('input', calcularDiferenca);
+            div.querySelector('.sangria-val').addEventListener('input', () => {
+                autoPreencherProximoDia();
+                calcularDiferenca();
+            });
+        });
+    }
+
+    if (manualDiffSelect) {
+        manualDiffSelect.addEventListener('change', () => {
+            if (manualDiffSelect.value === 'manual') {
+                manualInputsGroup.style.display = 'block';
+            } else {
+                manualInputsGroup.style.display = 'none';
+            }
+            calcularDiferenca();
         });
     }
 
@@ -42,25 +91,38 @@ document.addEventListener('DOMContentLoaded', () => {
         const sPix = parseFloat(sysPix.value) || 0;
         const sCartao = parseFloat(sysCartao.value) || 0;
 
-        const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
-        const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
-        let totalSangrias = 0;
-        document.querySelectorAll('.sangria-val').forEach(input => {
-            totalSangrias += parseFloat(input.value) || 0;
-        });
-        const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
+        let diffDinheiro = 0;
+        let diffPix = 0;
+        let diffCartao = 0;
 
-        const mCredito = parseFloat(maqCredito.value) || 0;
-        const mDebito = parseFloat(maqDebito.value) || 0;
-        const totalCartaoMaquinetas = mCredito + mDebito;
+        if (manualDiffSelect && manualDiffSelect.value === 'manual') {
+            diffDinheiro = parseFloat(manDinheiro.value) || 0;
+            diffPix = parseFloat(manPix.value) || 0;
+            diffCartao = parseFloat(manCartao.value) || 0;
+        } else {
+            // Dinheiro do Caixa Físico (Envelope + Proximo Dia + Sangrias)
+            const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
+            const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
+            let totalSangrias = 0;
+            document.querySelectorAll('.sangria-val').forEach(input => {
+                totalSangrias += parseFloat(input.value) || 0;
+            });
+            const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
 
-        const mPix = parseFloat(maqPix.value) || 0;
+            // Cartões das maquinetas (Débito + Crédito)
+            const mCredito = parseFloat(maqCredito.value) || 0;
+            const mDebito = parseFloat(maqDebito.value) || 0;
+            const totalCartaoMaquinetas = mCredito + mDebito;
 
-        const diffDinheiro = totalDinheiroFisico - sDinheiro;
-        const diffPix = mPix - sPix;
-        const diffCartao = totalCartaoMaquinetas - sCartao;
+            const mPix = parseFloat(maqPix.value) || 0;
 
-        const hasValues = sysDinheiro.value || sysPix.value || sysCartao.value || caixaEnvelope.value || caixaProximoDia.value || maqCredito.value || maqDebito.value || maqPix.value;
+            // Regra solicitada: Caixa Físico menos Sistema para Dinheiro, e Maquinetas menos Sistema para Cartão/PIX
+            diffDinheiro = totalDinheiroFisico - sDinheiro;
+            diffPix = mPix - sPix;
+            diffCartao = totalCartaoMaquinetas - sCartao;
+        }
+
+        const hasValues = sysDinheiro.value || sysPix.value || sysCartao.value || caixaEnvelope.value || caixaProximoDia.value || maqCredito.value || maqDebito.value || maqPix.value || (manualDiffSelect.value === 'manual');
 
         if (!hasValues) {
             diffAlertBox.className = 'diff-box neutral';
@@ -101,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const inputsToWatch = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaEnvelope, caixaProximoDia, maqCredito, maqDebito, maqPix];
+    const inputsToWatch = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaEnvelope, caixaProximoDia, maqCredito, maqDebito, maqPix, manDinheiro, manPix, manCartao];
     inputsToWatch.forEach(input => {
         if (input) input.addEventListener('input', calcularDiferenca);
     });
@@ -130,12 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const mDebito = parseFloat(maqDebito.value) || 0;
             const mPix = parseFloat(maqPix.value) || 0;
 
-            const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
-            const totalCartaoMaquinetas = mCredito + mDebito;
+            let diffDinheiro = 0;
+            let diffPix = 0;
+            let diffCartao = 0;
 
-            const diffDinheiro = totalDinheiroFisico - sDinheiro;
-            const diffPix = mPix - sPix;
-            const diffCartao = totalCartaoMaquinetas - sCartao;
+            if (manualDiffSelect && manualDiffSelect.value === 'manual') {
+                diffDinheiro = parseFloat(manDinheiro.value) || 0;
+                diffPix = parseFloat(manPix.value) || 0;
+                diffCartao = parseFloat(manCartao.value) || 0;
+            } else {
+                const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
+                const totalCartaoMaquinetas = mCredito + mDebito;
+                diffDinheiro = totalDinheiroFisico - sDinheiro;
+                diffPix = mPix - sPix;
+                diffCartao = totalCartaoMaquinetas - sCartao;
+            }
 
             let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
             mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
