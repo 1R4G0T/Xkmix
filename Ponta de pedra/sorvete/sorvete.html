@@ -1,28 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido de Sorvetes</title>
-    <link rel="stylesheet" href="sorvete.css">
+    <title>XKMIX - Pedido de Sorvetes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Opções de Sorvetes</h1>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
 
-        <div class="add-flavor-section">
-            <input type="text" id="new-flavor" placeholder="Digite um novo sabor...">
-            <button type="button" id="add-btn">Adicionar Sabor</button>
+    <header>
+        <h1>PEDIDO DE SORVETES</h1>
+        <p class="subtitle">// XKMIX - GESTÃO DE ESTOQUE //</p>
+    </header>
+
+    <div class="form-container">
+        <!-- Secção para adicionar novo sabor -->
+        <div class="section-box">
+            <h3>➕ ADICIONAR NOVO SABOR</h3>
+            <div class="add-flavor-section">
+                <input type="text" id="new-flavor" placeholder="Digite um novo sabor...">
+                <button type="button" id="add-btn">INSERIR</button>
+            </div>
         </div>
 
-        <form id="ice-cream-form">
-            <!-- A lista de checkboxes será gerada aqui pelo JavaScript -->
-            <div class="flavors-grid" id="flavors-container"></div>
-            
-            <button type="submit" id="submit-btn">Enviar Pedido</button>
-        </form>
+        <!-- Lista de Sabores e Envio -->
+        <div class="section-box">
+            <h3>🍨 SELECIONAR SABORES</h3>
+            <form id="ice-cream-form">
+                <!-- A lista de checkboxes será gerada aqui pelo JS -->
+                <div class="flavors-grid" id="flavors-container"></div>
+                
+                <button type="submit" id="submit-btn" class="whatsapp-btn">ENVIAR PEDIDO 📲</button>
+            </form>
+        </div>
     </div>
 
-    <script src="sorvete.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
