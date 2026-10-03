@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             mensagem += `⚠ *CONFERÊNCIA (Diferenças):*\n`;
             mensagem += `• Dinheiro: ${diffDinheiro === 0 ? 'Exato' : (diffDinheiro > 0 ? `Sobrou R$ ${diffDinheiro.toFixed(2)}` : `Faltou R$ ${Math.abs(diffDinheiro).toFixed(2)}`)}\n`;
-            mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobro R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
+            mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
             mensagem += `• Cartão: ${diffCartao === 0 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
 
             if (obsText.value.trim()) {
@@ -132,9 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
             }
 
-            // Se quiser fixar um número, coloque aqui dentro (Ex: '5581999999999'). Se deixar vazio, escolhe na hora.
-            const telefone = ''; 
-
+            const telefone = ''; // Substitua pelo número real se necessário (ex: DDI + DDD + Número)
+            
             let urlWhatsApp;
             if (telefone.trim() !== '') {
                 urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
@@ -142,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
             }
 
-            // COMANDO ESSENCIAL QUE FALTAVA PARA ABRIR O WHATSAPP:
+            // COMANDO QUE ABRE O WHATSAPP COM A MENSAGEM PRONTA:
             window.open(urlWhatsApp, '_blank');
         });
     }
