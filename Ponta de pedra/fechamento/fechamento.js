@@ -69,13 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sendWhatsappBtn) {
         sendWhatsappBtn.addEventListener('click', () => {
-            const sDinheiro = parseFloat(sysDinheiro.value) || 0;
-            const sPix = parseFloat(sysPix.value) || 0;
-            const sCartao = parseFloat(sysCartao.value) || 0;
+            const sDinheiro = parseFloat(sysDinheiro?.value) || 0;
+            const sPix = parseFloat(sysPix?.value) || 0;
+            const sCartao = parseFloat(sysCartao?.value) || 0;
 
-            const cDinheiroDia = parseFloat(caixaDinheiroDia.value) || 0;
-            const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
-            const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
+            const cDinheiroDia = parseFloat(caixaDinheiroDia?.value) || 0;
+            const cEnvelope = parseFloat(caixaEnvelope?.value) || 0;
+            const cProximoDia = parseFloat(caixaProximoDia?.value) || 0;
 
             let totalSangrias = 0;
             let sangriasDesc = [];
@@ -87,13 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            const mCredito = parseFloat(maqCredito.value) || 0;
-            const mDebito = parseFloat(maqDebito.value) || 0;
-            const mPix = parseFloat(maqPix.value) || 0;
+            const mCredito = parseFloat(maqCredito?.value) || 0;
+            const mDebito = parseFloat(maqDebito?.value) || 0;
+            const mPix = parseFloat(maqPix?.value) || 0;
 
-            const diffDinheiro = parseFloat(manDinheiro.value) || 0;
-            const diffPix = parseFloat(manPix.value) || 0;
-            const diffCartao = parseFloat(manCartao.value) || 0;
+            const diffDinheiro = parseFloat(manDinheiro?.value) || 0;
+            const diffPix = parseFloat(manPix?.value) || 0;
+            const diffCartao = parseFloat(manCartao?.value) || 0;
 
             let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
             mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
@@ -123,30 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
             mensagem += `• Cartão: ${diffCartao === 0 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
 
-            if (obsText.value.trim()) {
+            if (obsText && obsText.value.trim()) {
                 mensagem += `• Obs: ${obsText.value.trim()}\n`;
             }
 
-            if (psText.value.trim()) {
+            if (psText && psText.value.trim()) {
                 mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
             }
 
-            const telefone = ''; 
-            
-            let urlWhatsApp;
-            if (telefone.trim() !== '') {
-                urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
-            } else {
-                urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-            }
+            const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
 
-            // Simula clique em link invisível para burlar bloqueadores de pop-up
-            const link = document.createElement('a');
-            link.href = urlWhatsApp;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            // Abre diretamente o WhatsApp para você conferir o texto gerado
+            window.open(urlWhatsApp, '_blank');
         });
     }
 });
