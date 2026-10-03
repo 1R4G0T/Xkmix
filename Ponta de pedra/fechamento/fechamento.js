@@ -18,29 +18,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const psText = document.getElementById('psText');
     const sendWhatsappBtn = document.getElementById('sendWhatsapp');
 
-    addSangriaBtn.addEventListener('click', () => {
-        const div = document.createElement('div');
-        div.className = 'sangria-item';
-        div.innerHTML = `
-            <input type="number" step="0.01" placeholder="Valor da sangria (R$)" class="sangria-val">
-            <button type="button" class="remove-sangria">X</button>
-        `;
-        sangriasList.appendChild(div);
+    if (addSangriaBtn) {
+        addSangriaBtn.addEventListener('click', () => {
+            const div = document.createElement('div');
+            div.className = 'sangria-item';
+            div.innerHTML = `
+                <input type="number" step="0.01" placeholder="Valor da sangria (R$)" class="sangria-val">
+                <button type="button" class="remove-sangria">X</button>
+            `;
+            sangriasList.appendChild(div);
 
-        div.querySelector('.remove-sangria').addEventListener('click', () => {
-            div.remove();
-            calcularDiferenca();
+            div.querySelector('.remove-sangria').addEventListener('click', () => {
+                div.remove();
+                calcularDiferenca();
+            });
+
+            div.querySelector('.sangria-val').addEventListener('input', calcularDiferenca);
         });
-
-        div.querySelector('.sangria-val').addEventListener('input', calcularDiferenca);
-    });
+    }
 
     function calcularDiferenca() {
         const sDinheiro = parseFloat(sysDinheiro.value) || 0;
         const sPix = parseFloat(sysPix.value) || 0;
         const sCartao = parseFloat(sysCartao.value) || 0;
 
-        // Físico Dinheiro Apurado = Envelope + Próximo Dia + Sangrias
         const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
         const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
         let totalSangrias = 0;
@@ -49,15 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
 
-        // Cartão Maquinetas = Crédito + Débito
         const mCredito = parseFloat(maqCredito.value) || 0;
         const mDebito = parseFloat(maqDebito.value) || 0;
         const totalCartaoMaquinetas = mCredito + mDebito;
 
-        // PIX Maquinetas
         const mPix = parseFloat(maqPix.value) || 0;
 
-        // Subtrações (Físico/Maquinetas - Sistema)
         const diffDinheiro = totalDinheiroFisico - sDinheiro;
         const diffPix = mPix - sPix;
         const diffCartao = totalCartaoMaquinetas - sCartao;
@@ -108,74 +106,76 @@ document.addEventListener('DOMContentLoaded', () => {
         if (input) input.addEventListener('input', calcularDiferenca);
     });
 
-    sendWhatsappBtn.addEventListener('click', () => {
-        const sDinheiro = parseFloat(sysDinheiro.value) || 0;
-        const sPix = parseFloat(sysPix.value) || 0;
-        const sCartao = parseFloat(sysCartao.value) || 0;
+    if (sendWhatsappBtn) {
+        sendWhatsappBtn.addEventListener('click', () => {
+            const sDinheiro = parseFloat(sysDinheiro.value) || 0;
+            const sPix = parseFloat(sysPix.value) || 0;
+            const sCartao = parseFloat(sysCartao.value) || 0;
 
-        const cDinheiroDia = parseFloat(caixaDinheiroDia.value) || 0;
-        const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
-        const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
+            const cDinheiroDia = parseFloat(caixaDinheiroDia.value) || 0;
+            const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
+            const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
 
-        let totalSangrias = 0;
-        let sangriasDesc = [];
-        document.querySelectorAll('.sangria-val').forEach((input, index) => {
-            const val = parseFloat(input.value) || 0;
-            if (val > 0) {
-                totalSangrias += val;
-                sangriasDesc.push(`  - Sangria ${index + 1}: R$ ${val.toFixed(2)}`);
+            let totalSangrias = 0;
+            let sangriasDesc = [];
+            document.querySelectorAll('.sangria-val').forEach((input, index) => {
+                const val = parseFloat(input.value) || 0;
+                if (val > 0) {
+                    totalSangrias += val;
+                    sangriasDesc.push(`  - Sangria ${index + 1}: R$ ${val.toFixed(2)}`);
+                }
+            });
+
+            const mCredito = parseFloat(maqCredito.value) || 0;
+            const mDebito = parseFloat(maqDebito.value) || 0;
+            const mPix = parseFloat(maqPix.value) || 0;
+
+            const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
+            const totalCartaoMaquinetas = mCredito + mDebito;
+
+            const diffDinheiro = totalDinheiroFisico - sDinheiro;
+            const diffPix = mPix - sPix;
+            const diffCartao = totalCartaoMaquinetas - sCartao;
+
+            let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
+            mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+
+            mensagem += `📊 *DADOS DO SISTEMA:*\n`;
+            mensagem += `• Dinheiro: R$ ${sDinheiro.toFixed(2)}\n`;
+            mensagem += `• PIX: R$ ${sPix.toFixed(2)}\n`;
+            mensagem += `• Cartão: R$ ${sCartao.toFixed(2)}\n\n`;
+
+            mensagem += `💵 *DADOS DO CAIXA:*\n`;
+            mensagem += `• Total Dinheiro do Dia: R$ ${cDinheiroDia.toFixed(2)}\n`;
+            mensagem += `• Dinheiro no Envelope: R$ ${cEnvelope.toFixed(2)}\n`;
+            mensagem += `• Caixa Dia Seguinte: R$ ${cProximoDia.toFixed(2)}\n`;
+            if (sangriasDesc.length > 0) {
+                mensagem += `• Sangrias (Total: R$ ${totalSangrias.toFixed(2)}):\n` + sangriasDesc.join('\n') + `\n`;
+            } else {
+                mensagem += `• Sangrias: R$ 0.00\n`;
             }
+
+            mensagem += `\n💳 *DADOS DAS MAQUINETAS:*\n`;
+            mensagem += `• Crédito: R$ ${mCredito.toFixed(2)}\n`;
+            mensagem += `• Débito: R$ ${mDebito.toFixed(2)}\n`;
+            mensagem += `• PIX Maquinetas: R$ ${mPix.toFixed(2)}\n\n`;
+
+            mensagem += `⚠ *CONFERÊNCIA (Diferenças):*\n`;
+            mensagem += `• Dinheiro: ${diffDinheiro === 0 ? 'Exato' : (diffDinheiro > 0 ? `Sobrou R$ ${diffDinheiro.toFixed(2)}` : `Faltou R$ ${Math.abs(diffDinheiro).toFixed(2)}`)}\n`;
+            mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
+            mensagem += `• Cartão: ${diffCartao === 0 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
+
+            if (obsText.value.trim()) {
+                mensagem += `• Obs: ${obsText.value.trim()}\n`;
+            }
+
+            if (psText.value.trim()) {
+                mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
+            }
+
+            const telefone = ''; 
+            const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
+            window.open(urlWhatsApp, '_blank');
         });
-
-        const mCredito = parseFloat(maqCredito.value) || 0;
-        const mDebito = parseFloat(maqDebito.value) || 0;
-        const mPix = parseFloat(maqPix.value) || 0;
-
-        const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
-        const totalCartaoMaquinetas = mCredito + mDebito;
-
-        const diffDinheiro = totalDinheiroFisico - sDinheiro;
-        const diffPix = mPix - sPix;
-        const diffCartao = totalCartaoMaquinetas - sCartao;
-
-        let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
-        mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
-
-        mensagem += `📊 *DADOS DO SISTEMA:*\n`;
-        mensagem += `• Dinheiro: R$ ${sDinheiro.toFixed(2)}\n`;
-        mensagem += `• PIX: R$ ${sPix.toFixed(2)}\n`;
-        mensagem += `• Cartão: R$ ${sCartao.toFixed(2)}\n\n`;
-
-        mensagem += `💵 *DADOS DO CAIXA:*\n`;
-        mensagem += `• Total Dinheiro do Dia: R$ ${cDinheiroDia.toFixed(2)}\n`;
-        mensagem += `• Dinheiro no Envelope: R$ ${cEnvelope.toFixed(2)}\n`;
-        mensagem += `• Caixa Dia Seguinte: R$ ${cProximoDia.toFixed(2)}\n`;
-        if (sangriasDesc.length > 0) {
-            mensagem += `• Sangrias (Total: R$ ${totalSangrias.toFixed(2)}):\n` + sangriasDesc.join('\n') + `\n`;
-        } else {
-            mensagem += `• Sangrias: R$ 0.00\n`;
-        }
-
-        mensagem += `\n💳 *DADOS DAS MAQUINETAS:*\n`;
-        mensagem += `• Crédito: R$ ${mCredito.toFixed(2)}\n`;
-        mensagem += `• Débito: R$ ${mDebito.toFixed(2)}\n`;
-        mensagem += `• PIX Maquinetas: R$ ${mPix.toFixed(2)}\n\n`;
-
-        mensagem += `⚠️️ *CONFERÊNCIA (Diferenças):*\n`;
-        mensagem += `• Dinheiro: ${diffDinheiro === 0 ? 'Exato' : (diffDinheiro > 0 ? `Sobrou R$ ${diffDinheiro.toFixed(2)}` : `Faltou R$ ${Math.abs(diffDinheiro).toFixed(2)}`)}\n`;
-        mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
-        mensagem += `• Cartão: ${diffCartao === 0 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
-
-        if (obsText.value.trim()) {
-            mensagem += `• Obs: ${obsText.value.trim()}\n`;
-        }
-
-        if (psText.value.trim()) {
-            mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
-        }
-
-        const telefone = ''; 
-        const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
-        window.open(urlWhatsApp, '_blank');
-    });
+    }
 });
