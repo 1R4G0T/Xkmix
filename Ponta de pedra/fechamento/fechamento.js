@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (caixaEnvelope) caixaEnvelope.addEventListener('input', () => { autoPreencherProximoDia(); calcularDiferenca(); });
     if (caixaProximoDia) {
         caixaProximoDia.addEventListener('input', () => {
-            userEditedProximoDia = true; // Se o usuário alterar manualmente, respeitamos a digitação dele
+            userEditedProximoDia = true;
             calcularDiferenca();
         });
     }
@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Controlar a exibição dos inputs manuais
     if (manualDiffSelect) {
         manualDiffSelect.addEventListener('change', () => {
             if (manualDiffSelect.value === 'manual') {
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             diffPix = parseFloat(manPix.value) || 0;
             diffCartao = parseFloat(manCartao.value) || 0;
         } else {
-            // Dinheiro do Caixa Físico (Envelope + Proximo Dia + Sangrias)
+            // Dinheiro do Caixa Físico (Envelope + Proximo Dia + Sangrias) subtraído do Sistema
             const cEnvelope = parseFloat(caixaEnvelope.value) || 0;
             const cProximoDia = parseFloat(caixaProximoDia.value) || 0;
             let totalSangrias = 0;
@@ -109,14 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const totalDinheiroFisico = cEnvelope + cProximoDia + totalSangrias;
 
-            // Cartões das maquinetas (Débito + Crédito)
+            // Cartões das maquinetas (Débito + Crédito) subtraído do Sistema Cartão
             const mCredito = parseFloat(maqCredito.value) || 0;
             const mDebito = parseFloat(maqDebito.value) || 0;
             const totalCartaoMaquinetas = mCredito + mDebito;
 
             const mPix = parseFloat(maqPix.value) || 0;
 
-            // Regra solicitada: Caixa Físico menos Sistema para Dinheiro, e Maquinetas menos Sistema para Cartão/PIX
             diffDinheiro = totalDinheiroFisico - sDinheiro;
             diffPix = mPix - sPix;
             diffCartao = totalCartaoMaquinetas - sCartao;
