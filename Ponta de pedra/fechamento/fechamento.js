@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const telefone = ''; 
-            const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
+            const urlWhatsApp = https://chat.whatsapp.com/JE2y0sjvGqKCO6kYpsASVF;
             window.open(urlWhatsApp, '_blank');
         });
     }
