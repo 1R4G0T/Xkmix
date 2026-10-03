@@ -1,104 +1,101 @@
-// Lista inicial fornecida
-const defaultFlavors = [
-    "Morango", "Chocolate", "Flocos", "Chocomenta", "Sensação", "Blue Ice", 
-    "Baunilha", "Base ninho", "Pistache", "Graviola zero", "Morango zero", 
-    "Açaí zero", "Delicia de abacaxi", "Abacaxi ao vinho", "Ameixa", 
-    "Passas ao rum", "Banana caramelizada", "Maracujá", "Oreo", "Nutella", 
-    "Ninho com Nutella", "Ovomaltine", "Ferreiro Rocher", "Prestígio", 
-    "Floresta negra", "Coco", "Coco queimado", "Maçã verde", "Café", "Café crocante", "Blue ice", "Uva", 
-    "Iogurte grego", "Caipirinha", "Cereja", "Gianduia", "Paçoca", 
-    "Leite condensado", "Doce de leite", "Romeu e Julieta"
-];
+document.addEventListener('DOMContentLoaded', () => {
+    const defaultFlavors = [
+        "Morango", "Chocolate", "Flocos", "Chocomenta", "Sensação", "Blue Ice", 
+        "Baunilha", "Base ninho", "Pistache", "Graviola zero", "Morango zero", 
+        "Açaí zero", "Delicia de abacaxi", "Abacaxi ao vinho", "Ameixa", 
+        "Passas ao rum", "Banana caramelizada", "Maracujá", "Oreo", "Nutella", 
+        "Ninho com Nutella", "Ovomaltine", "Ferreiro Rocher", "Prestígio", 
+        "Floresta negra", "Coco", "Coco queimado", "Maçã verde", "Café", "Uva", 
+        "Iogurte grego", "Caipirinha", "Cereja", "Gianduia", "Paçoca", 
+        "Leite condensado", "Doce de leite", "Romeu e Julieta"
+    ];
 
-// Elementos do DOM
-const container = document.getElementById('flavors-container');
-const inputNewFlavor = document.getElementById('new-flavor');
-const btnAdd = document.getElementById('add-btn');
-const form = document.getElementById('ice-cream-form');
+    const container = document.getElementById('flavors-container');
+    const inputNewFlavor = document.getElementById('new-flavor');
+    const btnAdd = document.getElementById('add-btn');
+    const form = document.getElementById('ice-cream-form');
 
-// Tenta buscar a lista salva no navegador. Se não existir, usa a lista padrão.
-let savedFlavors = JSON.parse(localStorage.getItem('iceCreamFlavors'));
+    let savedFlavors = JSON.parse(localStorage.getItem('iceCreamFlavors'));
 
-if (!savedFlavors || savedFlavors.length === 0) {
-    savedFlavors = [...defaultFlavors];
-    localStorage.setItem('iceCreamFlavors', JSON.stringify(savedFlavors));
-}
-
-// Função para renderizar os sabores na tela
-function renderFlavors() {
-    container.innerHTML = ''; // Limpa a lista atual
-    
-    // Opcional: Organiza em ordem alfabética para facilitar achar o sabor
-    const sortedFlavors = savedFlavors.sort((a, b) => a.localeCompare(b));
-
-    sortedFlavors.forEach(flavor => {
-        const label = document.createElement('label');
-        label.className = 'flavor-item';
-
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.name = 'flavor';
-        checkbox.value = flavor;
-
-        const textNode = document.createTextNode(flavor);
-
-        label.appendChild(checkbox);
-        label.appendChild(textNode);
-        container.appendChild(label);
-    });
-}
-
-// Evento para adicionar novo sabor
-btnAdd.addEventListener('click', () => {
-    const newFlavor = inputNewFlavor.value.trim();
-    
-    if (newFlavor === '') return;
-
-    // Evita duplicatas ignorando letras maiúsculas e minúsculas
-    const flavorExists = savedFlavors.some(
-        f => f.toLowerCase() === newFlavor.toLowerCase()
-    );
-
-    if (!flavorExists) {
-        savedFlavors.push(newFlavor);
-        // Atualiza o localStorage com o novo sabor
+    if (!savedFlavors || savedFlavors.length === 0) {
+        savedFlavors = [...defaultFlavors];
         localStorage.setItem('iceCreamFlavors', JSON.stringify(savedFlavors));
+    }
+
+    function renderFlavors() {
+        container.innerHTML = ''; 
         
-        renderFlavors(); // Renderiza a lista novamente
-        inputNewFlavor.value = ''; // Limpa o campo
-    } else {
-        alert('Este sabor já existe na lista!');
-    }
-});
+        const sortedFlavors = savedFlavors.sort((a, b) => a.localeCompare(b));
 
-// Permitir adicionar apertando o "Enter" no teclado
-inputNewFlavor.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        btnAdd.click();
-    }
-});
+        sortedFlavors.forEach(flavor => {
+            const label = document.createElement('label');
+            label.className = 'flavor-item';
 
-// Evento de submissão do formulário
-form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Impede a página de recarregar
-    
-    // Seleciona apenas os checkboxes marcados
-    const checkedBoxes = document.querySelectorAll('input[name="flavor"]:checked');
-    const selectedFlavors = Array.from(checkedBoxes).map(cb => cb.value);
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'flavor';
+            checkbox.value = flavor;
 
-    if (selectedFlavors.length === 0) {
-        alert('Por favor, selecione pelo menos um sabor!');
-        return;
+            const textNode = document.createTextNode(flavor);
+
+            label.appendChild(checkbox);
+            label.appendChild(textNode);
+            container.appendChild(label);
+        });
     }
 
-    // Aqui os dados estão prontos para envio (via API, WhatsApp, etc). 
-    // Para visualização, exibe os marcados em um alerta:
-    alert('Pedido de sorvetes enviado:\n\n- ' + selectedFlavors.join('\n- '));
-    
-    // Opcional: Limpar a seleção depois de enviar
-    form.reset(); 
-});
+    btnAdd.addEventListener('click', () => {
+        const newFlavor = inputNewFlavor.value.trim();
+        
+        if (newFlavor === '') return;
 
-// Inicializa a lista ao carregar a página
-renderFlavors();
+        const flavorExists = savedFlavors.some(
+            f => f.toLowerCase() === newFlavor.toLowerCase()
+        );
+
+        if (!flavorExists) {
+            savedFlavors.push(newFlavor);
+            localStorage.setItem('iceCreamFlavors', JSON.stringify(savedFlavors));
+            renderFlavors(); 
+            inputNewFlavor.value = ''; 
+        } else {
+            alert('[ERRO] Sabor já registado no sistema!');
+        }
+    });
+
+    inputNewFlavor.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            btnAdd.click();
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); 
+        
+        const checkedBoxes = document.querySelectorAll('input[name="flavor"]:checked');
+        const selectedFlavors = Array.from(checkedBoxes).map(cb => cb.value);
+
+        if (selectedFlavors.length === 0) {
+            alert('[AVISO] Selecione pelo menos um sabor para o pedido.');
+            return;
+        }
+
+        let mensagem = `*XKMIX - PEDIDO DE SORVETES*\n`;
+        mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+        mensagem += `*Sabores Solicitados:*\n`;
+        
+        selectedFlavors.forEach(sabor => {
+            mensagem += `• ${sabor}\n`;
+        });
+
+        alert("PEDIDO REGISTADO COM SUCESSO!\n\n" + mensagem);
+        
+        // Se quiser que abra o WhatsApp direto, descomente a linha abaixo:
+        // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`, '_blank');
+        
+        form.reset(); 
+    });
+
+    renderFlavors();
+});
