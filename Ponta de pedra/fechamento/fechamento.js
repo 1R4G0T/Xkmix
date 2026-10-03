@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const diffPix = parseFloat(manPix?.value) || 0;
             const diffCartao = parseFloat(manCartao?.value) || 0;
 
-            let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
+            let mensagem = `*XKMIX - FECHAMENTO DE CAIXA (PDP)*\n`;
             mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
 
             mensagem += `📊 *DADOS DO SISTEMA:*\n`;
