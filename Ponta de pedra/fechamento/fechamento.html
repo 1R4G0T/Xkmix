@@ -5,7 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XKMIX - Fechamento de Caixa</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fechamento-caixa.css">
+    <style>
+        body {
+            background-color: #05070b;
+            color: #c5d1de;
+            font-family: 'VT323', monospace;
+            margin: 0;
+            padding: 20px;
+            font-size: 1.3rem;
+        }
+
+        /* Efeitos Retro */
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px; z-index: 999; pointer-events: none;
+        }
+        .glow-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 100px rgba(0, 255, 204, 0.05); z-index: 998; pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffcc;
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8a99ad;
+            margin-top: 5px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #0b0f17;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+        }
+
+        .section-box {
+            background: #05070b;
+            border: 1px dashed rgba(0, 255, 204, 0.2);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .section-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: #00ffcc;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #8a99ad;
+            margin-bottom: 3px;
+            font-size: 1.1rem;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            background: #0b0f17;
+            border: 1px solid rgba(0, 255, 204, 0.4);
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+        }
+
+        /* Sangrias */
+        .sangrias-wrapper {
+            margin-top: 10px;
+        }
+        .sangria-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .sangria-item input {
+            flex: 1;
+        }
+        .remove-sangria {
+            background: #ff3366;
+            color: #fff;
+            border: none;
+            padding: 0 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .add-sangria-btn {
+            background: transparent;
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+        .add-sangria-btn:hover {
+            background: rgba(0, 255, 204, 0.1);
+        }
+
+        /* Caixa de Alerta de Diferença */
+        .diff-box {
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+        .diff-box.neutral { background: #151b26; color: #8a99ad; border: 1px solid #233044; text-align: center; }
+        .diff-box.success { background: rgba(0, 255, 100, 0.15); color: #00ff66; border: 1px solid #00ff66; }
+        .diff-box.danger { background: rgba(255, 51, 102, 0.15); color: #ff3366; border: 1px solid #ff3366; }
+
+        /* Botões finais */
+        .action-container {
+            text-align: center;
+        }
+        .whatsapp-btn {
+            display: block;
+            width: 100%;
+            background: #25d366;
+            color: #000;
+            border: none;
+            padding: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+            margin-bottom: 15px;
+            transition: 0.2s;
+        }
+        .whatsapp-btn:hover {
+            background: #1ebe5d;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+        }
+        .back-link {
+            color: #8a99ad;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            color: #00ffcc;
+        }
+    </style>
 </head>
 <body>
     <div class="scanlines"></div>
