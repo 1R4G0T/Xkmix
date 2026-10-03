@@ -81,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let mensagem = `*XKMIX - PEDIDO DE SORVETES*\n`;
+        // Monta a mensagem com o nome PDP
+        let mensagem = `*XKMIX - PEDIDO DE SORVETES (PDP)*\n`;
         mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
         mensagem += `*Sabores Solicitados:*\n`;
         
@@ -89,11 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagem += `• ${sabor}\n`;
         });
 
-        alert("PEDIDO REGISTADO COM SUCESSO!\n\n" + mensagem);
+        // Envia direto para o WhatsApp
+        const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+        window.open(urlWhatsApp, '_blank');
         
-        // Se quiser que abra o WhatsApp direto, descomente a linha abaixo:
-        // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`, '_blank');
-        
+        // Limpa a seleção após enviar
         form.reset(); 
     });
 
