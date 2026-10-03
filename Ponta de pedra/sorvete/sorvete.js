@@ -5,7 +5,7 @@ const defaultFlavors = [
     "Açaí zero", "Delicia de abacaxi", "Abacaxi ao vinho", "Ameixa", 
     "Passas ao rum", "Banana caramelizada", "Maracujá", "Oreo", "Nutella", 
     "Ninho com Nutella", "Ovomaltine", "Ferreiro Rocher", "Prestígio", 
-    "Floresta negra", "Coco", "Coco queimado", "Maçã verde", "Café", "Uva", 
+    "Floresta negra", "Coco", "Coco queimado", "Maçã verde", "Café", "Café crocante", "Blue ice", "Uva", 
     "Iogurte grego", "Caipirinha", "Cereja", "Gianduia", "Paçoca", 
     "Leite condensado", "Doce de leite", "Romeu e Julieta"
 ];
