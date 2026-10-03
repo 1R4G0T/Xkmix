@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mensagem += `\n📊 *Progresso:* ${Math.round((concluidos/total)*100)}% (${concluidos}/${total})`;
 
-        const telefone = '5581999999999'; // Substitua pelo número real se necessário (ex: DDI + DDD + Número)
+        const telefone = ''; // Substitua pelo número real se necessário (ex: DDI + DDD + Número)
         const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
         
         window.open(urlWhatsApp, '_blank');
