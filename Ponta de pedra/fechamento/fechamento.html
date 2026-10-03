@@ -257,7 +257,7 @@
             </div>
         </div>
 
-        <!-- 4. OBSERVAÇÕES E DIFERENÇA -->
+<!-- 4. OBSERVAÇÕES E DIFERENÇA -->
         <div class="section-box">
             <h3>⚠️ CONFERÊNCIA (Sobra / Falta)</h3>
             <div id="diffAlertBox" class="diff-box neutral">
@@ -273,9 +273,10 @@
                         <option value="manual">Manual (Digitar valores abaixo)</option>
                     </select>
                 </div>
-                <div id="manualInputsGroup" style="display: none;">
+                <!-- ID CORRIGIDO AQUI PARA APARECER QUANDO SELECIONAR MANUAL -->
+                <div id="manualInputsGroup" style="display: none; margin-top: 10px;">
                     <div class="input-group">
-                        <label for="manDinheiro">Diferença Dinheiro (Ex: +5.00 ou -2.00):</label>
+                        <label for="manDinheiro">Diferença Dinheiro (Ex: 5.00 ou -2.00):</label>
                         <input type="number" id="manDinheiro" step="0.01" placeholder="0.00">
                     </div>
                     <div class="input-group">
