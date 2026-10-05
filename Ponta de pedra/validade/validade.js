@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let mensagem = `*XKMIX - CONTROLE DE VALIDADE*\n`;
+        let mensagem = `*XKMIX (PDP)- CONTROLE DE VALIDADE*\n`;
         mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
 
         // Agrupar itens por categoria no WhatsApp
