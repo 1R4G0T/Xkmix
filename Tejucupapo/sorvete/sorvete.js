@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Monta a mensagem com o nome PDP
-        let mensagem = `*XKMIX - PEDIDO DE SORVETES (PDP)*\n`;
+        let mensagem = `*XKMIX - PEDIDO DE SORVETES (TJ)*\n`;
         mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
         mensagem += `*Sabores Solicitados:*\n`;
         
