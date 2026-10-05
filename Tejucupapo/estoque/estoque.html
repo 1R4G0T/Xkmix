@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Controle de Estoque</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estoque.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>CONTROLE DE ESTOQUE</h1>
+        <p class="subtitle">// CONTAGEM E REGISTRO RÁPIDO //</p>
+    </header>
+
+    <div class="main-container">
+
+        <!-- PAINEL DE HISTÓRICO ANTERIOR -->
+        <div class="section-box history-box">
+            <div class="history-header">
+                <h3>📜 ÚLTIMA CONTAGEM REGISTRADA</h3>
+                <span id="lastUpdated" class="last-date">Nenhum registro anterior</span>
+            </div>
+            <div id="previousHistoryContent" class="previous-history-content">
+                <p class="empty-msg">Nenhum histórico anterior salvo.</p>
+            </div>
+        </div>
+
+        <!-- FORMULÁRIO DE CONTAGEM -->
+        <form id="estoqueForm">
+
+            <!-- SALGADOS -->
+            <div class="section-box">
+                <h2 class="category-title">🥐 SALGADOS</h2>
+
+                <!-- Coxinhas -->
+                <div class="sub-group">
+                    <h4>Coxinhas</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="coxinha_frango">Frango</label>
+                            <input type="number" id="coxinha_frango" data-name="Coxinha Frango" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="coxinha_charque">Charque</label>
+                            <input type="number" id="coxinha_charque" data-name="Coxinha Charque" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="coxinha_camarao">Camarão</label>
+                            <input type="number" id="coxinha_camarao" data-name="Coxinha Camarão" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="coxinha_catupiry">Frango c/ Catupiry</label>
+                            <input type="number" id="coxinha_catupiry" data-name="Coxinha Frango c/ Catupiry" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pastéis -->
+                <div class="sub-group">
+                    <h4>Pastéis</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="pastel_catupiry">Frango c/ Catupiry</label>
+                            <input type="number" id="pastel_catupiry" data-name="Pastel Frango c/ Catupiry" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cones -->
+                <div class="sub-group">
+                    <h4>Cones</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="cone_frango">Frango</label>
+                            <input type="number" id="cone_frango" data-name="Cone Frango" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hambúrgueres -->
+                <div class="sub-group">
+                    <h4>Hambúrgueres</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="burguer_picanha">X-Picanha</label>
+                            <input type="number" id="burguer_picanha" data-name="X-Picanha" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="burguer_burguer">X-Burguer</label>
+                            <input type="number" id="burguer_burguer" data-name="X-Burguer" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="burguer_maionese">X-Maionese</label>
+                            <input type="number" id="burguer_maionese" data-name="X-Maionese" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="burguer_barbecue">X-Barbecue</label>
+                            <input type="number" id="burguer_barbecue" data-name="X-Barbecue" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="burguer_frango_bacon">X-Frango c/ Bacon</label>
+                            <input type="number" id="burguer_frango_bacon" data-name="X-Frango c/ Bacon" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GELADOS -->
+            <div class="section-box">
+                <h2 class="category-title">🍧 GELADOS</h2>
+                <div class="items-grid">
+                    <div class="item-card">
+                        <label for="gelado_acai">Açaí</label>
+                        <input type="number" id="gelado_acai" data-name="Açaí" min="0" placeholder="0">
+                    </div>
+                    <div class="item-card">
+                        <label for="gelado_acai_ninho">Açaí c/ Ninho</label>
+                        <input type="number" id="gelado_acai_ninho" data-name="Açaí c/ Ninho" min="0" placeholder="0">
+                    </div>
+                    <div class="item-card">
+                        <label for="gelado_cupuacu">Cupuaçu</label>
+                        <input type="number" id="gelado_cupuacu" data-name="Cupuaçu" min="0" placeholder="0">
+                    </div>
+                    <div class="item-card">
+                        <label for="gelado_tapioca">Tapioca</label>
+                        <input type="number" id="gelado_tapioca" data-name="Tapioca" min="0" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOCES -->
+            <div class="section-box">
+                <h2 class="category-title">🍰 DOCES</h2>
+
+                <!-- Bolo de Pote -->
+                <div class="sub-group">
+                    <h4>Bolo de Pote</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="pote_brigadeiro">Brigadeiro</label>
+                            <input type="number" id="pote_brigadeiro" data-name="Bolo de Pote Brigadeiro" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="pote_prestigio">Prestígio</label>
+                            <input type="number" id="pote_prestigio" data-name="Bolo de Pote Prestígio" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="pote_red_velvet">Red Velvet</label>
+                            <input type="number" id="pote_red_velvet" data-name="Bolo de Pote Red Velvet" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Taça da Felicidade -->
+                <div class="sub-group">
+                    <h4>Taça da Felicidade</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="taca_brownie">Brownie</label>
+                            <input type="number" id="taca_brownie" data-name="Taça Brownie" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="taca_ouro_branco">Ouro Branco</label>
+                            <input type="number" id="taca_ouro_branco" data-name="Taça Ouro Branco" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="taca_morango">Morango</label>
+                            <input type="number" id="taca_morango" data-name="Taça Morango" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="taca_oreo">Oreo</label>
+                            <input type="number" id="taca_oreo" data-name="Taça Oreo" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tortas -->
+                <div class="sub-group">
+                    <h4>Tortas</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="torta_maracuja">Maracujá</label>
+                            <input type="number" id="torta_maracuja" data-name="Torta Maracujá" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="torta_ninho_nutella">Ninho c/ Nutella</label>
+                            <input type="number" id="torta_ninho_nutella" data-name="Torta Ninho c/ Nutella" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="torta_sensacao">Sensação</label>
+                            <input type="number" id="torta_sensacao" data-name="Torta Sensação" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bolos -->
+                <div class="sub-group">
+                    <h4>Bolos</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="bolo_bem_casado">Bem Casado</label>
+                            <input type="number" id="bolo_bem_casado" data-name="Bolo Bem Casado" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outros -->
+                <div class="sub-group">
+                    <h4>Outros</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="outro_pudim">Pudim</label>
+                            <input type="number" id="outro_pudim" data-name="Pudim" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="outro_donuts">Donuts</label>
+                            <input type="number" id="outro_donuts" data-name="Donuts" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTOES DE ACAO -->
+            <div class="actions-wrapper">
+                <button type="button" id="btnWhatsapp" class="btn btn-whatsapp">📱 Enviar via WhatsApp</button>
+                <button type="button" id="btnSalvar" class="btn btn-salvar">💾 Salvar Apenas no Histórico</button>
+                <button type="button" id="btnLimpar" class="btn btn-limpar">🗑️ Limpar Campos</button>
+            </div>
+        </form>
+
+        <div class="back-home-container">
+            <a href="../PDP.html" class="back-btn">&larr; VOLTAR AO MENU DE SETORES</a>
+        </div>
+    </div>
+
+    <script src="estoque.js"></script>
+</body>
+</html>
