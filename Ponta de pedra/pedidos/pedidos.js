@@ -1,4 +1,4 @@
-// Lista de Itens Padrão do Sistema
+// Lista de Itens Pré-Estabelecidos
 const itensPadrao = {
     cremes: [
         "Cookies", "Avelã", "Avelã Essencial", "Paçoca", "Chocotrufa", 
@@ -16,25 +16,25 @@ const itensPadrao = {
     ],
     descartaveis: [
         "Colheres de Self Service", "Colheres para Delivery", 
-        "Bolsas/Sacolas PPP", "Bolsas/Sacolas PP", "Bolsas/Sacolas P", 
-        "Bolsas/Sacolas M", "Bolsas/Sacolas G", "Bolsas/Sacolas GG", 
-        "Kraft PPP", "Kraft PP", "Kraft P", "Kraft M", "Kraft G", "Kraft GG", 
+        "Bolsas/Sacolas (PPP)", "Bolsas/Sacolas (PP)", "Bolsas/Sacolas (P)", 
+        "Bolsas/Sacolas (M)", "Bolsas/Sacolas (G)", "Bolsas/Sacolas (GG)", 
+        "Kraft (PPP)", "Kraft (PP)", "Kraft (P)", "Kraft (M)", "Kraft (G)", "Kraft (GG)", 
         "Canudo para Milk Shake", "Canudo para Bebidas", 
-        "Sachês Ketchup", "Sachês Maionese", "Sachês Mostarda", 
-        "Guardanapos Mesa", "Guardanapos Salgados", "Papel Toalha", "Saco de Dudu"
+        "Sachê Ketchup", "Sachê Maionese", "Sachê Mostarda", 
+        "Guardanapos (Mesa)", "Guardanapos (Salgados)", "Papel Toalha", "Saco de Dudu"
     ],
     limpeza: [
         "Água Sanitária", "Detergente", "Desinfetante", "Papel Higiênico", 
         "Veja", "Multiuso", "Luva", "Touca"
     ],
     bebidas: [
-        "Coca-Cola Lata", "Coca-Cola 250ml", "Coca-Cola 500/600ml", "Coca-Cola 1L", 
-        "Coca Zero Lata", "Coca Zero 250ml", "Coca Zero 500/600ml", "Coca Zero 1L", 
-        "Soda Lata", "Soda 250ml", "Soda 1L", 
-        "Refri Laranja Lata", "Refri Laranja 250ml", "Refri Laranja 1L", 
-        "Refri Guaraná Lata", "Refri Guaraná 250ml", "Refri Guaraná 1L", 
+        "Coca-Cola (Lata)", "Coca-Cola (250ml)", "Coca-Cola (500/600ml)", "Coca-Cola (1L)", 
+        "Coca Zero (Lata)", "Coca Zero (250ml)", "Coca Zero (500/600ml)", "Coca Zero (1L)", 
+        "Soda (Lata)", "Soda (250ml)", "Soda (1L)", 
+        "Refri Laranja (Lata)", "Refri Laranja (250ml)", "Refri Laranja (1L)", 
+        "Refri Guaraná (Lata)", "Refri Guaraná (250ml)", "Refri Guaraná (1L)", 
         "Monster", "H2OH!", "Água", "Água com Gás", 
-        "Del Valle Laranja", "Del Valle Uva", "Pepsi Lata"
+        "Del Valle (Laranja)", "Del Valle (Uva)", "Pepsi (Lata)"
     ]
 };
 
@@ -61,7 +61,7 @@ function obterItensCustomizados() {
     return salvo ? JSON.parse(salvo) : { cremes: [], fini: [], complementos: [], descartaveis: [], limpeza: [], bebidas: [] };
 }
 
-// Salva novos itens no LocalStorage
+// Salva novos itens no LocalStorage para ficarem permanentes
 function salvarItemCustomizado(categoria, novoNome) {
     const custom = obterItensCustomizados();
     if (!custom[categoria]) custom[categoria] = [];
@@ -73,7 +73,7 @@ function salvarItemCustomizado(categoria, novoNome) {
     }
 }
 
-// Função executada ao clicar nos botões de adicionar item
+// Função executada ao clicar nos botões de adicionar item novo
 function adicionarItemCustomizado(categoria, inputId) {
     const input = document.getElementById(inputId);
     const valor = input.value.trim();
@@ -88,20 +88,19 @@ function adicionarItemCustomizado(categoria, inputId) {
     renderizarTodosOsItens();
 }
 
-// Renderiza a lista combinando os padrão + customizados permanentes
+// Renderiza a lista combinando os itens padrão + customizados permanentes
 function renderizarTodosOsItens() {
     const custom = obterItensCustomizados();
-
     const categorias = ["cremes", "fini", "complementos", "descartaveis", "limpeza", "bebidas"];
 
     categorias.forEach(cat => {
         const container = document.getElementById(`container-${cat}`);
         if (!container) return;
 
-        // Combina lista padrão com customizados
+        // Combina lista padrão com novos criados pelo usuário
         const listaCompleta = [...itensPadrao[cat], ...(custom[cat] || [])];
         
-        // Preserva o estado das seleções atuais antes de re-renderizar
+        // Preserva as seleções atuais antes de re-renderizar
         const selecionados = {};
         container.querySelectorAll(".item-card").forEach(card => {
             const cb = card.querySelector("input[type='checkbox']");
@@ -114,7 +113,7 @@ function renderizarTodosOsItens() {
         let html = "";
         listaCompleta.forEach((item, index) => {
             const idCheckbox = `item_${cat}_${index}`;
-            constisChecked = selecionados[item] !== undefined ? "checked" : "";
+            const isChecked = selecionados[item] !== undefined ? "checked" : "";
             const valorQtd = selecionados[item] || "";
 
             html += `
@@ -130,7 +129,7 @@ function renderizarTodosOsItens() {
     });
 }
 
-// Gera e abre a mensagem formatada para o WhatsApp
+// Gera a mensagem formatada e abre o WhatsApp
 function enviarPedidoWhatsApp() {
     const categorias = [
         { key: "cremes", titulo: "🍦 CREMES" },
