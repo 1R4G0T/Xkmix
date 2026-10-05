@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Módulo em Desenvolvimento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0d0d11;
+            color: #e0e0e0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efeitos Cyberpunk de Fundo */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .glow-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 120px rgba(255, 0, 85, 0.15);
+            z-index: 9;
+            pointer-events: none;
+        }
+
+        /* Cartão Principal */
+        .dev-card {
+            background: rgba(20, 20, 30, 0.9);
+            border: 2px solid #ff0055;
+            box-shadow: 0 0 25px rgba(ff, 0, 85, 0.3), inset 0 0 15px rgba(0, 255, 204, 0.1);
+            border-radius: 12px;
+            padding: 40px 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 11;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Tag de Alerta */
+        .badge {
+            display: inline-block;
+            background: #ff0055;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px #ff0055;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        /* Título com Efeito Glitch */
+        .glitch-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: #00ffcc;
+            text-shadow: 0 0 12px #00ffcc;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #ff0055;
+            letter-spacing: 2px;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+        }
+
+        /* Barra de Progresso Animada */
+        .progress-box {
+            background: #151520;
+            border: 1px solid #00ffcc;
+            border-radius: 6px;
+            padding: 4px;
+            margin: 20px 0 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 22px;
+            background: linear-gradient(90deg, #ff0055, #00ffcc);
+            width: 75%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: #00ffcc;
+            margin-bottom: 20px;
+        }
+
+        /* Console Terminal */
+        .terminal {
+            background: #000;
+            border: 1px dashed #333;
+            border-left: 3px solid #00ffcc;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: left;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            color: #00ffcc;
+            min-height: 90px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-line {
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #00ffcc;
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Botão de Voltar */
+        .btn-back {
+            display: inline-block;
+            background: transparent;
+            color: #00ffcc;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            padding: 12px 25px;
+            border: 1px solid #00ffcc;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 20px #00ffcc;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <div class="dev-card">
+        <span class="badge">⚠️ ACESSO RESTRITO</span>
+        
+        <h1 class="glitch-title">EM DESENVOLVIMENTO</h1>
+        <p class="subtitle">// MÓDULO EM CONSTRUÇÃO //</p>
+
+        <!-- Barra de Progresso -->
+        <div class="progress-box">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text">
+            <span>COMPILANDO RECURSOS...</span>
+            <span id="percentVal">75%</span>
+        </div>
+
+        <!-- Terminal de Logs -->
+        <div class="terminal">
+            <div id="terminalContent"></div>
+            <span class="cursor"></span>
+        </div>
+
+        <!-- Botão para retornar ao menu -->
+        <a href="PDP.html" class="btn-back">&larr; VOLTAR AO MENU PRINCIPAL</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const progressBar = document.getElementById("progressBar");
+            const percentVal = document.getElementById("percentVal");
+            const terminalContent = document.getElementById("terminalContent");
+
+            // Logs que serão digitados no terminal
+            const logs = [
+                "[SYS] Inicializando novo módulo do sistema...",
+                "[SYS] Carregando interface e estilos...",
+                "[SYS] Otimizando integrações de WhatsApp...",
+                "[SYS] Ajustando parâmetros de estoque e pedidos...",
+                "[SYS] Quase pronto! Aguarde os próximos lançamentos."
+            ];
+
+            let logIndex = 0;
+            let percentage = 75;
+
+            // Animação de progresso oscilante
+            setInterval(() => {
+                const variation = Math.floor(Math.random() * 5) - 2; // Varia levemente
+                let currentPercent = Math.min(99, Math.max(70, percentage + variation));
+                progressBar.style.width = currentPercent + "%";
+                percentVal.innerText = currentPercent + "%";
+            }, 1500);
+
+            // Animação do Terminal
+            function adicionarLog() {
+                if (logIndex < logs.length) {
+                    const line = document.createElement("div");
+                    line.className = "terminal-line";
+                    line.innerText = logs[logIndex];
+                    terminalContent.appendChild(line);
+                    logIndex++;
+                    setTimeout(adicionarLog, 1200);
+                } else {
+                    // Loop suave dos logs
+                    setTimeout(() => {
+                        terminalContent.innerHTML = "";
+                        logIndex = 0;
+                        adicionarLog();
+                    }, 4000);
+                }
+            }
+
+            adicionarLog();
+        });
+    </script>
+
+</body>
+</html>
