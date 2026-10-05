@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Salva este lançamento como o histórico anterior
         salvarNoHistorico(dados);
 
-        // Gera a mensagem formatada para WhatsApp
+        // Gera a mensagem formatada por categorias para WhatsApp
         const mensagem = gerarMensagemWhatsApp(dados);
         const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
         
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Função para pegar dados preenchidos
+    // Função para capturar os dados preenchidos identificando a categoria
     function capturarDadosFormulario() {
         const inputs = document.querySelectorAll("#estoqueForm input[type='number']");
         const resultado = [];
@@ -58,8 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
         inputs.forEach(input => {
             const valor = parseInt(input.value) || 0;
             if (valor > 0) {
+                // Tenta pegar a categoria diretamente do atributo data-category ou do título da seção pai
+                let categoria = input.getAttribute("data-category");
+
+                if (!categoria) {
+                    const section = input.closest(".section-box, .sub-group, fieldset, .category-box");
+                    if (section) {
+                        const titleEl = section.querySelector(".category-title, h2, h3, h4, legend");
+                        if (titleEl) {
+                            categoria = titleEl.innerText.trim();
+                        }
+                    }
+                }
+
                 resultado.push({
-                    nome: input.getAttribute("data-name"),
+                    categoria: categoria || "OUTROS",
+                    nome: input.getAttribute("data-name") || "Item",
                     qtd: valor
                 });
             }
@@ -82,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         carregarHistoricoAnterior();
     }
 
-    // Função para exibir o Histórico Anterior salvo
+    // Função para exibir o Histórico Anterior agrupado por categoria na tela
     function carregarHistoricoAnterior() {
         const salvo = localStorage.getItem(STORAGE_KEY);
 
@@ -95,15 +109,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const historico = JSON.parse(salvo);
         lastUpdated.innerText = `Data: ${historico.data}`;
 
-        let html = "";
+        // Agrupa por categoria
+        const categorias = {};
         historico.itens.forEach(item => {
-            html += `
-                <div class="history-item">
-                    <span>${item.nome}</span>
-                    <span class="val">${item.qtd} un</span>
-                </div>
-            `;
+            const cat = item.categoria || "OUTROS";
+            if (!categorias[cat]) categorias[cat] = [];
+            categorias[cat].push(item);
         });
+
+        let html = "";
+        for (const [catNome, itens] of Object.entries(categorias)) {
+            html += `<div style="color: #00ffcc; font-weight: bold; margin-top: 12px; margin-bottom: 4px; border-bottom: 1px dashed #00ffcc;">${catNome.toUpperCase()}</div>`;
+            itens.forEach(item => {
+                html += `
+                    <div class="history-item">
+                        <span>${item.nome}</span>
+                        <span class="val">${item.qtd} un</span>
+                    </div>
+                `;
+            });
+        }
 
         previousHistoryContent.innerHTML = html;
     }
@@ -115,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Gera o texto formatado da mensagem
+// Gera a mensagem para WhatsApp agrupada por Categorias/Subdivisões
 function gerarMensagemWhatsApp(dados) {
     const agora = new Date();
     const dataHora = agora.toLocaleDateString('pt-BR') + ' - ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -124,10 +149,25 @@ function gerarMensagemWhatsApp(dados) {
     texto += `📅 *Data:* ${dataHora}\n`;
     texto += `-----------------------------------\n\n`;
 
+    // Agrupa os itens digitados por Categoria
+    const categorias = {};
     dados.forEach(item => {
-        texto += `• *${item.nome}:* ${item.qtd}\n`;
+        const cat = item.categoria || "OUTROS";
+        if (!categorias[cat]) {
+            categorias[cat] = [];
+        }
+        categorias[cat].push(item);
     });
 
-    texto += `\n-----------------------------------`;
+    // Imprime categoria por categoria na mensagem
+    for (const [catNome, itens] of Object.entries(categorias)) {
+        texto += `*${catNome.toUpperCase()}:*\n`;
+        itens.forEach(item => {
+            texto += `• *${item.nome}:* ${item.qtd}\n`;
+        });
+        texto += `\n`;
+    }
+
+    texto += `-----------------------------------`;
     return texto;
 }
