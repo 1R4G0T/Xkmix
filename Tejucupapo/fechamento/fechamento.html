@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Fechamento de Caixa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fechamento.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>FECHAMENTO DE CAIXA</h1>
+        <p class="subtitle">// PONTA DE PEDRA - GESTÃO FINANCEIRA //</p>
+    </header>
+
+    <div class="form-container">
+        <!-- 1. DADOS DO SISTEMA -->
+        <div class="section-box">
+            <h3>📊 DADOS DO SISTEMA</h3>
+            <div class="input-group">
+                <label for="sysDinheiro">Total Dinheiro (R$):</label>
+                <input type="number" id="sysDinheiro" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="sysPix">Total PIX (R$):</label>
+                <input type="number" id="sysPix" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="sysCartao">Total Cartão (R$):</label>
+                <input type="number" id="sysCartao" step="0.01" placeholder="0.00">
+            </div>
+        </div>
+
+        <!-- 2. DADOS DO CAIXA -->
+        <div class="section-box">
+            <h3>💵 DADOS DO CAIXA (FÍSICO)</h3>
+            <div class="input-group">
+                <label for="caixaDinheiroDia">Total do Dinheiro do Dia (R$):</label>
+                <input type="number" id="caixaDinheiroDia" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="caixaEnvelope">Dinheiro no Envelope (R$):</label>
+                <input type="number" id="caixaEnvelope" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="caixaProximoDia">Dinheiro pro Caixa do Dia Seguinte (R$):</label>
+                <input type="number" id="caixaProximoDia" step="0.01" placeholder="0.00">
+            </div>
+
+            <!-- SANGRIA -->
+            <div class="sangrias-wrapper">
+                <label>Sangrias:</label>
+                <div id="sangriasList"></div>
+                <button type="button" class="add-sangria-btn" id="addSangriaBtn">+ Adicionar Sangria</button>
+            </div>
+
+            <!-- SUPRIMENTOS -->
+            <div class="suprimentos-wrapper">
+                <label>Suprimentos:</label>
+                <div id="suprimentosList"></div>
+                <button type="button" class="add-suprimento-btn" id="addSuprimentoBtn">+ Adicionar Suprimento</button>
+            </div>
+        </div>
+
+        <!-- 3. DADOS DAS MAQUINETAS -->
+        <div class="section-box">
+            <h3>💳 DADOS DAS MAQUINETAS</h3>
+            <div class="input-group">
+                <label for="maqCredito">Total de Crédito (R$):</label>
+                <input type="number" id="maqCredito" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="maqDebito">Total de Débito (R$):</label>
+                <input type="number" id="maqDebito" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="maqPix">Total de PIX (R$):</label>
+                <input type="number" id="maqPix" step="0.01" placeholder="0.00">
+            </div>
+        </div>
+
+        <!-- 4. CONFERÊNCIA E OBSERVAÇÕES -->
+        <div class="section-box">
+            <h3>⚠️ CONFERÊNCIA (Sobra / Falta)</h3>
+            <div id="diffAlertBox" class="diff-box neutral">
+                Preencha os valores acima para calcular as diferenças de caixa.
+            </div>
+
+            <div class="input-group" style="margin-top: 15px;">
+                <label for="manDinheiro">Diferença Dinheiro (Ex: 5.00 ou -2.00):</label>
+                <input type="number" id="manDinheiro" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="manPix">Diferença PIX:</label>
+                <input type="number" id="manPix" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="manCartao">Diferença Cartão:</label>
+                <input type="number" id="manCartao" step="0.01" placeholder="0.00">
+            </div>
+
+            <div class="input-group" style="margin-top: 15px;">
+                <label for="obsText">Observação Detalhada:</label>
+                <input type="text" id="obsText" placeholder="Explique se houver alguma divergência...">
+            </div>
+        </div>
+
+        <!-- 5. ESPAÇO LIVRE (PS) -->
+        <div class="section-box">
+            <h3>📝 PS (Espaço Livre para Anotação)</h3>
+            <div class="input-group">
+                <textarea id="psText" rows="3" placeholder="Anotações gerais do turno..."></textarea>
+            </div>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <div class="action-container" style="margin-top: 20px;">
+            <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR FECHAMENTO NO WHATSAPP 📲</button>
+            <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+        </div>
+    </div>
+
+    <script src="fechamento.js"></script>
+</body>
+</html>
