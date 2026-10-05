@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Controle de Validade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="validade.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>CONTROLE DE VALIDADE</h1>
+        <p class="subtitle">// Tejucupapo - GESTÃO DE ESTOQUE //</p>
+    </header>
+
+    <!-- Formulário para Adicionar / Atualizar Item -->
+    <div class="form-container">
+        <h3>ADICIONAR / ATUALIZAR ITEM</h3>
+        <form id="itemForm">
+            <input type="hidden" id="itemIndex" value="">
+            
+            <div class="input-group">
+                <label for="itemCategory">Categoria:</label>
+                <select id="itemCategory" required>
+                    <option value="" disabled selected>Selecione a categoria</option>
+                    <option value="Bebida">Bebida</option>
+                    <option value="Creme">Creme</option>
+                    <option value="Cobertura">Cobertura</option>
+                    <option value="Bolo e Torta">Bolo e Torta</option>
+                    <option value="Complemento">Complemento</option>
+                    <option value="Hambúrgueres">Hambúrgueres</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="itemName">Nome do Item:</label>
+                <input type="text" id="itemName" placeholder="Ex: Polpa de Morango, Leite Condensado..." required>
+            </div>
+
+            <div class="input-group">
+                <label for="itemQty">Quantidade:</label>
+                <input type="text" id="itemQty" placeholder="Ex: 10 unidades, 5kg..." required>
+            </div>
+
+            <div class="input-group">
+                <label for="itemDate">Data de Validade:</label>
+                <input type="date" id="itemDate" required>
+            </div>
+
+            <button type="submit" class="save-btn" id="saveBtn">SALVAR ITEM 💾</button>
+        </form>
+    </div>
+
+    <!-- Tabela de Registros com Filtro de Categorias -->
+    <div class="table-container">
+        <div class="table-header-info">
+            <h3>ITENS CADASTRADOS</h3>
+            <div class="filter-group">
+                <label for="filterCategory" style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #8a99ad; margin-right: 5px;">Filtrar:</label>
+                <select id="filterCategory" style="background: #05070b; border: 1px solid rgba(0, 255, 204, 0.4); color: #fff; padding: 5px; border-radius: 4px; font-family: 'VT323', monospace; font-size: 1.1rem; outline: none;">
+                    <option value="ALL">Todas as Categorias</option>
+                    <option value="Bebida">Bebida</option>
+                    <option value="Creme">Creme</option>
+                    <option value="Cobertura">Cobertura</option>
+                    <option value="Bolo e Torta">Bolo e Torta</option>
+                    <option value="Complemento">Complemento</option>
+                    <option value="Hambúrgueres">Hambúrgueres</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="legend-info" style="margin-bottom: 15px;">
+            <span class="dot red"></span> Vencido / Vence Hoje
+            <span class="dot yellow"></span> Vence em até 5 dias
+            <span class="dot green"></span> No prazo
+        </div>
+        
+        <div class="table-responsive">
+            <table id="validityTable">
+                <thead>
+                    <tr>
+                        <th>CATEGORIA</th>
+                        <th>ITEM</th>
+                        <th>QUANTIDADE</th>
+                        <th>VALIDADE</th>
+                        <th>STATUS</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Ações e WhatsApp -->
+    <div class="action-container">
+        <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR RELATÓRIO PARA O WHATSAPP 📲</button>
+        <a href="../TJ.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+    </div>
+
+    <script src="validade.js"></script>
+</body>
+</html>
