@@ -5,169 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XKMIX - Fechamento de Caixa</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #05070b;
-            color: #c5d1de;
-            font-family: 'VT323', monospace;
-            margin: 0;
-            padding: 20px;
-            font-size: 1.3rem;
-        }
-
-        .scanlines {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px; z-index: 999; pointer-events: none;
-        }
-        .glow-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 100px rgba(0, 255, 204, 0.05); z-index: 998; pointer-events: none;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        header h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: #00ffcc;
-            font-size: 1.8rem;
-            margin: 0;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            color: #8a99ad;
-            margin-top: 5px;
-        }
-
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #0b0f17;
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
-        }
-
-        .section-box {
-            background: #05070b;
-            border: 1px dashed rgba(0, 255, 204, 0.2);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-        }
-
-        .section-box h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            color: #00ffcc;
-            margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
-            padding-bottom: 5px;
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
-            display: block;
-            color: #8a99ad;
-            margin-bottom: 3px;
-            font-size: 1.1rem;
-        }
-
-        .input-group input, .input-group textarea {
-            width: 100%;
-            background: #0b0f17;
-            border: 1px solid rgba(0, 255, 204, 0.4);
-            color: #fff;
-            padding: 8px;
-            border-radius: 4px;
-            font-family: 'VT323', monospace;
-            font-size: 1.4rem;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .input-group input:focus, .input-group textarea:focus {
-            border-color: #00ffcc;
-            box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
-        }
-
-        .sangrias-wrapper {
-            margin-top: 10px;
-        }
-        .sangria-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .sangria-item input {
-            flex: 1;
-        }
-        .remove-sangria {
-            background: #ff3366;
-            color: #fff;
-            border: none;
-            padding: 0 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        .add-sangria-btn {
-            background: transparent;
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'VT323', monospace;
-            font-size: 1.1rem;
-            margin-top: 5px;
-        }
-        .add-sangria-btn:hover {
-            background: rgba(0, 255, 204, 0.1);
-        }
-
-        .action-container {
-            text-align: center;
-        }
-        .whatsapp-btn {
-            display: block;
-            width: 100%;
-            background: #25d366;
-            color: #000;
-            border: none;
-            padding: 12px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
-            margin-bottom: 15px;
-            transition: 0.2s;
-        }
-        .whatsapp-btn:hover {
-            background: #1ebe5d;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
-        }
-        .back-link {
-            color: #8a99ad;
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-        .back-link:hover {
-            color: #00ffcc;
-        }
-    </style>
+    <link rel="stylesheet" href="fechamento.css">
 </head>
 <body>
     <div class="scanlines"></div>
@@ -212,10 +50,18 @@
                 <input type="number" id="caixaProximoDia" step="0.01" placeholder="0.00">
             </div>
 
+            <!-- SANGRIA -->
             <div class="sangrias-wrapper">
                 <label>Sangrias:</label>
                 <div id="sangriasList"></div>
                 <button type="button" class="add-sangria-btn" id="addSangriaBtn">+ Adicionar Sangria</button>
+            </div>
+
+            <!-- SUPRIMENTOS -->
+            <div class="suprimentos-wrapper">
+                <label>Suprimentos:</label>
+                <div id="suprimentosList"></div>
+                <button type="button" class="add-suprimento-btn" id="addSuprimentoBtn">+ Adicionar Suprimento</button>
             </div>
         </div>
 
@@ -236,10 +82,14 @@
             </div>
         </div>
 
-        <!-- 4. SOBRAS OU FALTAS E OBSERVAÇÃO -->
+        <!-- 4. CONFERÊNCIA E OBSERVAÇÕES -->
         <div class="section-box">
             <h3>⚠️ CONFERÊNCIA (Sobra / Falta)</h3>
-            <div class="input-group">
+            <div id="diffAlertBox" class="diff-box neutral">
+                Preencha os valores acima para calcular as diferenças de caixa.
+            </div>
+
+            <div class="input-group" style="margin-top: 15px;">
                 <label for="manDinheiro">Diferença Dinheiro (Ex: 5.00 ou -2.00):</label>
                 <input type="number" id="manDinheiro" step="0.01" placeholder="0.00">
             </div>
@@ -254,7 +104,7 @@
 
             <div class="input-group" style="margin-top: 15px;">
                 <label for="obsText">Observação Detalhada:</label>
-                <input type="text" id="obsText" placeholder="Explique se houver diferença...">
+                <input type="text" id="obsText" placeholder="Explique se houver alguma divergência...">
             </div>
         </div>
 
@@ -269,150 +119,10 @@
         <!-- BOTÕES DE AÇÃO -->
         <div class="action-container" style="margin-top: 20px;">
             <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR FECHAMENTO NO WHATSAPP 📲</button>
-            <a href="PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+            <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
         </div>
     </div>
 
-    <!-- SCRIPT INCLUÍDO DIRETAMENTE PARA EVITAR ERROS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sysDinheiro = document.getElementById('sysDinheiro');
-            const sysPix = document.getElementById('sysPix');
-            const sysCartao = document.getElementById('sysCartao');
-
-            const caixaDinheiroDia = document.getElementById('caixaDinheiroDia');
-            const caixaEnvelope = document.getElementById('caixaEnvelope');
-            const caixaProximoDia = document.getElementById('caixaProximoDia');
-            const sangriasList = document.getElementById('sangriasList');
-            const addSangriaBtn = document.getElementById('addSangriaBtn');
-
-            const maqCredito = document.getElementById('maqCredito');
-            const maqDebito = document.getElementById('maqDebito');
-            const maqPix = document.getElementById('maqPix');
-
-            const manDinheiro = document.getElementById('manDinheiro');
-            const manPix = document.getElementById('manPix');
-            const manCartao = document.getElementById('manCartao');
-
-            const obsText = document.getElementById('obsText');
-            const psText = document.getElementById('psText');
-            const sendWhatsappBtn = document.getElementById('sendWhatsapp');
-
-            let userEditedProximoDia = false;
-
-            function autoPreencherProximoDia() {
-                if (userEditedProximoDia) return;
-                const totalDia = parseFloat(caixaDinheiroDia.value) || 0;
-                const envelope = parseFloat(caixaEnvelope.value) || 0;
-                
-                let totalSangrias = 0;
-                document.querySelectorAll('.sangria-val').forEach(input => {
-                    totalSangrias += parseFloat(input.value) || 0;
-                });
-
-                const restante = totalDia - envelope - totalSangrias;
-                if (restante >= 0) {
-                    caixaProximoDia.value = restante.toFixed(2);
-                }
-            }
-
-            if (caixaDinheiroDia) caixaDinheiroDia.addEventListener('input', autoPreencherProximoDia);
-            if (caixaEnvelope) caixaEnvelope.addEventListener('input', autoPreencherProximoDia);
-            if (caixaProximoDia) {
-                caixaProximoDia.addEventListener('input', () => {
-                    userEditedProximoDia = true;
-                });
-            }
-
-            if (addSangriaBtn) {
-                addSangriaBtn.addEventListener('click', () => {
-                    const div = document.createElement('div');
-                    div.className = 'sangria-item';
-                    div.innerHTML = `
-                        <input type="number" step="0.01" placeholder="Valor da sangria (R$)" class="sangria-val">
-                        <button type="button" class="remove-sangria">X</button>
-                    `;
-                    sangriasList.appendChild(div);
-
-                    div.querySelector('.remove-sangria').addEventListener('click', () => {
-                        div.remove();
-                        autoPreencherProximoDia();
-                    });
-
-                    div.querySelector('.sangria-val').addEventListener('input', autoPreencherProximoDia);
-                });
-            }
-
-            if (sendWhatsappBtn) {
-                sendWhatsappBtn.addEventListener('click', () => {
-                    const sDinheiro = parseFloat(sysDinheiro?.value) || 0;
-                    const sPix = parseFloat(sysPix?.value) || 0;
-                    const sCartao = parseFloat(sysCartao?.value) || 0;
-
-                    const cDinheiroDia = parseFloat(caixaDinheiroDia?.value) || 0;
-                    const cEnvelope = parseFloat(caixaEnvelope?.value) || 0;
-                    const cProximoDia = parseFloat(caixaProximoDia?.value) || 0;
-
-                    let totalSangrias = 0;
-                    let sangriasDesc = [];
-                    document.querySelectorAll('.sangria-val').forEach((input, index) => {
-                        const val = parseFloat(input.value) || 0;
-                        if (val > 0) {
-                            totalSangrias += val;
-                            sangriasDesc.push(`  - Sangria ${index + 1}: R$ ${val.toFixed(2)}`);
-                        }
-                    });
-
-                    const mCredito = parseFloat(maqCredito?.value) || 0;
-                    const mDebito = parseFloat(maqDebito?.value) || 0;
-                    const mPix = parseFloat(maqPix?.value) || 0;
-
-                    const diffDinheiro = parseFloat(manDinheiro?.value) || 0;
-                    const diffPix = parseFloat(manPix?.value) || 0;
-                    const diffCartao = parseFloat(manCartao?.value) || 0;
-
-                    let mensagem = `*XKMIX - FECHAMENTO DE CAIXA*\n`;
-                    mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
-
-                    mensagem += `📊 *DADOS DO SISTEMA:*\n`;
-                    mensagem += `• Dinheiro: R$ ${sDinheiro.toFixed(2)}\n`;
-                    mensagem += `• PIX: R$ ${sPix.toFixed(2)}\n`;
-                    mensagem += `• Cartão: R$ ${sCartao.toFixed(2)}\n\n`;
-
-                    mensagem += `💵 *DADOS DO CAIXA:*\n`;
-                    mensagem += `• Total Dinheiro do Dia: R$ ${cDinheiroDia.toFixed(2)}\n`;
-                    mensagem += `• Dinheiro no Envelope: R$ ${cEnvelope.toFixed(2)}\n`;
-                    mensagem += `• Caixa Dia Seguinte: R$ ${cProximoDia.toFixed(2)}\n`;
-                    if (sangriasDesc.length > 0) {
-                        mensagem += `• Sangrias (Total: R$ ${totalSangrias.toFixed(2)}):\n` + sangriasDesc.join('\n') + `\n`;
-                    } else {
-                        mensagem += `• Sangrias: R$ 0.00\n`;
-                    }
-
-                    mensagem += `\n💳 *DADOS DAS MAQUINETAS:*\n`;
-                    mensagem += `• Crédito: R$ ${mCredito.toFixed(2)}\n`;
-                    mensagem += `• Débito: R$ ${mDebito.toFixed(2)}\n`;
-                    mensagem += `• PIX Maquinetas: R$ ${mPix.toFixed(2)}\n\n`;
-
-                    mensagem += `⚠ *CONFERÊNCIA (Diferenças):*\n`;
-                    mensagem += `• Dinheiro: ${diffDinheiro === 0 ? 'Exato' : (diffDinheiro > 0 ? `Sobrou R$ ${diffDinheiro.toFixed(2)}` : `Faltou R$ ${Math.abs(diffDinheiro).toFixed(2)}`)}\n`;
-                    mensagem += `• PIX: ${diffPix === 0 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
-                    mensagem += `• Cartão: ${diffCartao === 0 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
-
-                    if (obsText && obsText.value.trim()) {
-                        mensagem += `• Obs: ${obsText.value.trim()}\n`;
-                    }
-
-                    if (psText && psText.value.trim()) {
-                        mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
-                    }
-
-                    const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-                    
-                    window.open(urlWhatsApp, '_blank');
-                });
-            }
-        });
-    </script>
+    <script src="fechamento.js"></script>
 </body>
 </html>
