@@ -179,4 +179,91 @@
         }
 
         .btn-back:hover {
-            background: #0
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 20px #00ffcc;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <div class="dev-card">
+        <span class="badge">⚠️ ACESSO RESTRITO</span>
+        
+        <h1 class="glitch-title">EM DESENVOLVIMENTO</h1>
+        <p class="subtitle">// MÓDULO EM CONSTRUÇÃO //</p>
+
+        <!-- Barra de Progresso -->
+        <div class="progress-box">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text">
+            <span>COMPILANDO RECURSOS...</span>
+            <span id="percentVal">75%</span>
+        </div>
+
+        <!-- Terminal de Logs -->
+        <div class="terminal">
+            <div id="terminalContent"></div>
+            <span class="cursor"></span>
+        </div>
+
+        <!-- Botão para retornar ao menu -->
+        <a href="../PDP.html" class="btn-back">&larr; VOLTAR AO MENU PRINCIPAL</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const progressBar = document.getElementById("progressBar");
+            const percentVal = document.getElementById("percentVal");
+            const terminalContent = document.getElementById("terminalContent");
+
+            // Logs que serão digitados no terminal
+            const logs = [
+                "[SYS] Inicializando novo módulo do sistema...",
+                "[SYS] Carregando interface e estilos...",
+                "[SYS] Otimizando integrações de WhatsApp...",
+                "[SYS] Ajustando parâmetros de estoque e pedidos...",
+                "[SYS] Quase pronto! Aguarde os próximos lançamentos."
+            ];
+
+            let logIndex = 0;
+            let percentage = 75;
+
+            // Animação de progresso oscilante
+            setInterval(() => {
+                const variation = Math.floor(Math.random() * 5) - 2; // Varia levemente
+                let currentPercent = Math.min(99, Math.max(70, percentage + variation));
+                progressBar.style.width = currentPercent + "%";
+                percentVal.innerText = currentPercent + "%";
+            }, 1500);
+
+            // Animação do Terminal
+            function adicionarLog() {
+                if (logIndex < logs.length) {
+                    const line = document.createElement("div");
+                    line.className = "terminal-line";
+                    line.innerText = logs[logIndex];
+                    terminalContent.appendChild(line);
+                    logIndex++;
+                    setTimeout(adicionarLog, 1200);
+                } else {
+                    // Loop suave dos logs
+                    setTimeout(() => {
+                        terminalContent.innerHTML = "";
+                        logIndex = 0;
+                        adicionarLog();
+                    }, 4000);
+                }
+            }
+
+            adicionarLog();
+        });
+    </script>
+
+</body>
+</html>
