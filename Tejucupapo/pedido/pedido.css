@@ -1,0 +1,245 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0d0d11;
+    color: #e0e0e0;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    padding: 20px;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Efeito Cyberpunk */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.glow-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    box-shadow: inset 0 0 100px rgba(0, 255, 204, 0.1);
+    z-index: 9;
+    pointer-events: none;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+.subtitle {
+    color: #ff0055;
+    letter-spacing: 2px;
+}
+
+.main-container {
+    max-width: 950px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 11;
+}
+
+.section-box {
+    background: rgba(20, 20, 30, 0.85);
+    border: 1px solid #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.category-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: #ff0055;
+    border-bottom: 1px dashed #ff0055;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.sub-group {
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #00ffcc;
+}
+
+.sub-group h4 {
+    color: #00ffcc;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.item-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #151520;
+    padding: 8px 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.item-card:hover {
+    border-color: #00ffcc;
+}
+
+.item-card input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #00ffcc;
+    cursor: pointer;
+}
+
+.item-card label {
+    flex: 1;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    cursor: pointer;
+    word-break: break-word;
+}
+
+.item-card input[type="text"] {
+    width: 60px;
+    background: #000;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    padding: 4px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+/* Área de Adicionar Novo Item */
+.add-custom-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.add-custom-wrapper input {
+    flex: 1;
+    background: #000;
+    border: 1px solid #ff0055;
+    color: #fff;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.add-custom-wrapper input:focus {
+    outline: none;
+    box-shadow: 0 0 8px #ff0055;
+}
+
+.btn-add-item {
+    background: #ff0055;
+    color: #fff;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-add-item:hover {
+    background: #cc0044;
+    box-shadow: 0 0 10px #ff0055;
+}
+
+/* Botões da Ação Principal */
+.actions-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    flex: 1;
+    min-width: 220px;
+}
+
+.btn-whatsapp {
+    background: #25d366;
+    color: #000;
+    font-weight: bold;
+}
+
+.btn-whatsapp:hover {
+    background: #1ebc57;
+    box-shadow: 0 0 15px #25d366;
+}
+
+.btn-limpar {
+    background: #ff0055;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-limpar:hover {
+    background: #cc0044;
+    box-shadow: 0 0 15px #ff0055;
+}
+
+/* Botão Voltar */
+.back-home-container {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    color: #00ffcc;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    border: 1px solid #00ffcc;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #00ffcc;
+    color: #000;
+    box-shadow: 0 0 15px #00ffcc;
+}
