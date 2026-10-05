@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Pedido de Insumos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="pedidos.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>PEDIDO DE INSUMOS</h1>
+        <p class="subtitle">// SELEÇÃO E REPOSIÇÃO DE ESTOQUE //</p>
+    </header>
+
+    <div class="main-container">
+        <form id="pedidosForm">
+
+            <!-- 🍦 CREMES -->
+            <div class="section-box">
+                <h2 class="category-title">🍦 CREMES</h2>
+                <div class="items-grid" id="container-cremes">
+                    <!-- Gerado Dinamicamente pelo JS -->
+                </div>
+                <div class="add-custom-wrapper">
+                    <input type="text" id="add-creme-input" placeholder="Novo Creme...">
+                    <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('cremes', 'add-creme-input')">+ Adicionar Creme</button>
+                </div>
+            </div>
+
+            <!-- 🍬 COMPLEMENTOS -->
+            <div class="section-box">
+                <h2 class="category-title">🍬 COMPLEMENTOS</h2>
+                
+                <div class="sub-group">
+                    <h4>Balas Fini</h4>
+                    <div class="items-grid" id="container-fini">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-fini-input" placeholder="Nova Fini...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('fini', 'add-fini-input')">+ Adicionar Fini</button>
+                    </div>
+                </div>
+
+                <div class="sub-group">
+                    <h4>Outros Complementos</h4>
+                    <div class="items-grid" id="container-complementos">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-complemento-input" placeholder="Novo Complemento...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('complementos', 'add-complemento-input')">+ Adicionar Complemento</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🥤 DESCARTÁVEIS -->
+            <div class="section-box">
+                <h2 class="category-title">🥤 DESCARTÁVEIS</h2>
+                <div class="items-grid" id="container-descartaveis">
+                    <!-- Gerado Dinamicamente pelo JS -->
+                </div>
+                <div class="add-custom-wrapper">
+                    <input type="text" id="add-descartavel-input" placeholder="Novo Descartável...">
+                    <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('descartaveis', 'add-descartavel-input')">+ Adicionar Descartável</button>
+                </div>
+            </div>
+
+            <!-- 🧹 LIMPEZA -->
+            <div class="section-box">
+                <h2 class="category-title">🧹 MATERIAIS DE LIMPEZA</h2>
+                <div class="items-grid" id="container-limpeza">
+                    <!-- Gerado Dinamicamente pelo JS -->
+                </div>
+                <div class="add-custom-wrapper">
+                    <input type="text" id="add-limpeza-input" placeholder="Novo Item de Limpeza...">
+                    <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('limpeza', 'add-limpeza-input')">+ Adicionar Item Limpeza</button>
+                </div>
+            </div>
+
+            <!-- 🥤 BEBIDAS -->
+            <div class="section-box">
+                <h2 class="category-title">🥤 BEBIDAS</h2>
+                <div class="items-grid" id="container-bebidas">
+                    <!-- Gerado Dinamicamente pelo JS -->
+                </div>
+                <div class="add-custom-wrapper">
+                    <input type="text" id="add-bebida-input" placeholder="Nova Bebida...">
+                    <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('bebidas', 'add-bebida-input')">+ Adicionar Bebida</button>
+                </div>
+            </div>
+
+            <!-- BOTOES DE AÇÃO -->
+            <div class="actions-wrapper">
+                <button type="button" id="btnWhatsapp" class="btn btn-whatsapp">📱 Enviar Pedido via WhatsApp</button>
+                <button type="button" id="btnLimpar" class="btn btn-limpar">🗑️ Desmarcar Todos</button>
+            </div>
+        </form>
+
+        <div class="back-home-container">
+            <a href="../PDP.html" class="back-btn">&larr; VOLTAR AO MENU DE SETORES</a>
+        </div>
+    </div>
+
+    <script src="pedidos.js"></script>
+</body>
+</html>
