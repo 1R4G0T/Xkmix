@@ -1,0 +1,209 @@
+body {
+    background-color: #05070b;
+    color: #c5d1de;
+    font-family: 'VT323', monospace;
+    margin: 0;
+    padding: 20px;
+    font-size: 1.2rem;
+}
+
+.scanlines {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px; z-index: 999; pointer-events: none;
+}
+.glow-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    box-shadow: inset 0 0 100px rgba(0, 255, 204, 0.05); z-index: 998; pointer-events: none;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffcc;
+    font-size: 1.8rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+.subtitle {
+    font-size: 1.1rem;
+    color: #8a99ad;
+    margin-top: 5px;
+}
+
+.form-container {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #0b0f17;
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+}
+
+.section-box {
+    background: #05070b;
+    border: 1px dashed rgba(0, 255, 204, 0.2);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.section-box h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: #00ffcc;
+    margin-top: 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+    padding-bottom: 5px;
+}
+
+.quick-input-group label {
+    display: block;
+    color: #8a99ad;
+    margin-bottom: 5px;
+}
+.quick-input-group input {
+    width: 100%;
+    background: #0b0f17;
+    border: 2px solid #00ffcc;
+    color: #fff;
+    padding: 12px;
+    font-size: 1.8rem;
+    font-family: 'VT323', monospace;
+    border-radius: 6px;
+    box-sizing: border-box;
+    text-align: center;
+    outline: none;
+}
+
+.btn-label {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    color: #8a99ad;
+    font-size: 1.1rem;
+}
+
+/* Botões Grandes de Pagamento */
+.payment-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.pay-btn {
+    padding: 14px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+    color: #000;
+}
+.pay-btn:active {
+    transform: scale(0.96);
+}
+.pay-btn.dinheiro { background: #25d366; }
+.pay-btn.debito { background: #00ccff; }
+.pay-btn.credito { background: #ffaa00; }
+.pay-btn.pix { background: #a855f7; color: #fff; }
+
+/* Totais Acumulados */
+.totals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.total-card {
+    background: #0b0f17;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+.total-card span {
+    font-size: 1rem;
+    color: #8a99ad;
+}
+.total-card strong {
+    font-size: 1.4rem;
+    color: #fff;
+}
+.grand-total-card {
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid #00ffcc;
+    padding: 12px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.grand-total-card span {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffcc;
+    font-size: 1.1rem;
+}
+.grand-total-card strong {
+    font-size: 1.8rem;
+    color: #00ffcc;
+}
+
+/* Tabela de Histórico */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.clear-btn {
+    background: #ff3366;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.history-table-wrapper {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.history-table th, .history-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.history-table th {
+    color: #00ffcc;
+}
+.del-item-btn {
+    background: transparent;
+    border: 1px solid #ff3366;
+    color: #ff3366;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 2px 6px;
+}
+
+.back-link {
+    color: #8a99ad;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: color 0.2s;
+}
+.back-link:hover {
+    color: #00ffcc;
+}
