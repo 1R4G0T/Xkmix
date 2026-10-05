@@ -92,19 +92,19 @@ header h1 {
     box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
 }
 
-/* Sangrias */
-.sangrias-wrapper {
-    margin-top: 10px;
+/* Sangrias e Suprimentos */
+.sangrias-wrapper, .suprimentos-wrapper {
+    margin-top: 15px;
 }
-.sangria-item {
+.sangria-item, .suprimento-item {
     display: flex;
     gap: 10px;
     margin-bottom: 8px;
 }
-.sangria-item input {
+.sangria-item input, .suprimento-item input {
     flex: 1;
 }
-.remove-sangria {
+.remove-sangria, .remove-suprimento {
     background: #ff3366;
     color: #fff;
     border: none;
@@ -113,7 +113,7 @@ header h1 {
     cursor: pointer;
     font-weight: bold;
 }
-.add-sangria-btn {
+.add-sangria-btn, .add-suprimento-btn {
     background: transparent;
     border: 1px solid #00ffcc;
     color: #00ffcc;
@@ -124,7 +124,7 @@ header h1 {
     font-size: 1.1rem;
     margin-top: 5px;
 }
-.add-sangria-btn:hover {
+.add-sangria-btn:hover, .add-suprimento-btn:hover {
     background: rgba(0, 255, 204, 0.1);
 }
 
@@ -135,6 +135,7 @@ header h1 {
     font-family: 'VT323', monospace;
     font-size: 1.2rem;
     line-height: 1.4;
+    margin-bottom: 10px;
 }
 .diff-box.neutral { background: #151b26; color: #8a99ad; border: 1px solid #233044; text-align: center; }
 .diff-box.success { background: rgba(0, 255, 100, 0.15); color: #00ff66; border: 1px solid #00ff66; }
@@ -169,6 +170,8 @@ header h1 {
     color: #8a99ad;
     text-decoration: none;
     font-size: 1.1rem;
+    display: inline-block;
+    transition: color 0.2s;
 }
 .back-link:hover {
     color: #00ffcc;
