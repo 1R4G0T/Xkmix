@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Tejucupapo</title>
+    <!-- Importação das fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <!-- Ligação correta para o CSS separado -->
+    <link rel="stylesheet" href="TJ.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header class="hero-header">
+        <h1 class="logo-xkmix">XKMIX</h1>
+        <p class="location-subtitle">// Tejucupapo //</p>
+    </header>
+
+    <main class="main-container">
+        <!-- Barra de Seleção de Setores -->
+        <div class="dropdown-menu-wrapper" id="dropdownWrapper">
+            <div class="select-bar" id="selectBar">
+                <span id="selectedText">SELECIONAR SETOR</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+
+            <div class="options-container">
+                <div class="option-item" data-url="checklist/checklist.html">Check-list</div>
+                <div class="option-item" data-url="estoque/estoque.html">Estoque</div>
+                <div class="option-item" data-url="sorvete/sorvete.html">Pedido de Sorvete</div>
+                <div class="option-item" data-url="pedidos/pedidos.html">Pedidos</div>
+                <div class="option-item" data-url="regras.html">Regras e Orientações</div>
+                <div class="option-item" data-url="validade/validade.html">Registro de Validade</div>
+                <div class="option-item" data-url="fechamento/fechamento.html">Fechamento de Caixa</div>
+                <div class="option-item" data-url="caderno/caderno.html">Caderno Virtual</div>
+            </div>
+        </div>
+
+        <div class="back-home-container">
+            <!-- Retorna à raiz do projeto -->
+            <a href="../index.html" class="back-btn">&larr; VOLTAR AO MENU PRINCIPAL</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; XKMIX CORP.</p>
+    </footer>
+
+    <!-- Ligação para o JavaScript separado -->
+    <script src="TJ.js"></script>
+</body>
+</html>
