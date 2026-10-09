@@ -1,3 +1,16 @@
+// Itens Padrão das Categorias Expansíveis
+const itensPadrao = {
+    hamburgueres: ["X-Picanha", "X-Burguer", "X-Maionese", "X-Barbecue", "X-Frango c/ Bacon"],
+    bolo_pote: ["Bolo de Pote Brigadeiro", "Bolo de Pote Prestígio", "Bolo de Pote Red Velvet"],
+    tortas: ["Torta Maracujá", "Torta Ninho c/ Nutella", "Torta Sensação"],
+    bolos: ["Bolo Bem Casado"]
+};
+
+// Chaves de Armazenamento no LocalStorage
+const STORAGE_KEY = "xkmix_estoque_anterior";
+const STORAGE_CUSTOM_KEY = "xkmix_estoque_custom_v1";
+const STORAGE_SORVETES_KEY = "xkmix_estoque_sorvetes_v1";
+
 document.addEventListener("DOMContentLoaded", () => {
     const btnWhatsapp = document.getElementById("btnWhatsapp");
     const btnSalvar = document.getElementById("btnSalvar");
@@ -5,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const previousHistoryContent = document.getElementById("previousHistoryContent");
     const lastUpdated = document.getElementById("lastUpdated");
 
-    // Chave para salvar no LocalStorage
-    const STORAGE_KEY = "xkmix_estoque_anterior";
+    // Renderiza itens expansíveis e sorvetes ao carregar a página
+    renderizarItensDinamicos();
 
     // Carrega o histórico anterior ao abrir a página
     carregarHistoricoAnterior();
@@ -50,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Função para capturar os dados preenchidos identificando a categoria
+    // Função para capturar os dados preenchidos identificando a categoria principal
     function capturarDadosFormulario() {
         const inputs = document.querySelectorAll("#estoqueForm input[type='number']");
         const resultado = [];
@@ -58,13 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
         inputs.forEach(input => {
             const valor = parseInt(input.value) || 0;
             if (valor > 0) {
-                // Tenta pegar a categoria diretamente do atributo data-category ou do título da seção pai
                 let categoria = input.getAttribute("data-category");
 
                 if (!categoria) {
-                    const section = input.closest(".section-box, .sub-group, fieldset, .category-box");
+                    const section = input.closest(".section-box");
                     if (section) {
-                        const titleEl = section.querySelector(".category-title, h2, h3, h4, legend");
+                        const titleEl = section.querySelector(".category-title");
                         if (titleEl) {
                             categoria = titleEl.innerText.trim();
                         }
@@ -82,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return resultado;
     }
 
-    // Função para salvar no LocalStorage (substitui o histórico anterior)
+    // Função para salvar no LocalStorage
     function salvarNoHistorico(dados) {
         const agora = new Date();
         const dataFormatada = agora.toLocaleDateString('pt-BR') + ' às ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -109,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const historico = JSON.parse(salvo);
         lastUpdated.innerText = `Data: ${historico.data}`;
 
-        // Agrupa por categoria
         const categorias = {};
         historico.itens.forEach(item => {
             const cat = item.categoria || "OUTROS";
@@ -140,34 +151,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Gera a mensagem para WhatsApp agrupada por Categorias/Subdivisões
-function gerarMensagemWhatsApp(dados) {
-    const agora = new Date();
-    const dataHora = agora.toLocaleDateString('pt-BR') + ' - ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+/* --- GERENCIAMENTO DE ITENS CUSTOMIZADOS PERMANENTES --- */
+function obterCustomizados() {
+    const salvo = localStorage.getItem(STORAGE_CUSTOM_KEY);
+    return salvo ? JSON.parse(salvo) : { hamburgueres: [], bolo_pote: [], tortas: [], bolos: [] };
+}
 
-    let texto = `📦 *CONTAGEM DE ESTOQUE - XKMIX (PDP)*\n`;
-    texto += `📅 *Data:* ${dataHora}\n`;
-    texto += `-----------------------------------\n\n`;
+function adicionarItemCustomizado(categoria, inputId) {
+    const input = document.getElementById(inputId);
+    const valor = input.value.trim();
 
-    // Agrupa os itens digitados por Categoria
-    const categorias = {};
-    dados.forEach(item => {
-        const cat = item.categoria || "OUTROS";
-        if (!categorias[cat]) {
-            categorias[cat] = [];
-        }
-        categorias[cat].push(item);
-    });
-
-    // Imprime categoria por categoria na mensagem
-    for (const [catNome, itens] of Object.entries(categorias)) {
-        texto += `*${catNome.toUpperCase()}:*\n`;
-        itens.forEach(item => {
-            texto += `• *${item.nome}:* ${item.qtd}\n`;
-        });
-        texto += `\n`;
+    if (!valor) {
+        alert("Digite o nome do item a ser adicionado!");
+        return;
     }
 
-    texto += `-----------------------------------`;
-    return texto;
+    const custom = obterCustomizados();
+    if (!custom[categoria]) custom[categoria] = [];
+    
+    if (!custom[categoria].includes(valor)) {
+        custom[categoria].push(valor);
+        localStorage.setItem(STORAGE_CUSTOM_KEY, JSON.stringify(custom));
+    }
+
+    input.value = "";
+    renderizarItensDinamicos();
 }
+
+/* --- GERENCIAMENTO DE SORVETES (ADICIONAR E APAGAR) --- */
+function obterSorvetes() {
+    const salvo = localStorage.getItem(STORAGE_SORVETES_KEY);
+    return salvo ? JSON.parse(salvo) : [];
+}
+
+function adicionarSorvete(inputId) {
+    const input = document.getElementById(inputId);
+    const valor = input.value.trim();
+
+    if (!valor) {
+        alert("Digite o sabor do sorvete!");
+        return;
+    }
+
+    const sorvetes = obterSorvetes();
+    if (!sorvetes.includes(valor)) {
+        sorvetes.push(valor);
+        localStorage.setItem(STORAGE_SORVETES_KEY, JSON.stringify(sorvetes));
+    }
+
+    input.value = "";
