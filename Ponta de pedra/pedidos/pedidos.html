@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XKMIX - Pedido de Insumos</title>
+    <!-- Importação de Fontes -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <!-- Arquivo CSS Separado -->
     <link rel="stylesheet" href="pedidos.css">
 </head>
 <body>
@@ -13,7 +15,7 @@
 
     <header>
         <h1>PEDIDO DE INSUMOS</h1>
-        <p class="subtitle">// SELEÇÃO E REPOSIÇÃO DE ESTOQUE //</p>
+        <p class="subtitle">// SELEÇÃO E REPOSIÇÃO DE ESTOQUE (PDP) //</p>
     </header>
 
     <div class="main-container">
@@ -35,6 +37,7 @@
             <div class="section-box">
                 <h2 class="category-title">🍬 COMPLEMENTOS</h2>
                 
+                <!-- Subgrupo: Balas Fini -->
                 <div class="sub-group">
                     <h4>Balas Fini</h4>
                     <div class="items-grid" id="container-fini">
@@ -46,6 +49,19 @@
                     </div>
                 </div>
 
+                <!-- Subgrupo: Frutas -->
+                <div class="sub-group">
+                    <h4>🍓 Frutas</h4>
+                    <div class="items-grid" id="container-frutas">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-fruta-input" placeholder="Nova Fruta...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('frutas', 'add-fruta-input')">+ Adicionar Fruta</button>
+                    </div>
+                </div>
+
+                <!-- Subgrupo: Outros Complementos -->
                 <div class="sub-group">
                     <h4>Outros Complementos</h4>
                     <div class="items-grid" id="container-complementos">
@@ -70,7 +86,7 @@
                 </div>
             </div>
 
-            <!-- 🧹 LIMPEZA -->
+            <!-- 🧹 MATERIAIS DE LIMPEZA -->
             <div class="section-box">
                 <h2 class="category-title">🧹 MATERIAIS DE LIMPEZA</h2>
                 <div class="items-grid" id="container-limpeza">
@@ -94,7 +110,7 @@
                 </div>
             </div>
 
-            <!-- BOTOES DE AÇÃO -->
+            <!-- BOTÕES DE AÇÃO -->
             <div class="actions-wrapper">
                 <button type="button" id="btnWhatsapp" class="btn btn-whatsapp">📱 Enviar Pedido via WhatsApp</button>
                 <button type="button" id="btnLimpar" class="btn btn-limpar">🗑️ Desmarcar Todos</button>
@@ -106,6 +122,7 @@
         </div>
     </div>
 
+    <!-- Arquivo JS Separado -->
     <script src="pedidos.js"></script>
 </body>
 </html>
