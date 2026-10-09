@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #05070b;
     color: #c5d1de;
@@ -7,21 +13,29 @@ body {
     font-size: 1.2rem;
 }
 
-/* Efeitos Retro */
+/* Efeitos Especiais Cyberpunk */
 .scanlines {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-    background-size: 100% 4px; z-index: 999; pointer-events: none;
+    background-size: 100% 4px;
+    z-index: 999;
+    pointer-events: none;
 }
+
 .glow-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    box-shadow: inset 0 0 100px rgba(0, 255, 204, 0.05); z-index: 998; pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    box-shadow: inset 0 0 100px rgba(0, 255, 204, 0.05);
+    z-index: 998;
+    pointer-events: none;
 }
 
 header {
     text-align: center;
     margin-bottom: 25px;
 }
+
 header h1 {
     font-family: 'Orbitron', sans-serif;
     color: #00ffcc;
@@ -29,6 +43,7 @@ header h1 {
     margin: 0;
     text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
 }
+
 .subtitle {
     font-size: 1.1rem;
     color: #8a99ad;
@@ -74,7 +89,8 @@ header h1 {
     font-size: 1.1rem;
 }
 
-.input-group input, .input-group textarea {
+.input-group input, 
+.input-group textarea {
     width: 100%;
     background: #0b0f17;
     border: 1px solid rgba(0, 255, 204, 0.4);
@@ -83,52 +99,101 @@ header h1 {
     border-radius: 4px;
     font-family: 'VT323', monospace;
     font-size: 1.3rem;
-    box-sizing: border-box;
     outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.input-group input:focus, .input-group textarea:focus {
+.input-group input:focus, 
+.input-group textarea:focus {
     border-color: #00ffcc;
     box-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
 }
 
-/* Sangrias e Suprimentos */
-.sangrias-wrapper, .suprimentos-wrapper {
+/* Sangrias e Suprimentos com descrição e valor lado a lado */
+.sangrias-wrapper, 
+.suprimentos-wrapper {
     margin-top: 15px;
 }
-.sangria-item, .suprimento-item {
+
+.sangrias-wrapper > label, 
+.suprimentos-wrapper > label {
+    color: #8a99ad;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.sangria-item, 
+.suprimento-item {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 8px;
+    align-items: center;
 }
-.sangria-item input, .suprimento-item input {
+
+.sangria-desc, 
+.suprimento-desc {
+    flex: 2;
+    background: #0b0f17;
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.sangria-val, 
+.suprimento-val {
     flex: 1;
+    background: #0b0f17;
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    color: #00ffcc;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    outline: none;
 }
-.remove-sangria, .remove-suprimento {
+
+.remove-sangria, 
+.remove-suprimento {
     background: #ff3366;
     color: #fff;
     border: none;
-    padding: 0 12px;
+    padding: 6px 10px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    font-family: 'VT323', monospace;
+    transition: background 0.2s;
 }
-.add-sangria-btn, .add-suprimento-btn {
+
+.remove-sangria:hover, 
+.remove-suprimento:hover {
+    background: #cc0044;
+}
+
+.add-sangria-btn, 
+.add-suprimento-btn {
     background: transparent;
     border: 1px solid #00ffcc;
     color: #00ffcc;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-family: 'VT323', monospace;
     font-size: 1.1rem;
     margin-top: 5px;
+    transition: background 0.2s;
 }
-.add-sangria-btn:hover, .add-suprimento-btn:hover {
+
+.add-sangria-btn:hover, 
+.add-suprimento-btn:hover {
     background: rgba(0, 255, 204, 0.1);
 }
 
-/* Caixa de Alerta de Diferença */
+/* Caixa de Alerta da Conferência */
 .diff-box {
     padding: 12px;
     border-radius: 4px;
@@ -137,14 +202,31 @@ header h1 {
     line-height: 1.4;
     margin-bottom: 10px;
 }
-.diff-box.neutral { background: #151b26; color: #8a99ad; border: 1px solid #233044; text-align: center; }
-.diff-box.success { background: rgba(0, 255, 100, 0.15); color: #00ff66; border: 1px solid #00ff66; }
-.diff-box.danger { background: rgba(255, 51, 102, 0.15); color: #ff3366; border: 1px solid #ff3366; }
 
-/* Botões finais */
+.diff-box.neutral { 
+    background: #151b26; 
+    color: #8a99ad; 
+    border: 1px solid #233044; 
+    text-align: center; 
+}
+
+.diff-box.success { 
+    background: rgba(0, 255, 100, 0.15); 
+    color: #00ff66; 
+    border: 1px solid #00ff66; 
+}
+
+.diff-box.danger { 
+    background: rgba(255, 51, 102, 0.15); 
+    color: #ff3366; 
+    border: 1px solid #ff3366; 
+}
+
+/* Botões de Ação */
 .action-container {
     text-align: center;
 }
+
 .whatsapp-btn {
     display: block;
     width: 100%;
@@ -160,12 +242,14 @@ header h1 {
     text-transform: uppercase;
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
     margin-bottom: 15px;
-    transition: 0.2s;
+    transition: background 0.2s, box-shadow 0.2s;
 }
+
 .whatsapp-btn:hover {
     background: #1ebe5d;
     box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
 }
+
 .back-link {
     color: #8a99ad;
     text-decoration: none;
@@ -173,6 +257,7 @@ header h1 {
     display: inline-block;
     transition: color 0.2s;
 }
+
 .back-link:hover {
     color: #00ffcc;
 }
