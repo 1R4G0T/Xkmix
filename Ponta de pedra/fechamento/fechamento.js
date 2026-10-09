@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sysCartao = document.getElementById('sysCartao');
 
     const caixaDinheiroDia = document.getElementById('caixaDinheiroDia');
+    const caixaPix = document.getElementById('caixaPix'); // PIX no caixa
     const caixaEnvelope = document.getElementById('caixaEnvelope');
     const caixaProximoDia = document.getElementById('caixaProximoDia');
     
@@ -29,24 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let userEditedProximoDia = false;
 
-    // 2. Cálculo do Caixa do Dia Seguinte (Dinheiro do Dia + Suprimentos - Envelope - Sangrias)
+    // 2. Cálculo do Caixa do Dia Seguinte (Dinheiro do Dia - Envelope)
+    // Sangria e Suprimento NÃO alteram mais a conta do caixa
     function autoPreencherProximoDia() {
         if (userEditedProximoDia) return;
 
         const totalDia = parseFloat(caixaDinheiroDia?.value) || 0;
         const envelope = parseFloat(caixaEnvelope?.value) || 0;
 
-        let totalSangrias = 0;
-        document.querySelectorAll('.sangria-val').forEach(input => {
-            totalSangrias += parseFloat(input.value) || 0;
-        });
-
-        let totalSuprimentos = 0;
-        document.querySelectorAll('.suprimento-val').forEach(input => {
-            totalSuprimentos += parseFloat(input.value) || 0;
-        });
-
-        const restante = totalDia + totalSuprimentos - envelope - totalSangrias;
+        const restante = totalDia - envelope;
         if (caixaProximoDia) {
             caixaProximoDia.value = restante >= 0 ? restante.toFixed(2) : '0.00';
         }
@@ -63,16 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const sCartao = parseFloat(sysCartao?.value) || 0;
 
         const cDinheiroDia = parseFloat(caixaDinheiroDia?.value) || 0;
+        const cPix = parseFloat(caixaPix?.value) || 0;
+
         const mCredito = parseFloat(maqCredito?.value) || 0;
         const mDebito = parseFloat(maqDebito?.value) || 0;
         const mPix = parseFloat(maqPix?.value) || 0;
 
+        const totalPixInformado = cPix + mPix;
+
         // Aceita a diferença inserida manualmente ou calcula automaticamente
         let diffDinheiro = manDinheiro && manDinheiro.value !== '' ? parseFloat(manDinheiro.value) : (cDinheiroDia - sDinheiro);
-        let diffPix = manPix && manPix.value !== '' ? parseFloat(manPix.value) : (mPix - sPix);
+        let diffPix = manPix && manPix.value !== '' ? parseFloat(manPix.value) : (totalPixInformado - sPix);
         let diffCartao = manCartao && manCartao.value !== '' ? parseFloat(manCartao.value) : ((mCredito + mDebito) - sCartao);
 
-        const temDados = sDinheiro > 0 || sPix > 0 || sCartao > 0 || cDinheiroDia > 0 || (mCredito + mDebito) > 0;
+        const temDados = sDinheiro > 0 || sPix > 0 || sCartao > 0 || cDinheiroDia > 0 || cPix > 0 || (mCredito + mDebito + mPix) > 0;
 
         if (!temDados) {
             diffAlertBox.className = 'diff-box neutral';
@@ -109,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Event Listeners para Entradas
-    const inputs = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaEnvelope, maqCredito, maqDebito, maqPix, manDinheiro, manPix, manCartao];
+    const inputs = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaPix, caixaEnvelope, maqCredito, maqDebito, maqPix, manDinheiro, manPix, manCartao];
     inputs.forEach(input => {
         if (input) input.addEventListener('input', atualizarConferencia);
     });
@@ -120,13 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Adicionar e Remover Sangrias
+    // 5. Adicionar e Remover Sangrias (Com Descrição/Explicação)
     if (addSangriaBtn && sangriasList) {
         addSangriaBtn.addEventListener('click', () => {
             const div = document.createElement('div');
             div.className = 'sangria-item';
             div.innerHTML = `
-                <input type="number" step="0.01" placeholder="Valor da sangria (R$)" class="sangria-val">
+                <input type="text" placeholder="Descrição / Motivo" class="sangria-desc">
+                <input type="number" step="0.01" placeholder="Valor (R$)" class="sangria-val">
                 <button type="button" class="remove-sangria">X</button>
             `;
             sangriasList.appendChild(div);
@@ -140,13 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Adicionar e Remover Suprimentos
+    // 6. Adicionar e Remover Suprimentos (Com Descrição/Explicação)
     if (addSuprimentoBtn && suprimentosList) {
         addSuprimentoBtn.addEventListener('click', () => {
             const div = document.createElement('div');
             div.className = 'suprimento-item';
             div.innerHTML = `
-                <input type="number" step="0.01" placeholder="Valor do suprimento (R$)" class="suprimento-val">
+                <input type="text" placeholder="Descrição / Motivo" class="suprimento-desc">
+                <input type="number" step="0.01" placeholder="Valor (R$)" class="suprimento-val">
                 <button type="button" class="remove-suprimento">X</button>
             `;
             suprimentosList.appendChild(div);
@@ -168,26 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const sCartao = parseFloat(sysCartao?.value) || 0;
 
             const cDinheiroDia = parseFloat(caixaDinheiroDia?.value) || 0;
+            const cPix = parseFloat(caixaPix?.value) || 0;
             const cEnvelope = parseFloat(caixaEnvelope?.value) || 0;
             const cProximoDia = parseFloat(caixaProximoDia?.value) || 0;
 
             let totalSangrias = 0;
             let sangriasDesc = [];
-            document.querySelectorAll('.sangria-val').forEach((input, index) => {
-                const val = parseFloat(input.value) || 0;
-                if (val > 0) {
+            document.querySelectorAll('.sangria-item').forEach((item, index) => {
+                const desc = item.querySelector('.sangria-desc')?.value.trim() || `Sangria ${index + 1}`;
+                const val = parseFloat(item.querySelector('.sangria-val')?.value) || 0;
+                if (val > 0 || desc) {
                     totalSangrias += val;
-                    sangriasDesc.push(`   - Sangria ${index + 1}: R$ ${val.toFixed(2)}`);
+                    sangriasDesc.push(`   - ${desc}: R$ ${val.toFixed(2)}`);
                 }
             });
 
             let totalSuprimentos = 0;
             let suprimentosDesc = [];
-            document.querySelectorAll('.suprimento-val').forEach((input, index) => {
-                const val = parseFloat(input.value) || 0;
-                if (val > 0) {
+            document.querySelectorAll('.suprimento-item').forEach((item, index) => {
+                const desc = item.querySelector('.suprimento-desc')?.value.trim() || `Suprimento ${index + 1}`;
+                const val = parseFloat(item.querySelector('.suprimento-val')?.value) || 0;
+                if (val > 0 || desc) {
                     totalSuprimentos += val;
-                    suprimentosDesc.push(`   - Suprimento ${index + 1}: R$ ${val.toFixed(2)}`);
+                    suprimentosDesc.push(`   - ${desc}: R$ ${val.toFixed(2)}`);
                 }
             });
 
@@ -195,8 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const mDebito = parseFloat(maqDebito?.value) || 0;
             const mPix = parseFloat(maqPix?.value) || 0;
 
+            const totalPixInf = cPix + mPix;
+
             const diffDinheiro = manDinheiro && manDinheiro.value !== '' ? parseFloat(manDinheiro.value) : (cDinheiroDia - sDinheiro);
-            const diffPix = manPix && manPix.value !== '' ? parseFloat(manPix.value) : (mPix - sPix);
+            const diffPix = manPix && manPix.value !== '' ? parseFloat(manPix.value) : (totalPixInf - sPix);
             const diffCartao = manCartao && manCartao.value !== '' ? parseFloat(manCartao.value) : ((mCredito + mDebito) - sCartao);
 
             let mensagem = `*XKMIX - FECHAMENTO DE CAIXA (PDP)*\n`;
@@ -209,17 +212,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             mensagem += `💵 *DADOS DO CAIXA:*\n`;
             mensagem += `• Total Dinheiro do Dia: R$ ${cDinheiroDia.toFixed(2)}\n`;
+            mensagem += `• Total PIX no Caixa: R$ ${cPix.toFixed(2)}\n`;
             mensagem += `• Dinheiro no Envelope: R$ ${cEnvelope.toFixed(2)}\n`;
             mensagem += `• Caixa Dia Seguinte: R$ ${cProximoDia.toFixed(2)}\n`;
             
             if (sangriasDesc.length > 0) {
-                mensagem += `• Sangrias (Total: R$ ${totalSangrias.toFixed(2)}):\n` + sangriasDesc.join('\n') + `\n`;
+                mensagem += `• Sangrias (Registro - Total: R$ ${totalSangrias.toFixed(2)}):\n` + sangriasDesc.join('\n') + `\n`;
             } else {
                 mensagem += `• Sangrias: R$ 0.00\n`;
             }
 
             if (suprimentosDesc.length > 0) {
-                mensagem += `• Suprimentos (Total: R$ ${totalSuprimentos.toFixed(2)}):\n` + suprimentosDesc.join('\n') + `\n`;
+                mensagem += `• Suprimentos (Registro - Total: R$ ${totalSuprimentos.toFixed(2)}):\n` + suprimentosDesc.join('\n') + `\n`;
             } else {
                 mensagem += `• Suprimentos: R$ 0.00\n`;
             }
