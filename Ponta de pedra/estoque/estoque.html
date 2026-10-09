@@ -18,11 +18,16 @@
 
     <div class="main-container">
 
-        <!-- PAINEL DE HISTÓRICO ANTERIOR -->
+        <!-- PAINEL DE HISTÓRICO ANTERIOR REFORMULADO -->
         <div class="section-box history-box">
             <div class="history-header">
-                <h3>📜 ÚLTIMA CONTAGEM REGISTRADA</h3>
-                <span id="lastUpdated" class="last-date">Nenhum registro anterior</span>
+                <div>
+                    <h3>📜 ÚLTIMA CONTAGEM REGISTRADA</h3>
+                    <span id="lastUpdated" class="last-date">Nenhum registro anterior</span>
+                </div>
+                <button type="button" id="btnCarregarHistorico" class="btn-import-history">
+                    🔄 Reutilizar Última Contagem
+                </button>
             </div>
             <div id="previousHistoryContent" class="previous-history-content">
                 <p class="empty-msg">Nenhum histórico anterior salvo.</p>
@@ -96,7 +101,7 @@
                     </div>
                 </div>
 
-                <!-- Hambúrgueres (Com Adição Permanente) -->
+                <!-- Hambúrgueres -->
                 <div class="sub-group">
                     <h4>Hambúrgueres</h4>
                     <div class="items-grid" id="container-hamburgueres">
@@ -131,7 +136,7 @@
                     </div>
                 </div>
 
-                <!-- Sorvetes (Adição e Exclusão Dinâmica) -->
+                <!-- Sorvetes -->
                 <div class="sub-group" style="margin-top: 15px;">
                     <h4>🍦 Sorvetes</h4>
                     <div class="items-grid" id="container-sorvetes">
@@ -148,7 +153,7 @@
             <div class="section-box" data-category="DOCES">
                 <h2 class="category-title">🍰 DOCES</h2>
 
-                <!-- Bolo de Pote (Com Adição Permanente) -->
+                <!-- Bolo de Pote -->
                 <div class="sub-group">
                     <h4>Bolo de Pote</h4>
                     <div class="items-grid" id="container-bolo-pote">
@@ -183,7 +188,7 @@
                     </div>
                 </div>
 
-                <!-- Tortas (Com Adição Permanente) -->
+                <!-- Tortas -->
                 <div class="sub-group">
                     <h4>Tortas</h4>
                     <div class="items-grid" id="container-tortas">
@@ -195,7 +200,7 @@
                     </div>
                 </div>
 
-                <!-- Bolos (Com Adição Permanente) -->
+                <!-- Bolos -->
                 <div class="sub-group">
                     <h4>Bolos</h4>
                     <div class="items-grid" id="container-bolos">
