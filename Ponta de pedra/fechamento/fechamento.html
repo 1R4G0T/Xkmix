@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,10 +36,14 @@
 
         <!-- 2. DADOS DO CAIXA -->
         <div class="section-box">
-            <h3>💵 DADOS DO CAIXA (FÍSICO)</h3>
+            <h3>💵 DADOS DO CAIXA (FÍSICO / LOCAL)</h3>
             <div class="input-group">
                 <label for="caixaDinheiroDia">Total do Dinheiro do Dia (R$):</label>
                 <input type="number" id="caixaDinheiroDia" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label for="caixaPix">Total PIX no Caixa (R$):</label>
+                <input type="number" id="caixaPix" step="0.01" placeholder="0.00">
             </div>
             <div class="input-group">
                 <label for="caixaEnvelope">Dinheiro no Envelope (R$):</label>
@@ -50,16 +54,16 @@
                 <input type="number" id="caixaProximoDia" step="0.01" placeholder="0.00">
             </div>
 
-            <!-- SANGRIA -->
+            <!-- SANGRIA (REGISTRO COM DESCRIÇÃO E VALOR) -->
             <div class="sangrias-wrapper">
-                <label>Sangrias:</label>
+                <label>Sangrias (Apenas Registro):</label>
                 <div id="sangriasList"></div>
                 <button type="button" class="add-sangria-btn" id="addSangriaBtn">+ Adicionar Sangria</button>
             </div>
 
-            <!-- SUPRIMENTOS -->
+            <!-- SUPRIMENTOS (REGISTRO COM DESCRIÇÃO E VALOR) -->
             <div class="suprimentos-wrapper">
-                <label>Suprimentos:</label>
+                <label>Suprimentos (Apenas Registro):</label>
                 <div id="suprimentosList"></div>
                 <button type="button" class="add-suprimento-btn" id="addSuprimentoBtn">+ Adicionar Suprimento</button>
             </div>
