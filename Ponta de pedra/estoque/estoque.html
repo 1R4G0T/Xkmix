@@ -13,7 +13,7 @@
 
     <header>
         <h1>CONTROLE DE ESTOQUE</h1>
-        <p class="subtitle">// CONTAGEM E REGISTRO RÁPIDO //</p>
+        <p class="subtitle">// CONTAGEM E REGISTRO RÁPIDO (PDP) //</p>
     </header>
 
     <div class="main-container">
@@ -33,7 +33,7 @@
         <form id="estoqueForm">
 
             <!-- SALGADOS -->
-            <div class="section-box">
+            <div class="section-box" data-category="SALGADOS">
                 <h2 class="category-title">🥐 SALGADOS</h2>
 
                 <!-- Coxinhas -->
@@ -81,36 +81,36 @@
                     </div>
                 </div>
 
-                <!-- Hambúrgueres -->
+                <!-- Enroladinhos -->
                 <div class="sub-group">
-                    <h4>Hambúrgueres</h4>
+                    <h4>Enroladinhos</h4>
                     <div class="items-grid">
                         <div class="item-card">
-                            <label for="burguer_picanha">X-Picanha</label>
-                            <input type="number" id="burguer_picanha" data-name="X-Picanha" min="0" placeholder="0">
+                            <label for="enroladinho_salsicha">Salsicha</label>
+                            <input type="number" id="enroladinho_salsicha" data-name="Enroladinho de Salsicha" min="0" placeholder="0">
                         </div>
                         <div class="item-card">
-                            <label for="burguer_burguer">X-Burguer</label>
-                            <input type="number" id="burguer_burguer" data-name="X-Burguer" min="0" placeholder="0">
+                            <label for="enroladinho_misto">Misto (Presunto e Queijo)</label>
+                            <input type="number" id="enroladinho_misto" data-name="Enroladinho Misto" min="0" placeholder="0">
                         </div>
-                        <div class="item-card">
-                            <label for="burguer_maionese">X-Maionese</label>
-                            <input type="number" id="burguer_maionese" data-name="X-Maionese" min="0" placeholder="0">
-                        </div>
-                        <div class="item-card">
-                            <label for="burguer_barbecue">X-Barbecue</label>
-                            <input type="number" id="burguer_barbecue" data-name="X-Barbecue" min="0" placeholder="0">
-                        </div>
-                        <div class="item-card">
-                            <label for="burguer_frango_bacon">X-Frango c/ Bacon</label>
-                            <input type="number" id="burguer_frango_bacon" data-name="X-Frango c/ Bacon" min="0" placeholder="0">
-                        </div>
+                    </div>
+                </div>
+
+                <!-- Hambúrgueres (Com Adição Permanente) -->
+                <div class="sub-group">
+                    <h4>Hambúrgueres</h4>
+                    <div class="items-grid" id="container-hamburgueres">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-hamburguer-input" placeholder="Novo Hambúrguer...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('hamburgueres', 'add-hamburguer-input')">+ Adicionar Hambúrguer</button>
                     </div>
                 </div>
             </div>
 
             <!-- GELADOS -->
-            <div class="section-box">
+            <div class="section-box" data-category="GELADOS">
                 <h2 class="category-title">🍧 GELADOS</h2>
                 <div class="items-grid">
                     <div class="item-card">
@@ -130,28 +130,33 @@
                         <input type="number" id="gelado_tapioca" data-name="Tapioca" min="0" placeholder="0">
                     </div>
                 </div>
+
+                <!-- Sorvetes (Adição e Exclusão Dinâmica) -->
+                <div class="sub-group" style="margin-top: 15px;">
+                    <h4>🍦 Sorvetes</h4>
+                    <div class="items-grid" id="container-sorvetes">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-sorvete-input" placeholder="Novo Sabor de Sorvete...">
+                        <button type="button" class="btn-add-item" onclick="adicionarSorvete('add-sorvete-input')">+ Adicionar Sorvete</button>
+                    </div>
+                </div>
             </div>
 
             <!-- DOCES -->
-            <div class="section-box">
+            <div class="section-box" data-category="DOCES">
                 <h2 class="category-title">🍰 DOCES</h2>
 
-                <!-- Bolo de Pote -->
+                <!-- Bolo de Pote (Com Adição Permanente) -->
                 <div class="sub-group">
                     <h4>Bolo de Pote</h4>
-                    <div class="items-grid">
-                        <div class="item-card">
-                            <label for="pote_brigadeiro">Brigadeiro</label>
-                            <input type="number" id="pote_brigadeiro" data-name="Bolo de Pote Brigadeiro" min="0" placeholder="0">
-                        </div>
-                        <div class="item-card">
-                            <label for="pote_prestigio">Prestígio</label>
-                            <input type="number" id="pote_prestigio" data-name="Bolo de Pote Prestígio" min="0" placeholder="0">
-                        </div>
-                        <div class="item-card">
-                            <label for="pote_red_velvet">Red Velvet</label>
-                            <input type="number" id="pote_red_velvet" data-name="Bolo de Pote Red Velvet" min="0" placeholder="0">
-                        </div>
+                    <div class="items-grid" id="container-bolo-pote">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-bolo-pote-input" placeholder="Novo Bolo de Pote...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('bolo_pote', 'add-bolo-pote-input')">+ Adicionar Bolo de Pote</button>
                     </div>
                 </div>
 
@@ -178,33 +183,27 @@
                     </div>
                 </div>
 
-                <!-- Tortas -->
+                <!-- Tortas (Com Adição Permanente) -->
                 <div class="sub-group">
                     <h4>Tortas</h4>
-                    <div class="items-grid">
-                        <div class="item-card">
-                            <label for="torta_maracuja">Maracujá</label>
-                            <input type="number" id="torta_maracuja" data-name="Torta Maracujá" min="0" placeholder="0">
-                        </div>
-                        <div class="item-card">
-                            <label for="torta_ninho_nutella">Ninho c/ Nutella</label>
-                            <input type="number" id="torta_ninho_nutella" data-name="Torta Ninho c/ Nutella" min="0" placeholder="0">
-                        </div>
-                        <div class="item-card">
-                            <label for="torta_sensacao">Sensação</label>
-                            <input type="number" id="torta_sensacao" data-name="Torta Sensação" min="0" placeholder="0">
-                        </div>
+                    <div class="items-grid" id="container-tortas">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-torta-input" placeholder="Nova Torta...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('tortas', 'add-torta-input')">+ Adicionar Torta</button>
                     </div>
                 </div>
 
-                <!-- Bolos -->
+                <!-- Bolos (Com Adição Permanente) -->
                 <div class="sub-group">
                     <h4>Bolos</h4>
-                    <div class="items-grid">
-                        <div class="item-card">
-                            <label for="bolo_bem_casado">Bem Casado</label>
-                            <input type="number" id="bolo_bem_casado" data-name="Bolo Bem Casado" min="0" placeholder="0">
-                        </div>
+                    <div class="items-grid" id="container-bolos">
+                        <!-- Gerado Dinamicamente pelo JS -->
+                    </div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-bolo-input" placeholder="Novo Bolo...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('bolos', 'add-bolo-input')">+ Adicionar Bolo</button>
                     </div>
                 </div>
 
@@ -224,7 +223,7 @@
                 </div>
             </div>
 
-            <!-- BOTOES DE ACAO -->
+            <!-- BOTÕES DE AÇÃO -->
             <div class="actions-wrapper">
                 <button type="button" id="btnWhatsapp" class="btn btn-whatsapp">📱 Enviar via WhatsApp</button>
                 <button type="button" id="btnSalvar" class="btn btn-salvar">💾 Salvar Apenas no Histórico</button>
