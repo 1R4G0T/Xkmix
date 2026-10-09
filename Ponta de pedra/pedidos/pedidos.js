@@ -8,6 +8,9 @@ const itensPadrao = {
     fini: [
         "Minhoca", "Dentadura", "Amora", "Beijinho", "Banana"
     ],
+    frutas: [
+        "Banana", "Abacaxi", "Manga", "Uva", "Morango", "Kiwi"
+    ],
     complementos: [
         "Granola", "Chocoball", "Powerball", "Paçoca", "Bis", "Canudo", 
         "Amendoim", "Leite em Pó", "Leite Condensado", "Jujuba", 
@@ -21,7 +24,7 @@ const itensPadrao = {
         "Kraft (PPP)", "Kraft (PP)", "Kraft (P)", "Kraft (M)", "Kraft (G)", "Kraft (GG)", 
         "Canudo para Milk Shake", "Canudo para Bebidas", 
         "Sachê Ketchup", "Sachê Maionese", "Sachê Mostarda", 
-        "Guardanapos (Mesa)", "Guardanapos (Salgados)", "Papel Toalha", "Saco de Dudu"
+        "Guardanapos (Mesa)", "Guardanapos (Salgados)", "Papel Toalha", "Saco de geladinho/Bolsa para embalar colher"
     ],
     limpeza: [
         "Água Sanitária", "Detergente", "Desinfetante", "Papel Higiênico", 
@@ -58,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Carrega os itens salvos no LocalStorage
 function obterItensCustomizados() {
     const salvo = localStorage.getItem(STORAGE_KEY);
-    return salvo ? JSON.parse(salvo) : { cremes: [], fini: [], complementos: [], descartaveis: [], limpeza: [], bebidas: [] };
+    return salvo ? JSON.parse(salvo) : { cremes: [], fini: [], frutas: [], complementos: [], descartaveis: [], limpeza: [], bebidas: [] };
 }
 
 // Salva novos itens no LocalStorage para ficarem permanentes
@@ -91,14 +94,14 @@ function adicionarItemCustomizado(categoria, inputId) {
 // Renderiza a lista combinando os itens padrão + customizados permanentes
 function renderizarTodosOsItens() {
     const custom = obterItensCustomizados();
-    const categorias = ["cremes", "fini", "complementos", "descartaveis", "limpeza", "bebidas"];
+    const categorias = ["cremes", "fini", "frutas", "complementos", "descartaveis", "limpeza", "bebidas"];
 
     categorias.forEach(cat => {
         const container = document.getElementById(`container-${cat}`);
         if (!container) return;
 
         // Combina lista padrão com novos criados pelo usuário
-        const listaCompleta = [...itensPadrao[cat], ...(custom[cat] || [])];
+        const listaCompleta = [...(itensPadrao[cat] || []), ...(custom[cat] || [])];
         
         // Preserva as seleções atuais antes de re-renderizar
         const selecionados = {};
@@ -134,6 +137,7 @@ function enviarPedidoWhatsApp() {
     const categorias = [
         { key: "cremes", titulo: "🍦 CREMES" },
         { key: "fini", titulo: "🍬 BALAS FINI" },
+        { key: "frutas", titulo: "🍓 FRUTAS" },
         { key: "complementos", titulo: "🍿 COMPLEMENTOS" },
         { key: "descartaveis", titulo: "🥤 DESCARTÁVEIS" },
         { key: "limpeza", titulo: "🧹 LIMPEZA" },
