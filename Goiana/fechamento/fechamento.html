@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Fechamento de Caixa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fechamento.css">
+    <style>
+        /* Estilos dos botões para alternar os modos na tela */
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .mode-btn {
+            background: #111;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .mode-btn.active {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+        }
+        .form-mode {
+            display: none;
+        }
+        .form-mode.active-mode {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>FECHAMENTO DE CAIXA</h1>
+        <p class="subtitle">// GOIANIA - ESCOLHA O MODO NA TELA //</p>
+    </header>
+
+    <div class="form-container">
+        
+        <!-- BOTÕES PARA ALTERNAR ENTRE OS MODOS -->
+        <div class="mode-selector">
+            <button type="button" class="mode-btn active" id="btnModoCompleto" onclick="mudarModo('completo')">📊 Modo Completo</button>
+            <button type="button" class="mode-btn" id="btnModoSimples" onclick="mudarModo('simples')">💵 Modo Simples (Dinheiro)</button>
+        </div>
+
+        <!-- ================= MODO COMPLETO ================= -->
+        <div id="modoCompleto" class="form-mode active-mode">
+            
+            <div class="section-box">
+                <h3>📊 DADOS DO SISTEMA</h3>
+                <div class="input-group">
+                    <label for="sysDinheiro">Total Dinheiro (R$):</label>
+                    <input type="number" id="sysDinheiro" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="sysPix">Total PIX (R$):</label>
+                    <input type="number" id="sysPix" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="sysCartao">Total Cartão (R$):</label>
+                    <input type="number" id="sysCartao" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h3>💵 DADOS DO CAIXA (FÍSICO / LOCAL)</h3>
+                <div class="input-group">
+                    <label for="caixaDinheiroDia">Total do Dinheiro do Dia (R$):</label>
+                    <input type="number" id="caixaDinheiroDia" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="caixaPix">Total PIX no Caixa (R$):</label>
+                    <input type="number" id="caixaPix" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="caixaEnvelope">Dinheiro no Envelope (R$):</label>
+                    <input type="number" id="caixaEnvelope" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="caixaProximoDia">Dinheiro pro Caixa do Dia Seguinte (R$):</label>
+                    <input type="number" id="caixaProximoDia" step="0.01" placeholder="0.00">
+                </div>
+
+                <div class="sangrias-wrapper">
+                    <label>Sangrias (Apenas Registro):</label>
+                    <div id="sangriasList"></div>
+                    <button type="button" class="add-sangria-btn" id="addSangriaBtn">+ Adicionar Sangria</button>
+                </div>
+
+                <div class="suprimentos-wrapper" style="margin-top: 15px;">
+                    <label>Suprimentos (Apenas Registro):</label>
+                    <div id="suprimentosList"></div>
+                    <button type="button" class="add-suprimento-btn" id="addSuprimentoBtn">+ Adicionar Suprimento</button>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h3>💳 DADOS DAS MAQUINETAS</h3>
+                <div class="input-group">
+                    <label for="maqCredito">Total de Crédito (R$):</label>
+                    <input type="number" id="maqCredito" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="maqDebito">Total de Débito (R$):</label>
+                    <input type="number" id="maqDebito" step="0.01" placeholder="0.00">
+                </div>
+                <div class="input-group">
+                    <label for="maqPix">Total de PIX (R$):</label>
+                    <input type="number" id="maqPix" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h3>⚠️ CONFERÊNCIA E OBSERVAÇÕES</h3>
+                <div id="diffAlertBox" class="diff-box neutral">Preencha os valores para calcular as diferenças de caixa.</div>
+                
+                <div class="input-group" style="margin-top: 15px;">
+                    <label for="obsText">Observação Detalhada:</label>
+                    <input type="text" id="obsText" placeholder="Explique se houver divergência...">
+                </div>
+                <div class="input-group" style="margin-top: 10px;">
+                    <label for="psText">PS (Espaço Livre):</label>
+                    <textarea id="psText" rows="2" placeholder="Anotações gerais..."></textarea>
+                </div>
+            </div>
+
+            <div class="action-container" style="margin-top: 20px;">
+                <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR FECHAMENTO COMPLETO NO WHATSAPP 📲</button>
+                <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+            </div>
+        </div>
+
+        <!-- ================= MODO SIMPLES ================= -->
+        <div id="modoSimples" class="form-mode">
+            
+            <div class="section-box">
+                <h3>💵 CONFERÊNCIA EM DINHEIRO (SIMPLES)</h3>
+                
+                <div class="input-group">
+                    <label for="simpSysTotal">Total no Sistema (R$):</label>
+                    <input type="number" id="simpSysTotal" step="0.01" placeholder="0.00">
+                </div>
+
+                <div class="input-group">
+                    <label for="simpInicio">Início (R$):</label>
+                    <input type="number" id="simpInicio" step="0.01" placeholder="0.00">
+                </div>
+
+                <div class="input-group">
+                    <label for="simpTotalCaixa">Total no Caixa (R$):</label>
+                    <input type="number" id="simpTotalCaixa" step="0.01" placeholder="0.00">
+                </div>
+
+                <div class="input-group">
+                    <label for="simpEnvelope">Envelope (R$):</label>
+                    <input type="number" id="simpEnvelope" step="0.01" placeholder="0.00">
+                </div>
+
+                <!-- CAMPO ATUALIZADO: Valor + Dia/Mês -->
+                <div class="input-group" style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label for="simpProximoVal">Caixa do dia seguinte (R$):</label>
+                        <input type="number" id="simpProximoVal" step="0.01" placeholder="0.00">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="simpProximoData">Data (Dia/Mês):</label>
+                        <input type="text" id="simpProximoData" placeholder="Ex: 15/11">
+                    </div>
+                </div>
+
+                <div class="sangrias-wrapper" style="margin-top: 15px;">
+                    <label>Sangrias:</label>
+                    <div id="sangriasListSimp"></div>
+                    <button type="button" class="add-sangria-btn" id="addSangriaSimpBtn">+ Adicionar Sangria</button>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h3>⚠️ RESULTADO E OBSERVAÇÕES</h3>
+                <div id="diffAlertBoxSimp" class="diff-box neutral">Preencha os valores para calcular a sobra ou falta.</div>
+                
+                <div class="input-group" style="margin-top: 15px;">
+                    <label for="simpObs">Obs:</label>
+                    <textarea id="simpObs" rows="3" placeholder="Observações do fechamento..."></textarea>
+                </div>
+            </div>
+
+            <div class="action-container" style="margin-top: 20px;">
+                <button class="whatsapp-btn" id="sendWhatsappSimp">ENVIAR FECHAMENTO SIMPLES NO WHATSAPP 📲</button>
+                <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script de Alternância Visual -->
+    <script>
+        function mudarModo(modo) {
+            const btnComp = document.getElementById("btnModoCompleto");
+            const btnSimp = document.getElementById("btnModoSimples");
+            const divComp = document.getElementById("modoCompleto");
+            const divSimp = document.getElementById("modoSimples");
+
+            if (modo === 'completo') {
+                btnComp.classList.add("active");
+                btnSimp.classList.remove("active");
+                divComp.classList.add("active-mode");
+                divSimp.classList.remove("active-mode");
+            } else {
+                btnSimp.classList.add("active");
+                btnComp.classList.remove("active");
+                divSimp.classList.add("active-mode");
+                divComp.classList.remove("active-mode");
+            }
+        }
+    </script>
+    <script src="fechamento.js"></script>
+</body>
+</html>
