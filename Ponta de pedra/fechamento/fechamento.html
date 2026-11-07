@@ -168,9 +168,16 @@
                     <input type="number" id="simpEnvelope" step="0.01" placeholder="0.00">
                 </div>
 
-                <div class="input-group">
-                    <label for="simpProximoDia">Caixa do dia seguinte (Dia/Mês):</label>
-                    <input type="text" id="simpProximoDia" placeholder="Ex: 15/11">
+                <!-- CAMPO ATUALIZADO: Valor + Dia/Mês -->
+                <div class="input-group" style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label for="simpProximoVal">Caixa do dia seguinte (R$):</label>
+                        <input type="number" id="simpProximoVal" step="0.01" placeholder="0.00">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="simpProximoData">Data (Dia/Mês):</label>
+                        <input type="text" id="simpProximoData" placeholder="Ex: 15/11">
+                    </div>
                 </div>
 
                 <div class="sangrias-wrapper" style="margin-top: 15px;">
