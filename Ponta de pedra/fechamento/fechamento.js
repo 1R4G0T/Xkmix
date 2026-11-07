@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
-    // 1. LÓGICA DO MODO COMPLETO (Seu código atual)
+    // 1. LÓGICA DO MODO COMPLETO
     // ----------------------------------------------------
     const sysDinheiro = document.getElementById('sysDinheiro');
     const sysPix = document.getElementById('sysPix');
@@ -227,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const simpInicio = document.getElementById('simpInicio');
     const simpTotalCaixa = document.getElementById('simpTotalCaixa');
     const simpEnvelope = document.getElementById('simpEnvelope');
-    const simpProximoDia = document.getElementById('simpProximoDia');
+    const simpProximoVal = document.getElementById('simpProximoVal');
+    const simpProximoData = document.getElementById('simpProximoData');
     const simpObs = document.getElementById('simpObs');
     const diffAlertBoxSimp = document.getElementById('diffAlertBoxSimp');
     const sendWhatsappSimp = document.getElementById('sendWhatsappSimp');
@@ -297,7 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const inicio = parseFloat(simpInicio?.value) || 0;
             const caixa = parseFloat(simpTotalCaixa?.value) || 0;
             const envelope = parseFloat(simpEnvelope?.value) || 0;
-            const proximoDia = simpProximoDia?.value.trim() || 'Não informado';
+            const proximoVal = parseFloat(simpProximoVal?.value) || 0;
+            const proximoData = simpProximoData?.value.trim() || 'Não informada';
             const obs = simpObs?.value.trim();
 
             let sangriasTexto = '';
@@ -322,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
             msg += `• *Inicio:* R$ ${inicio.toFixed(2)}\n`;
             msg += `• *Total no caixa:* R$ ${caixa.toFixed(2)}\n`;
             msg += `• *Envelope:* R$ ${envelope.toFixed(2)}\n`;
-            msg += `• *Caixa do dia seguinte:* ${proximoDia}\n`;
+            msg += `• *Caixa do dia seguinte:* R$ ${proximoVal.toFixed(2)} (${proximoData})\n`;
             
             if (sangriasTexto) {
                 msg += sangriasTexto;
@@ -335,6 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (obs) msg += `• *Obs:* ${obs}\n`;
             msg += `-----------------------------------`;
 
-funciona no WhatsApp e gerencia perfeitamente os dois formulários no mesmo arquivo!
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+        });
     }
 });
