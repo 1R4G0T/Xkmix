@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnLimpar = document.getElementById("btnLimpar");
     const btnCarregarHistorico = document.getElementById("btnCarregarHistorico");
 
-    // Renderiza apenas os itens extras adicionados pelo usuário e os sorvetes
+    // Renderiza os itens customizados e sorvetes salvos ao iniciar a página
     renderizarItensCustomizados();
 
-    // Carrega o histórico anterior registrado na tela
+    // Carrega o histórico anterior registrado no painel superior
     carregarHistoricoAnterior();
 
     // Evento para preencher o formulário com a contagem anterior
@@ -96,7 +96,7 @@ function recarregarHistoricoParaFormulario() {
     alert(`✅ Importado! ${carregados} itens da última contagem foram preenchidos no formulário.\nAltere apenas o que for necessário e salve novamente.`);
 }
 
-/* --- GERENCIAMENTO DE ITENS CUSTOMIZADOS PERMANENTES --- */
+/* --- GERENCIAMENTO DE ITENS CUSTOMIZADOS PERMANENTES (COM EXCLUSÃO) --- */
 function obterCustomizados() {
     const salvo = localStorage.getItem(STORAGE_CUSTOM_KEY);
     return salvo ? JSON.parse(salvo) : { hamburgueres: [], gelados: [], bolo_pote: [], tortas: [], bolos: [] };
@@ -142,7 +142,6 @@ function adicionarItemCustomizado(categoria, inputId) {
     renderizarItensCustomizados();
 }
 
-// Função para excluir um item customizado criado pelo usuário
 function removerItemCustomizado(categoria, index) {
     let custom = obterCustomizados();
     if (custom[categoria] && custom[categoria][index]) {
@@ -155,7 +154,7 @@ function removerItemCustomizado(categoria, index) {
     }
 }
 
-/* --- GERENCIAMENTO DE SORVETES (ADICIONAR E APAGAR) --- */
+/* --- GERENCIAMENTO DE SORVETES (ADICIONAR E EXCLUIR) --- */
 function obterSorvetes() {
     const salvo = localStorage.getItem(STORAGE_SORVETES_KEY);
     return salvo ? JSON.parse(salvo) : [];
@@ -191,7 +190,7 @@ function removerSorvete(nome) {
     }
 }
 
-/* --- RENDERIZA APENAS OS ITENS NOVOS COM BOTÃO DE EXCLUIR --- */
+/* --- RENDERIZA OS ITENS CUSTOMIZADOS E SORVETES NA TELA --- */
 function renderizarItensCustomizados() {
     const custom = obterCustomizados();
 
@@ -209,6 +208,7 @@ function renderizarItensCustomizados() {
 
         const listaNovos = custom[cfg.key] || [];
         
+        // Preserva valores digitados caso já estivessem preenchidos
         const valoresAtuais = {};
         container.querySelectorAll("input[type='number']").forEach(inp => {
             if (inp.value) valoresAtuais[inp.getAttribute("data-name")] = inp.value;
