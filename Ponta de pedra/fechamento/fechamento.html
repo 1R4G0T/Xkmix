@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XKMIX - Fechamento de Caixa (Completo / Simples)</title>
+    <title>XKMIX - Fechamento de Caixa</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="fechamento.css">
     <style>
-        /* Estilos rápidos para alternar os modos */
+        /* Estilos dos botões para alternar os modos na tela */
         .mode-selector {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             justify-content: center;
         }
         .mode-btn {
@@ -44,12 +44,12 @@
 
     <header>
         <h1>FECHAMENTO DE CAIXA</h1>
-        <p class="subtitle">// PONTA DE PEDRA - ESCOLHA O MODO DE GESTÃO //</p>
+        <p class="subtitle">// PONTA DE PEDRA - ESCOLHA O MODO NA TELA //</p>
     </header>
 
     <div class="form-container">
         
-        <!-- BOTÕES PARA ESCOLHER O MODO -->
+        <!-- BOTÕES PARA ALTERNAR ENTRE OS MODOS -->
         <div class="mode-selector">
             <button type="button" class="mode-btn active" id="btnModoCompleto" onclick="mudarModo('completo')">📊 Modo Completo</button>
             <button type="button" class="mode-btn" id="btnModoSimples" onclick="mudarModo('simples')">💵 Modo Simples (Dinheiro)</button>
@@ -57,6 +57,7 @@
 
         <!-- ================= MODO COMPLETO ================= -->
         <div id="modoCompleto" class="form-mode active-mode">
+            
             <div class="section-box">
                 <h3>📊 DADOS DO SISTEMA</h3>
                 <div class="input-group">
@@ -94,14 +95,14 @@
 
                 <div class="sangrias-wrapper">
                     <label>Sangrias (Apenas Registro):</label>
-                    <div id="sangriasListComp"></div>
-                    <button type="button" class="add-sangria-btn" id="addSangriaCompBtn">+ Adicionar Sangria</button>
+                    <div id="sangriasList"></div>
+                    <button type="button" class="add-sangria-btn" id="addSangriaBtn">+ Adicionar Sangria</button>
                 </div>
 
                 <div class="suprimentos-wrapper" style="margin-top: 15px;">
                     <label>Suprimentos (Apenas Registro):</label>
-                    <div id="suprimentosListComp"></div>
-                    <button type="button" class="add-suprimento-btn" id="addSuprimentoCompBtn">+ Adicionar Suprimento</button>
+                    <div id="suprimentosList"></div>
+                    <button type="button" class="add-suprimento-btn" id="addSuprimentoBtn">+ Adicionar Suprimento</button>
                 </div>
             </div>
 
@@ -122,26 +123,28 @@
             </div>
 
             <div class="section-box">
-                <h3>⚠️ CONFERÊNCIA (Sobra / Falta)</h3>
-                <div id="diffAlertBoxComp" class="diff-box neutral">Preencha os valores para calcular.</div>
+                <h3>⚠️ CONFERÊNCIA E OBSERVAÇÕES</h3>
+                <div id="diffAlertBox" class="diff-box neutral">Preencha os valores para calcular as diferenças de caixa.</div>
+                
                 <div class="input-group" style="margin-top: 15px;">
-                    <label for="obsTextComp">Observação Detalhada:</label>
-                    <input type="text" id="obsTextComp" placeholder="Explique se houver divergência...">
+                    <label for="obsText">Observação Detalhada:</label>
+                    <input type="text" id="obsText" placeholder="Explique se houver divergência...">
                 </div>
                 <div class="input-group" style="margin-top: 10px;">
-                    <label for="psTextComp">PS (Espaço Livre):</label>
-                    <textarea id="psTextComp" rows="2" placeholder="Anotações gerais..."></textarea>
+                    <label for="psText">PS (Espaço Livre):</label>
+                    <textarea id="psText" rows="2" placeholder="Anotações gerais..."></textarea>
                 </div>
             </div>
 
             <div class="action-container" style="margin-top: 20px;">
-                <button class="whatsapp-btn" id="sendWhatsappComp">ENVIAR FECHAMENTO COMPLETO NO WHATSAPP 📲</button>
+                <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR FECHAMENTO COMPLETO NO WHATSAPP 📲</button>
                 <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
             </div>
         </div>
 
         <!-- ================= MODO SIMPLES ================= -->
         <div id="modoSimples" class="form-mode">
+            
             <div class="section-box">
                 <h3>💵 CONFERÊNCIA EM DINHEIRO (SIMPLES)</h3>
                 
@@ -151,7 +154,7 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="simpInicio">Inicio (R$):</label>
+                    <label for="simpInicio">Início (R$):</label>
                     <input type="number" id="simpInicio" step="0.01" placeholder="0.00">
                 </div>
 
@@ -180,6 +183,7 @@
             <div class="section-box">
                 <h3>⚠️ RESULTADO E OBSERVAÇÕES</h3>
                 <div id="diffAlertBoxSimp" class="diff-box neutral">Preencha os valores para calcular a sobra ou falta.</div>
+                
                 <div class="input-group" style="margin-top: 15px;">
                     <label for="simpObs">Obs:</label>
                     <textarea id="simpObs" rows="3" placeholder="Observações do fechamento..."></textarea>
@@ -194,7 +198,7 @@
 
     </div>
 
-    <!-- Script unificado para controlar a troca de telas e os botões -->
+    <!-- Script de Alternância Visual -->
     <script>
         function mudarModo(modo) {
             const btnComp = document.getElementById("btnModoCompleto");
