@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Elementos do DOM
+    // ----------------------------------------------------
+    // 1. LÓGICA DO MODO COMPLETO (Seu código atual)
+    // ----------------------------------------------------
     const sysDinheiro = document.getElementById('sysDinheiro');
     const sysPix = document.getElementById('sysPix');
     const sysCartao = document.getElementById('sysCartao');
 
     const caixaDinheiroDia = document.getElementById('caixaDinheiroDia');
-    const caixaPix = document.getElementById('caixaPix'); // PIX no caixa
+    const caixaPix = document.getElementById('caixaPix');
     const caixaEnvelope = document.getElementById('caixaEnvelope');
     const caixaProximoDia = document.getElementById('caixaProximoDia');
     
@@ -30,24 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let userEditedProximoDia = false;
 
-    // 2. Cálculo do Caixa do Dia Seguinte (Dinheiro do Dia - Envelope)
-    // Sangria e Suprimento NÃO alteram mais a conta do caixa
     function autoPreencherProximoDia() {
         if (userEditedProximoDia) return;
-
         const totalDia = parseFloat(caixaDinheiroDia?.value) || 0;
         const envelope = parseFloat(caixaEnvelope?.value) || 0;
-
         const restante = totalDia - envelope;
         if (caixaProximoDia) {
             caixaProximoDia.value = restante >= 0 ? restante.toFixed(2) : '0.00';
         }
     }
 
-    // 3. Atualizar Alerta de Conferência
     function atualizarConferencia() {
         autoPreencherProximoDia();
-
         if (!diffAlertBox) return;
 
         const sDinheiro = parseFloat(sysDinheiro?.value) || 0;
@@ -63,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const totalPixInformado = cPix + mPix;
 
-        // Aceita a diferença inserida manualmente ou calcula automaticamente
         let diffDinheiro = manDinheiro && manDinheiro.value !== '' ? parseFloat(manDinheiro.value) : (cDinheiroDia - sDinheiro);
         let diffPix = manPix && manPix.value !== '' ? parseFloat(manPix.value) : (totalPixInformado - sPix);
         let diffCartao = manCartao && manCartao.value !== '' ? parseFloat(manCartao.value) : ((mCredito + mDebito) - sCartao);
@@ -104,19 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. Event Listeners para Entradas
     const inputs = [sysDinheiro, sysPix, sysCartao, caixaDinheiroDia, caixaPix, caixaEnvelope, maqCredito, maqDebito, maqPix, manDinheiro, manPix, manCartao];
     inputs.forEach(input => {
         if (input) input.addEventListener('input', atualizarConferencia);
     });
 
     if (caixaProximoDia) {
-        caixaProximoDia.addEventListener('input', () => {
-            userEditedProximoDia = true;
-        });
+        caixaProximoDia.addEventListener('input', () => { userEditedProximoDia = true; });
     }
 
-    // 5. Adicionar e Remover Sangrias (Com Descrição/Explicação)
     if (addSangriaBtn && sangriasList) {
         addSangriaBtn.addEventListener('click', () => {
             const div = document.createElement('div');
@@ -127,17 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button type="button" class="remove-sangria">X</button>
             `;
             sangriasList.appendChild(div);
-
-            div.querySelector('.remove-sangria').addEventListener('click', () => {
-                div.remove();
-                atualizarConferencia();
-            });
-
+            div.querySelector('.remove-sangria').addEventListener('click', () => { div.remove(); atualizarConferencia(); });
             div.querySelector('.sangria-val').addEventListener('input', atualizarConferencia);
         });
     }
 
-    // 6. Adicionar e Remover Suprimentos (Com Descrição/Explicação)
     if (addSuprimentoBtn && suprimentosList) {
         addSuprimentoBtn.addEventListener('click', () => {
             const div = document.createElement('div');
@@ -148,17 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button type="button" class="remove-suprimento">X</button>
             `;
             suprimentosList.appendChild(div);
-
-            div.querySelector('.remove-suprimento').addEventListener('click', () => {
-                div.remove();
-                atualizarConferencia();
-            });
-
+            div.querySelector('.remove-suprimento').addEventListener('click', () => { div.remove(); atualizarConferencia(); });
             div.querySelector('.suprimento-val').addEventListener('input', atualizarConferencia);
         });
     }
 
-    // 7. Envio do Relatório para o WhatsApp
     if (sendWhatsappBtn) {
         sendWhatsappBtn.addEventListener('click', () => {
             const sDinheiro = parseFloat(sysDinheiro?.value) || 0;
@@ -195,7 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const mCredito = parseFloat(maqCredito?.value) || 0;
             const mDebito = parseFloat(maqDebito?.value) || 0;
             const mPix = parseFloat(maqPix?.value) || 0;
-
             const totalPixInf = cPix + mPix;
 
             const diffDinheiro = manDinheiro && manDinheiro.value !== '' ? parseFloat(manDinheiro.value) : (cDinheiroDia - sDinheiro);
@@ -204,12 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let mensagem = `*XKMIX - FECHAMENTO DE CAIXA (PDP)*\n`;
             mensagem += `📅 *Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
-
             mensagem += `📊 *DADOS DO SISTEMA:*\n`;
             mensagem += `• Dinheiro: R$ ${sDinheiro.toFixed(2)}\n`;
             mensagem += `• PIX: R$ ${sPix.toFixed(2)}\n`;
             mensagem += `• Cartão: R$ ${sCartao.toFixed(2)}\n\n`;
-
             mensagem += `💵 *DADOS DO CAIXA:*\n`;
             mensagem += `• Total Dinheiro do Dia: R$ ${cDinheiroDia.toFixed(2)}\n`;
             mensagem += `• Total PIX no Caixa: R$ ${cPix.toFixed(2)}\n`;
@@ -232,22 +208,133 @@ document.addEventListener('DOMContentLoaded', () => {
             mensagem += `• Crédito: R$ ${mCredito.toFixed(2)}\n`;
             mensagem += `• Débito: R$ ${mDebito.toFixed(2)}\n`;
             mensagem += `• PIX Maquinetas: R$ ${mPix.toFixed(2)}\n\n`;
-
             mensagem += `⚠ *CONFERÊNCIA (Diferenças):*\n`;
             mensagem += `• Dinheiro: ${Math.abs(diffDinheiro) < 0.01 ? 'Exato' : (diffDinheiro > 0 ? `Sobrou R$ ${diffDinheiro.toFixed(2)}` : `Faltou R$ ${Math.abs(diffDinheiro).toFixed(2)}`)}\n`;
             mensagem += `• PIX: ${Math.abs(diffPix) < 0.01 ? 'Exato' : (diffPix > 0 ? `Sobrou R$ ${diffPix.toFixed(2)}` : `Faltou R$ ${Math.abs(diffPix).toFixed(2)}`)}\n`;
             mensagem += `• Cartão: ${Math.abs(diffCartao) < 0.01 ? 'Exato' : (diffCartao > 0 ? `Sobrou R$ ${diffCartao.toFixed(2)}` : `Faltou R$ ${Math.abs(diffCartao).toFixed(2)}`)}\n`;
 
-            if (obsText && obsText.value.trim()) {
-                mensagem += `• Obs: ${obsText.value.trim()}\n`;
-            }
+            if (obsText && obsText.value.trim()) mensagem += `• Obs: ${obsText.value.trim()}\n`;
+            if (psText && psText.value.trim()) mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
 
-            if (psText && psText.value.trim()) {
-                mensagem += `\n📝 *PS / ANOTAÇÃO:* ${psText.value.trim()}\n`;
-            }
-
-            const urlWhatsApp = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
-            window.open(urlWhatsApp, '_blank');
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`, '_blank');
         });
+    }
+
+    // ----------------------------------------------------
+    // 2. LÓGICA DO MODO SIMPLES
+    // ----------------------------------------------------
+    const simpSysTotal = document.getElementById('simpSysTotal');
+    const simpInicio = document.getElementById('simpInicio');
+    const simpTotalCaixa = document.getElementById('simpTotalCaixa');
+    const simpEnvelope = document.getElementById('simpEnvelope');
+    const simpProximoDia = document.getElementById('simpProximoDia');
+    const simpObs = document.getElementById('simpObs');
+    const diffAlertBoxSimp = document.getElementById('diffAlertBoxSimp');
+    const sendWhatsappSimp = document.getElementById('sendWhatsappSimp');
+    
+    const sangriasListSimp = document.getElementById('sangriasListSimp');
+    const addSangriaSimpBtn = document.getElementById('addSangriaSimpBtn');
+
+    if (addSangriaSimpBtn && sangriasListSimp) {
+        addSangriaSimpBtn.addEventListener('click', () => {
+            const div = document.createElement('div');
+            div.className = 'dynamic-row';
+            div.style.cssText = 'display: flex; gap: 8px; margin-bottom: 8px; align-items: center;';
+            div.innerHTML = `
+                <input type="text" class="sangria-desc" placeholder="Descrição..." style="flex: 2; background: #000; border: 1px solid #ff0055; color: #fff; font-family: 'VT323', monospace; padding: 6px; border-radius: 4px;">
+                <input type="number" class="sangria-val" step="0.01" placeholder="R$" style="flex: 1; background: #000; border: 1px solid #ff0055; color: #00ffcc; font-family: 'Orbitron', sans-serif; padding: 6px; text-align: center; border-radius: 4px;">
+                <button type="button" class="btn-remove-row" style="background: #ff0055; color: #fff; border: none; border-radius: 4px; padding: 6px 10px; cursor: pointer; font-weight: bold;">X</button>
+            `;
+            div.querySelector('.btn-remove-row').addEventListener('click', () => { div.remove(); calcularSimples(); });
+            div.querySelectorAll('input').forEach(inp => inp.addEventListener('input', calcularSimples));
+            sangriasListSimp.appendChild(div);
+        });
+    }
+
+    [simpSysTotal, simpInicio, simpTotalCaixa, simpEnvelope].forEach(inp => {
+        if (inp) inp.addEventListener('input', calcularSimples);
+    });
+
+    function calcularSimples() {
+        if (!diffAlertBoxSimp) return 0;
+        const sys = parseFloat(simpSysTotal?.value) || 0;
+        const inicio = parseFloat(simpInicio?.value) || 0;
+        const caixa = parseFloat(simpTotalCaixa?.value) || 0;
+
+        let totalSangrias = 0;
+        sangriasListSimp?.querySelectorAll('.sangria-val').forEach(v => {
+            totalSangrias += parseFloat(v.value) || 0;
+        });
+
+        const esperado = inicio + sys - totalSangrias;
+        const diferenca = caixa - esperado;
+
+        if (sys === 0 && caixa === 0) {
+            diffAlertBoxSimp.className = 'diff-box neutral';
+            diffAlertBoxSimp.innerText = 'Preencha os valores para calcular a sobra ou falta.';
+            return diferenca;
+        }
+
+        if (Math.abs(diferenca) < 0.01) {
+            diffAlertBoxSimp.className = 'diff-box ok';
+            diffAlertBoxSimp.style.color = '#00ffcc';
+            diffAlertBoxSimp.innerText = '✅ Caixa fechado exato! Sem sobras nem faltas.';
+        } else if (diferenca > 0) {
+            diffAlertBoxSimp.className = 'diff-box over';
+            diffAlertBoxSimp.style.color = '#25d366';
+            diffAlertBoxSimp.innerText = `📈 Sobrou: R$ ${diferenca.toFixed(2)}`;
+        } else {
+            diffAlertBoxSimp.className = 'diff-box under';
+            diffAlertBoxSimp.style.color = '#ff0055';
+            diffAlertBoxSimp.innerText = `📉 Faltou: R$ ${Math.abs(diferenca).toFixed(2)}`;
+        }
+        return diferenca;
+    }
+
+    if (sendWhatsappSimp) {
+        sendWhatsappSimp.addEventListener('click', () => {
+            const sys = parseFloat(simpSysTotal?.value) || 0;
+            const inicio = parseFloat(simpInicio?.value) || 0;
+            const caixa = parseFloat(simpTotalCaixa?.value) || 0;
+            const envelope = parseFloat(simpEnvelope?.value) || 0;
+            const proximoDia = simpProximoDia?.value.trim() || 'Não informado';
+            const obs = simpObs?.value.trim();
+
+            let sangriasTexto = '';
+            let totalSangrias = 0;
+            const rows = sangriasListSimp?.querySelectorAll('.dynamic-row') || [];
+            if (rows.length > 0) {
+                sangriasTexto = '\n*Sangrias:*\n';
+                rows.forEach(r => {
+                    const desc = r.querySelector('.sangria-desc')?.value.trim() || 'Retirada';
+                    const val = parseFloat(r.querySelector('.sangria-val')?.value) || 0;
+                    totalSangrias += val;
+                    sangriasTexto += `• ${desc}: R$ ${val.toFixed(2)}\n`;
+                });
+            }
+
+            const diferenca = calcularSimples();
+            let statusDif = Math.abs(diferenca) < 0.01 ? 'Exato (R$ 0,00)' : (diferenca > 0 ? `Sobrou R$ ${diferenca.toFixed(2)}` : `Faltou R$ ${Math.abs(diferenca).toFixed(2)}`);
+
+            let msg = `💵 *FECHAMENTO DE CAIXA (DINHEIRO)*\n`;
+            msg += `-----------------------------------\n`;
+            msg += `• *Total no sistema:* R$ ${sys.toFixed(2)}\n`;
+            msg += `• *Inicio:* R$ ${inicio.toFixed(2)}\n`;
+            msg += `• *Total no caixa:* R$ ${caixa.toFixed(2)}\n`;
+            msg += `• *Envelope:* R$ ${envelope.toFixed(2)}\n`;
+            msg += `• *Caixa do dia seguinte:* ${proximoDia}\n`;
+            
+            if (sangriasTexto) {
+                msg += sangriasTexto;
+                msg += `_Total Sangrias:_ R$ ${totalSangrias.toFixed(2)}\n`;
+            } else {
+                msg += `• *Sangrias:* Nenhuma\n`;
+            }
+            
+            msg += `• *Quanto passou ou quanto sobrou:* ${statusDif}\n`;
+            if (obs) msg += `• *Obs:* ${obs}\n`;
+            msg += `-----------------------------------`;
+
+funciona no WhatsApp e gerencia perfeitamente os dois formulários no mesmo arquivo!
     }
 });
