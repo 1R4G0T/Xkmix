@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Check-list Operacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="checklist.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>CHECK-LIST DIÁRIO</h1>
+        <p class="subtitle">// PONTA DE PEDRA - CONTROLO OPERACIONAL //</p>
+    </header>
+
+    <!-- Identificação do Responsável -->
+    <div class="user-box">
+        <label for="responsavel">NOME DO RESPONSÁVEL:</label>
+        <input type="text" id="responsavel" placeholder="Digite o seu nome completo...">
+    </div>
+
+    <!-- Menu de Seleção de Turno e Setor -->
+    <div class="turn-selector-container">
+        <h3>SELECIONE O TURNO E SETOR:</h3>
+        <div class="turn-buttons-grid">
+            <button class="turn-btn active" data-target="abertura-salao">☀️ Abertura - Salão</button>
+            <button class="turn-btn" data-target="abertura-recepcao">☀️ Abertura - Recepção</button>
+            <button class="turn-btn" data-target="abertura-cozinha">☀️ Abertura - Cozinha</button>
+            <button class="turn-btn" data-target="fechamento-salao">🌙 Fechamento - Salão</button>
+            <button class="turn-btn" data-target="fechamento-recepcao">🌙 Fechamento - Recepção</button>
+            <button class="turn-btn" data-target="fechamento-cozinha">🌙 Fechamento - Cozinha</button>
+        </div>
+    </div>
+
+    <!-- Barra de Progresso Dinâmica -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span id="activeListTitle">PROGRESSO: ABERTURA - SALÃO</span>
+            <span id="progressText">0% (0 / 0)</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+    </div>
+
+    <!-- Estrutura das Listas -->
+    <div class="checklist-wrapper">
+
+        <!-- 1. ABERTURA - SALÃO -->
+        <section id="abertura-salao" class="checklist-section active-section">
+            <h2>📍 ABERTURA - SALÃO</h2>
+            
+            <div class="checklist-container">
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Ligar iluminação geral do salão e fachada <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Ligar som / música ambiente <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer e lavar a calçada externa <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer o salão completamente <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar as janelas <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar o balcão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Manter o balcão organizado <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar mesas, cadeiras e organizar o ambiente <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar os freezers <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Organizar freezer e identificar sabores de sorvetes <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Abastecer recipientes de complementos e coberturas <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Organizar o self-service e repor bebidas nas geladeiras <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Colocar sacos limpos nas lixeiras do salão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Colocar papel higiénico no banheiro <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Colocar papel interfolha / toalha no banheiro <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Colocar sabão líquido no banheiro <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Lavar e higienizar o piso e a pia do banheiro <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+            </div>
+
+            <div class="add-task-box">
+                <input type="text" id="input-abertura-salao" placeholder="Nova tarefa para Abertura - Salão...">
+                <button type="button" onclick="adicionarTarefa('abertura-salao', 'input-abertura-salao')">+ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+        <!-- 2. ABERTURA - RECEPÇÃO -->
+        <section id="abertura-recepcao" class="checklist-section">
+            <h2>💻 ABERTURA - RECEPÇÃO / CAIXA</h2>
+            
+            <div class="checklist-container">
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Ligar notebook / terminal de caixa e sistema <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Verificar conexão com a internet <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Ligar e testar as maquinetas de cartão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Verificar impressora e bobina de papel <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Conferir o fundo de troco do caixa <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar o expositor de salgados <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Colocar os salgados no expositor térmico <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Organizar e limpar os expositores frontais <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Disponibilizar álcool em gel no balcão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+            </div>
+
+            <div class="add-task-box">
+                <input type="text" id="input-abertura-recepcao" placeholder="Nova tarefa para Recepção...">
+                <button type="button" onclick="adicionarTarefa('abertura-recepcao', 'input-abertura-recepcao')">+ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+        <!-- 3. ABERTURA - COZINHA -->
+        <section id="abertura-cozinha" class="checklist-section">
+            <h2>🍳 ABERTURA - COZINHA</h2>
+            
+            <div class="checklist-container">
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer a cozinha completamente <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Sanitizar bancadas de aço inox e pias <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar os freezers da cozinha <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Conferir geladeiras <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar o micro-ondas por dentro e por fora <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Organizar utensílios e liquidificadores <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Mexer creme e preparar texturas necessárias <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Furar as tampas dos copos/recipientes <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Cortar e preparar frutas frescas do dia <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Abastecer a mesa de operações e leite condensado <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Deixar copos adesivados e colheres embaladas prontos <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+            </div>
+
+            <div class="add-task-box">
+                <input type="text" id="input-abertura-cozinha" placeholder="Nova tarefa para Cozinha...">
+                <button type="button" onclick="adicionarTarefa('abertura-cozinha', 'input-abertura-cozinha')">+ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+        <!-- 4. FECHAMENTO - SALÃO -->
+        <section id="fechamento-salao" class="checklist-section">
+            <h2>📍 FECHAMENTO - SALÃO</h2>
+            
+            <div class="checklist-container">
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar e higienizar expositores de salgados e sorvetes <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar iluminação de vitrines e equipamentos desnecessários <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar mesas, cadeiras e organizar o salão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer o piso do salão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Passar pano no salão <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Tirar o lixo do salão e banheiros, levando para a lixeira externa <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Adicionar saco de lixo limpo em todas as lixeiras <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Fechar portas, janelas e verificar trancas <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+            </div>
+
+            <div class="add-task-box">
+                <input type="text" id="input-fechamento-salao" placeholder="Nova tarefa para Fechamento - Salão...">
+                <button type="button" onclick="adicionarTarefa('fechamento-salao', 'input-fechamento-salao')">+ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+        <!-- 5. FECHAMENTO - RECEPÇÃO -->
+        <section id="fechamento-recepcao" class="checklist-section">
+            <h2>💻 FECHAMENTO - RECEPÇÃO / CAIXA</h2>
+            
+            <div class="checklist-container">
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Tirar os salgados restantes do expositor e guardar <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Limpar o expositor de salgados no fechamento <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Conferir o caixa (fechamento de caixa / sangria) <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Conferir relatórios de vendas do dia <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar o notebook / terminal de caixa <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar maquinetas de cartão da tomada <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Organizar e limpar o balcão de atendimento <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+            </div>
+
+            <div class="add-task-box">
+                <input type="text" id="input-fechamento-recepcao" placeholder="Nova tarefa para Recepção...">
+                <button type="button" onclick="adicionarTarefa('fechamento-recepcao', 'input-fechamento-recepcao')">+ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+        <!-- 6. FECHAMENTO - COZINHA -->
+        <section id="fechamento-cozinha" class="checklist-section">
+            <h2>🍳 FECHAMENTO - COZINHA</h2>
+            
+            <div class="checklist-container">
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Lavar todos os utensílios, panelas e recipientes usados <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Higienizar bancadas, pias e mesa de operações <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Guardar sobras de frutas e insumos devidamente identificados na geladeira <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Desligar micro-ondas e equipamentos da cozinha <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Varrer o piso da cozinha <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Passar pano na cozinha <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Tirar o lixo da cozinha <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Lavar a lixeira <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Adicionar saco de lixo novo <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+                <label class="checklist-item"><input type="checkbox" class="check-task"> Certificar-se de que todas as geladeiras e freezers estão bem fechadas <button type="button" class="btn-delete-task" onclick="removerTarefa(this)">X</button></label>
+            </div>
+
+            <div class="add-task-box">
+                <input type="text" id="input-fechamento-cozinha" placeholder="Nova tarefa para Cozinha...">
+                <button type="button" onclick="adicionarTarefa('fechamento-cozinha', 'input-fechamento-cozinha')">+ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Botão Enviar WhatsApp -->
+    <div class="action-container">
+        <button class="whatsapp-btn" id="sendWhatsapp">ENVIAR CHECK-LIST PARA O WHATSAPP 📲</button>
+        <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+    </div>
+
+    <script src="checklist.js"></script>
+</body>
+</html>
