@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKMIX - Caderno Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="caderno.css">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="glow-overlay"></div>
+
+    <header>
+        <h1>CADERNO DIGITAL</h1>
+        <p class="subtitle">// REGISTRO RÁPIDO DE VENDAS (PICO) //</p>
+    </header>
+
+    <div class="form-container">
+        <!-- ÁREA DE LANÇAMENTO RÁPIDO -->
+        <div class="section-box">
+            <h3>⚡ LANÇAMENTO RÁPIDO</h3>
+            <div class="quick-input-group">
+                <label for="valInput">Valor da Venda (R$):</label>
+                <input type="number" id="valInput" step="0.01" placeholder="0.00" autofocus>
+            </div>
+            
+            <p class="btn-label">Clique no método de pagamento:</p>
+            <div class="payment-buttons">
+                <button type="button" class="pay-btn dinheiro" data-type="Dinheiro">💵 DINHEIRO</button>
+                <button type="button" class="pay-btn debito" data-type="Débito">💳 DÉBITO</button>
+                <button type="button" class="pay-btn credito" data-type="Crédito">💳 CRÉDITO</button>
+                <button type="button" class="pay-btn pix" data-type="PIX">📱 PIX</button>
+            </div>
+        </div>
+
+        <!-- RESUMO DOS TOTAIS -->
+        <div class="section-box">
+            <h3>📊 TOTAIS ACUMULADOS</h3>
+            <div class="totals-grid">
+                <div class="total-card">
+                    <span>💵 Dinheiro</span>
+                    <strong id="totDinheiro">R$ 0.00</strong>
+                </div>
+                <div class="total-card">
+                    <span>💳 Débito</span>
+                    <strong id="totDebito">R$ 0.00</strong>
+                </div>
+                <div class="total-card">
+                    <span>💳 Crédito</span>
+                    <strong id="totCredito">R$ 0.00</strong>
+                </div>
+                <div class="total-card">
+                    <span>📱 PIX</span>
+                    <strong id="totPix">R$ 0.00</strong>
+                </div>
+            </div>
+            <div class="grand-total-card">
+                <span>TOTAL GERAL:</span>
+                <strong id="totGeral">R$ 0.00</strong>
+            </div>
+        </div>
+
+        <!-- HISTÓRICO DE VENDAS -->
+        <div class="section-box">
+            <div class="history-header">
+                <h3>📜 HISTÓRICO DO TURNO</h3>
+                <button type="button" id="clearBtn" class="clear-btn">🗑️ Limpar Tudo</button>
+            </div>
+            <div class="history-table-wrapper">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyList">
+                        <!-- Itens inseridos via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- RETORNO AO MENU -->
+        <div class="action-container" style="margin-top: 20px; text-align: center;">
+            <a href="../PDP.html" class="back-link">&larr; VOLTAR AO MENU DE SETORES</a>
+        </div>
+    </div>
+
+    <script src="caderno.js"></script>
+</body>
+</html>
