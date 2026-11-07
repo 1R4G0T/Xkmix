@@ -114,12 +114,11 @@ function adicionarItemCustomizado(categoria, inputId) {
     const custom = obterCustomizados();
     if (!custom[categoria]) custom[categoria] = [];
     
-    // Formatação de acordo com o que é
     let label = valor;
     let name = valor;
 
     if (categoria === "bolo_pote") {
-        label = valor.replace(/^bolo de pote\s*/i, ''); // Tira o prefixo se a pessoa digitar pra não ficar feio
+        label = valor.replace(/^bolo de pote\s*/i, '');
         name = valor.toLowerCase().startsWith("bolo de pote") ? valor : `Bolo de Pote ${valor}`;
     } else if (categoria === "tortas") {
         label = valor.replace(/^torta\s*/i, '');
@@ -128,13 +127,11 @@ function adicionarItemCustomizado(categoria, inputId) {
         label = valor.replace(/^bolo\s*/i, '');
         name = valor.toLowerCase().startsWith("bolo") ? valor : `Bolo ${valor}`;
     } else if (categoria === "hamburgueres" && !valor.toUpperCase().startsWith("X-")) {
-        // Se a pessoa adicionar um hambúrguer, garantir que não vai ficar só "Bacon"
         name = valor; 
     }
 
     const itemObj = { label, name };
 
-    // Evita duplicados na lista personalizada
     const existe = custom[categoria].some(i => i.name.toLowerCase() === itemObj.name.toLowerCase());
     if (!existe) {
         custom[categoria].push(itemObj);
@@ -145,6 +142,18 @@ function adicionarItemCustomizado(categoria, inputId) {
     renderizarItensCustomizados();
 }
 
+// Função para excluir um item customizado criado pelo usuário
+function removerItemCustomizado(categoria, index) {
+    let custom = obterCustomizados();
+    if (custom[categoria] && custom[categoria][index]) {
+        const nomeItem = custom[categoria][index].label;
+        if (confirm(`Deseja realmente excluir "${nomeItem}" desta categoria?`)) {
+            custom[categoria].splice(index, 1);
+            localStorage.setItem(STORAGE_CUSTOM_KEY, JSON.stringify(custom));
+            renderizarItensCustomizados();
+        }
+    }
+}
 
 /* --- GERENCIAMENTO DE SORVETES (ADICIONAR E APAGAR) --- */
 function obterSorvetes() {
@@ -162,7 +171,7 @@ function adicionarSorvete(inputId) {
     }
 
     const sorvetes = obterSorvetes();
-    const saborFormatado = valor.replace(/^sorvete (de )?/i, ''); // Limpa se o cara digitar "Sorvete de Morango"
+    const saborFormatado = valor.replace(/^sorvete (de )?/i, '');
 
     if (!sorvetes.includes(saborFormatado)) {
         sorvetes.push(saborFormatado);
@@ -182,8 +191,7 @@ function removerSorvete(nome) {
     }
 }
 
-
-/* --- RENDERIZA APENAS OS ITENS NOVOS --- */
+/* --- RENDERIZA APENAS OS ITENS NOVOS COM BOTÃO DE EXCLUIR --- */
 function renderizarItensCustomizados() {
     const custom = obterCustomizados();
 
@@ -201,7 +209,6 @@ function renderizarItensCustomizados() {
 
         const listaNovos = custom[cfg.key] || [];
         
-        // Preserva valores digitados nas divs customizadas
         const valoresAtuais = {};
         container.querySelectorAll("input[type='number']").forEach(inp => {
             if (inp.value) valoresAtuais[inp.getAttribute("data-name")] = inp.value;
@@ -214,6 +221,7 @@ function renderizarItensCustomizados() {
 
             html += `
                 <div class="item-card">
+                    <button type="button" class="btn-delete-item" onclick="removerItemCustomizado('${cfg.key}', ${idx})" title="Excluir Item">X</button>
                     <label for="${inputId}">${itemObj.label}</label>
                     <input type="number" id="${inputId}" data-name="${itemObj.name}" min="0" placeholder="0" value="${val}">
                 </div>
@@ -254,7 +262,6 @@ function renderizarItensCustomizados() {
         containerSorvetes.innerHTML = htmlSorvetes;
     }
 }
-
 
 /* --- CAPTURA DE DADOS E HISTÓRICO --- */
 function capturarDadosFormulario() {
