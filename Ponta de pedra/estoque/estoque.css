@@ -101,14 +101,14 @@ header h1 {
     padding: 8px 12px;
     border: 1px solid #333;
     border-radius: 4px;
-    position: relative;
+    position: relative; /* Essencial para posicionar o botão 'X' de exclusão */
 }
 
 .item-card label {
     font-size: 1.1rem;
     color: #aaa;
     margin-bottom: 4px;
-    padding-right: 20px;
+    padding-right: 20px; /* Espaço para o botão de excluir não encostar no texto */
     word-break: break-word;
 }
 
@@ -128,7 +128,7 @@ header h1 {
     box-shadow: 0 0 8px #00ffcc;
 }
 
-/* Botão de Excluir Sorvete */
+/* Botão de Excluir Item / Sorvete (X) */
 .btn-delete-item {
     position: absolute;
     top: 4px;
@@ -145,10 +145,12 @@ header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.2s;
 }
 
 .btn-delete-item:hover {
     background: #cc0044;
+    box-shadow: 0 0 8px #ff0055;
 }
 
 /* Área de Adicionar Itens */
