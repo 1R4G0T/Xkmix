@@ -13,7 +13,7 @@
 
     <header>
         <h1>CONTROLE DE ESTOQUE</h1>
-        <p class="subtitle">// CONTAGEM E REGISTRO RÁPIDO //</p>
+        <p class="subtitle">// CONTAGEM E REGISTRO RÁPIDO (PDP) //</p>
     </header>
 
     <div class="main-container">
@@ -21,8 +21,14 @@
         <!-- PAINEL DE HISTÓRICO ANTERIOR -->
         <div class="section-box history-box">
             <div class="history-header">
-                <h3>📜 ÚLTIMA CONTAGEM REGISTRADA</h3>
-                <span id="lastUpdated" class="last-date">Nenhum registro anterior</span>
+                <div>
+                    <h3>📜 ÚLTIMA CONTAGEM REGISTRADA</h3>
+                    <span id="lastUpdated" class="last-date">Nenhum registro anterior</span>
+                </div>
+                <!-- BOTÃO DE REUTILIZAR AQUI -->
+                <button type="button" id="btnCarregarHistorico" class="btn-import-history">
+                    🔄 Reutilizar Última Contagem
+                </button>
             </div>
             <div id="previousHistoryContent" class="previous-history-content">
                 <p class="empty-msg">Nenhum histórico anterior salvo.</p>
@@ -33,7 +39,7 @@
         <form id="estoqueForm">
 
             <!-- SALGADOS -->
-            <div class="section-box">
+            <div class="section-box" data-category="SALGADOS">
                 <h2 class="category-title">🥐 SALGADOS</h2>
 
                 <!-- Coxinhas -->
@@ -81,6 +87,17 @@
                     </div>
                 </div>
 
+                <!-- Enroladinhos -->
+                <div class="sub-group">
+                    <h4>Enroladinhos</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="enroladinho_salsicha">Salsicha</label>
+                            <input type="number" id="enroladinho_salsicha" data-name="Enroladinho de Salsicha" min="0" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Hambúrgueres -->
                 <div class="sub-group">
                     <h4>Hambúrgueres</h4>
@@ -106,34 +123,64 @@
                             <input type="number" id="burguer_frango_bacon" data-name="X-Frango c/ Bacon" min="0" placeholder="0">
                         </div>
                     </div>
+                    <!-- Área para os novos hambúrgueres -->
+                    <div class="items-grid" id="custom-hamburgueres" style="margin-top: 10px;"></div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-hamburguer-input" placeholder="Novo Hambúrguer...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('hamburgueres', 'add-hamburguer-input')">+ Adicionar Hambúrguer</button>
+                    </div>
                 </div>
             </div>
 
             <!-- GELADOS -->
-            <div class="section-box">
+            <div class="section-box" data-category="GELADOS">
                 <h2 class="category-title">🍧 GELADOS</h2>
-                <div class="items-grid">
-                    <div class="item-card">
-                        <label for="gelado_acai">Açaí</label>
-                        <input type="number" id="gelado_acai" data-name="Açaí" min="0" placeholder="0">
+                
+                <!-- Diversos -->
+                <div class="sub-group">
+                    <h4>Diversos</h4>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <label for="gelado_acai">Açaí</label>
+                            <input type="number" id="gelado_acai" data-name="Açaí" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="gelado_acai_ninho">Açaí c/ Ninho</label>
+                            <input type="number" id="gelado_acai_ninho" data-name="Açaí c/ Ninho" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="gelado_cupuacu">Cupuaçu</label>
+                            <input type="number" id="gelado_cupuacu" data-name="Cupuaçu" min="0" placeholder="0">
+                        </div>
+                        <div class="item-card">
+                            <label for="gelado_tapioca">Tapioca</label>
+                            <input type="number" id="gelado_tapioca" data-name="Tapioca" min="0" placeholder="0">
+                        </div>
                     </div>
-                    <div class="item-card">
-                        <label for="gelado_acai_ninho">Açaí c/ Ninho</label>
-                        <input type="number" id="gelado_acai_ninho" data-name="Açaí c/ Ninho" min="0" placeholder="0">
+                    <!-- Área para os novos gelados (permanentes) -->
+                    <div class="items-grid" id="custom-gelados" style="margin-top: 10px;"></div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-gelado-input" placeholder="Novo Gelado (Tijela/Copo)...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('gelados', 'add-gelado-input')">+ Adicionar Gelado</button>
                     </div>
-                    <div class="item-card">
-                        <label for="gelado_cupuacu">Cupuaçu</label>
-                        <input type="number" id="gelado_cupuacu" data-name="Cupuaçu" min="0" placeholder="0">
+                </div>
+
+                <!-- Sorvetes -->
+                <div class="sub-group">
+                    <h4>🍦 Sorvetes</h4>
+                    <!-- AQUI OS SORVETES APARECEM, E TEM BOTÃO DE EXCLUIR -->
+                    <div class="items-grid" id="container-sorvetes">
+                        <!-- Gerado Dinamicamente pelo JS -->
                     </div>
-                    <div class="item-card">
-                        <label for="gelado_tapioca">Tapioca</label>
-                        <input type="number" id="gelado_tapioca" data-name="Tapioca" min="0" placeholder="0">
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-sorvete-input" placeholder="Novo Sabor de Sorvete...">
+                        <button type="button" class="btn-add-item" onclick="adicionarSorvete('add-sorvete-input')">+ Adicionar Sorvete</button>
                     </div>
                 </div>
             </div>
 
             <!-- DOCES -->
-            <div class="section-box">
+            <div class="section-box" data-category="DOCES">
                 <h2 class="category-title">🍰 DOCES</h2>
 
                 <!-- Bolo de Pote -->
@@ -152,6 +199,12 @@
                             <label for="pote_red_velvet">Red Velvet</label>
                             <input type="number" id="pote_red_velvet" data-name="Bolo de Pote Red Velvet" min="0" placeholder="0">
                         </div>
+                    </div>
+                    <!-- Área para novos bolos de pote -->
+                    <div class="items-grid" id="custom-bolo-pote" style="margin-top: 10px;"></div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-bolo-pote-input" placeholder="Novo Sabor de Bolo de Pote...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('bolo_pote', 'add-bolo-pote-input')">+ Adicionar Bolo de Pote</button>
                     </div>
                 </div>
 
@@ -195,6 +248,12 @@
                             <input type="number" id="torta_sensacao" data-name="Torta Sensação" min="0" placeholder="0">
                         </div>
                     </div>
+                    <!-- Área para novas tortas -->
+                    <div class="items-grid" id="custom-tortas" style="margin-top: 10px;"></div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-torta-input" placeholder="Nova Torta...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('tortas', 'add-torta-input')">+ Adicionar Torta</button>
+                    </div>
                 </div>
 
                 <!-- Bolos -->
@@ -205,6 +264,12 @@
                             <label for="bolo_bem_casado">Bem Casado</label>
                             <input type="number" id="bolo_bem_casado" data-name="Bolo Bem Casado" min="0" placeholder="0">
                         </div>
+                    </div>
+                    <!-- Área para novos bolos -->
+                    <div class="items-grid" id="custom-bolos" style="margin-top: 10px;"></div>
+                    <div class="add-custom-wrapper">
+                        <input type="text" id="add-bolo-input" placeholder="Novo Bolo...">
+                        <button type="button" class="btn-add-item" onclick="adicionarItemCustomizado('bolos', 'add-bolo-input')">+ Adicionar Bolo</button>
                     </div>
                 </div>
 
@@ -224,7 +289,7 @@
                 </div>
             </div>
 
-            <!-- BOTOES DE ACAO -->
+            <!-- BOTÕES DE AÇÃO -->
             <div class="actions-wrapper">
                 <button type="button" id="btnWhatsapp" class="btn btn-whatsapp">📱 Enviar via WhatsApp</button>
                 <button type="button" id="btnSalvar" class="btn btn-salvar">💾 Salvar Apenas no Histórico</button>
