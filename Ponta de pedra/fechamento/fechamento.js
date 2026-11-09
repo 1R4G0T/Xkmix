@@ -267,7 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
             totalSangrias += parseFloat(v.value) || 0;
         });
 
-        const esperado = inicio + sys - totalSangrias;
+        // Subtrai o valor do sistema do valor total em caixa (considerando sangrias e início se aplicável)
+        // Diferença = Caixa - Sistema (ou Sistema - Caixa dependendo da direção da sobra/falta)
+        const esperado = sys + inicio - totalSangrias;
         const diferenca = caixa - esperado;
 
         if (sys === 0 && caixa === 0) {
